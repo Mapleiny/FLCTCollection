@@ -1,16 +1,18 @@
 "use strict";
-const baseModel_1 = require('./baseModel');
-exports.UserSchema = new baseModel_1.DB.Schema({
+const M = require('mongoose');
+var userSchema = new M.Schema({
     nickname: String,
     avatar: String,
-    username: String,
-    password: String,
+    username: { type: String, unique: true, required: true },
+    password: { type: String, unique: true, required: true },
+    encryptedPassword: String,
     registerData: Date,
     lastLogin: Date
 });
-class UserModel extends baseModel_1.BaseModel {
-    constructor() {
-        super();
-    }
-}
-exports.UserModel = UserModel;
+userSchema.methods.authenticate = function (password) {
+    return true;
+};
+userSchema.statics.findByUsername = function (name, cb) {
+    this.find({ username: new RegExp(name, 'i') }, cb);
+};
+exports.UserModel = M.model('user', userSchema);

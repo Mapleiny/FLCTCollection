@@ -258,6 +258,9 @@ declare module "mongoose" {
     };
     constructor(schema?: Object, options?: Object);
 
+    methods: any;
+    statics: any;
+
     add(obj: Object, prefix?: string): void;
     eachPath(fn: (path: string, type: any) => void): Schema;
     get(key: string): any;

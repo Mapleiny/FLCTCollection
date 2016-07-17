@@ -5,6 +5,7 @@ class BaseModel {
     constructor() {
     }
     save() {
+        this.entity.save();
     }
     get(query) { }
     delete(query) { }
