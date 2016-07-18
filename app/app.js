@@ -2,10 +2,10 @@
 const express = require("express");
 const router_1 = require('./router');
 const bodyParser = require("body-parser");
-const path = require("path");
 let app = express();
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', 'views');
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router_1.router);

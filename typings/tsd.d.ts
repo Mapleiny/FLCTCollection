@@ -7,3 +7,4 @@
 /// <reference path="mongoose/mongoose.d.ts" />
 /// <reference path="body-parser/body-parser.d.ts" />
 /// <reference path="multer/multer.d.ts" />
+/// <reference path="qiniu/qiniu.d.ts" />
