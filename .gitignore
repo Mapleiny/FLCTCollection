@@ -1,2 +1,4 @@
-node_modules/*
-typings/*
+/typings/*
+/node_modules/*
+*/node_modules/*
+*/typings/*
