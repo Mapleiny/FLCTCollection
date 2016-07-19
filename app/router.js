@@ -4,7 +4,8 @@ exports.router = express.Router();
 // index
 exports.router.get('/', function (req, res) {
     res.render('index', {
-        'title': 'hello'
+        'title': 'hello',
+        'static' : ''
     });
 });
 // users

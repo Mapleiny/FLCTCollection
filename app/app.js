@@ -1,6 +1,6 @@
 "use strict";
 const express = require("express");
-const router_1 = require('./router');
+const router_1 = require('./routers/router');
 const bodyParser = require("body-parser");
 let app = express();
 app.set('views', 'views');

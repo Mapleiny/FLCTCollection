@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title><%= title %></title>
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
-</head>
-<body>
-	<h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+<% include common/header %>
+<body class="blog">
+	<% include common/navigation %>
+	<% include blog/list %>
 </body>
-</html>
+<% include common/footer %>

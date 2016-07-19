@@ -1,5 +1,5 @@
 import * as express from "express";
-import {router} from './router'
+import {router} from './routers/router'
 import * as bodyParser from "body-parser";
 import path = require("path");
 
