@@ -11,10 +11,17 @@ export class StaticManager{
 	commonStatic:{css:Array<String>,js:Array<String>}={css:[],js:[]};
 	constructor(isDevelopeMode:boolean){
 		this.isDevelopeMode = isDevelopeMode;
+		this.resetCommonStatic();
 	}
-	setCommonStatic(cssPath:Array<String>,jsPath:Array<String>){
-		this.commonStatic.css = cssPath;
-		this.commonStatic.js = jsPath;
+	resetCommonStatic(){
+		this.commonStatic = {
+			css : [],
+			js : []
+		}
+	}
+	addCommonStatic(cssPath:Array<String>,jsPath:Array<String>){
+		this.commonStatic.css = this.commonStatic.css.concat(cssPath);
+		this.commonStatic.js = this.commonStatic.js.concat(jsPath);
 	}
 	createStatic(cssPath:Array<String>,jsPath:Array<String>):staticInfo{
 		cssPath = this.commonStatic.css.concat(cssPath);
@@ -31,7 +38,11 @@ export class StaticManager{
 
 		paths.forEach(function(value,index,array){
 			if(value.length==0)return;
-			pathsHTML.push(template.replace('__path__',value.toString()));
+			if(!/<script|<link/.test(value.toString())) {
+				pathsHTML.push(template.replace('__path__',value.toString()));
+			}else{
+				pathsHTML.push(value.toString());
+			}
 		});
 
 		return pathsHTML.join('\n');

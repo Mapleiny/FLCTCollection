@@ -11,9 +11,14 @@ export let BlogSchema = new DB.Schema({
 	weather: DB.Schema.Types.ObjectId
 });
 
-
-export class BlogModel extends BaseModel {
+class BlogModel extends BaseModel {
 	constructor() {
 		super();
 	}
+
+	getContentList(){
+	}
 }
+
+
+export let blogModel = new BlogModel();

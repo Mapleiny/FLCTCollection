@@ -1,0 +1,22 @@
+<article class="blog-item blog-item-normal">
+	<%if(article.banner){%>
+	<section class="banner">
+		<img src="/images/banner.jpg">
+	</section>
+	<%}%>
+	<section class="content">
+		<header class="blog-header">
+			<h1><a href="<%=article.link%>" target="_blank"><%=article.title%></a></h1>
+			<%if(article.subTitle.length){%>
+			<h2><i><%=article.subTitle%></i></h2>
+			<%}%>
+		</header>
+		<section class="blog-body">
+			<%=article.content%>
+		</section>
+		<footer class="blog-footer clearfix">
+			<% include tags %>
+			<time><%=article.postDate%></time>
+		</footer>
+	</section>
+</article>

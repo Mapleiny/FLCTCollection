@@ -14,5 +14,7 @@ class BlogModel extends baseModel_1.BaseModel {
     constructor() {
         super();
     }
+    getContentList() {
+    }
 }
-exports.BlogModel = BlogModel;
+exports.blogModel = new BlogModel();

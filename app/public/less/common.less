@@ -1,0 +1,61 @@
+// background color
+body{
+	font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+	background: @Background;
+}
+a{
+	color:@LightOrange;
+	border-bottom: dotted 1px;
+	text-decoration: none;
+	transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+	&:hover,&:active{
+		color:@Orange;
+		text-decoration: none;
+		border-bottom-color: transparent;
+	}
+}
+.tags{
+	a{
+		margin-right: 5px;
+	}
+}
+.label{
+	border: none;
+	padding: 0.2em 0.6em;
+}
+.label-green{
+	background: @LightGreen;
+	&:hover{
+		background: @Green;
+	}
+}
+.label-blue{
+	background: @LightBlue;
+	&:hover{
+		background: @Blue;
+	}
+}
+.label-red{
+	background: @LightRed;
+	&:hover{
+		background: @Red;
+	}
+}
+.label-orange{
+	background: @LightOrange;
+	&:hover{
+		background: @Orange;
+	}
+}
+.label-violet{
+	background: @LightViolet;
+	&:hover{
+		background: @Violet;
+	}
+}
+.label-dark{
+	background: @LightDark;
+	&:hover{
+		background: @Dark;
+	}
+}

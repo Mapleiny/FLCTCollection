@@ -8,8 +8,3 @@ exports.router.get('/', function (req, res) {
         'static' : ''
     });
 });
-// users
-exports.router.get('/api/users', function (req, res) {
-});
-exports.router.post('/api/users/register', function (req, res) {
-});

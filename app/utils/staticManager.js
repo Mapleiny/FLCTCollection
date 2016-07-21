@@ -5,10 +5,17 @@ class StaticManager {
     constructor(isDevelopeMode) {
         this.commonStatic = { css: [], js: [] };
         this.isDevelopeMode = isDevelopeMode;
+        this.resetCommonStatic();
     }
-    setCommonStatic(cssPath, jsPath) {
-        this.commonStatic.css = cssPath;
-        this.commonStatic.js = jsPath;
+    resetCommonStatic() {
+        this.commonStatic = {
+            css: [],
+            js: []
+        };
+    }
+    addCommonStatic(cssPath, jsPath) {
+        this.commonStatic.css = this.commonStatic.css.concat(cssPath);
+        this.commonStatic.js = this.commonStatic.js.concat(jsPath);
     }
     createStatic(cssPath, jsPath) {
         cssPath = this.commonStatic.css.concat(cssPath);
@@ -23,7 +30,12 @@ class StaticManager {
         paths.forEach(function (value, index, array) {
             if (value.length == 0)
                 return;
-            pathsHTML.push(template.replace('__path__', value.toString()));
+            if (!/<script|<link/.test(value.toString())) {
+                pathsHTML.push(template.replace('__path__', value.toString()));
+            }
+            else {
+                pathsHTML.push(value.toString());
+            }
         });
         return pathsHTML.join('\n');
     }

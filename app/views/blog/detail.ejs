@@ -1,0 +1,17 @@
+<section class="blog-detail">
+	<!-- <section class="banner" style="background-image:url(/images/banner.jpg);">
+	</section>
+ -->	<header class="blog-detail-header">
+		<h1><%=title%></h1>
+		<%if(subTitle.length){%>
+		<h2><span><%=subTitle%></span></h2>
+		<%}%>
+	</header>
+	<section class="blog-detail-content">
+		<%=content%>
+	</section>
+	<footer class="blog-detail-footer">
+		<% include tags %>
+		<time><%=postDate%></time>
+	</footer>
+</section>

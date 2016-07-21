@@ -1,0 +1,47 @@
+.active-nav(){
+	position: relative;
+	&:after{
+		content: "";
+		position: absolute;
+		width: 100%;
+		bottom: 0;
+		height: 2px;
+		background: @DarkOrange;
+	}
+}
+
+.navbar-dark{
+	position: fixed;
+	z-index: 100;
+	width: 100%;
+	background: @Dark;
+	border-radius: 0;
+	margin-bottom: 0;
+	top: 0;
+	.navbar-brand{
+		border: none;
+		color: @LightGrey;
+	}
+	.navbar-nav{
+		float: right;
+		a{
+			border: none;
+			color: @DarkGrey;
+			&:hover,&:active{
+				color: @WhiteText;
+				background: none;
+			}
+		}
+	}
+}
+
+body.blog{
+	padding:50px 0;
+
+	.nav-blog{
+		.active-nav();
+		a{
+			color: @LightWhiteText;
+		}
+	}
+}
