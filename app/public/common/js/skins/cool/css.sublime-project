@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings":{
+		"less2css":{
+			"autoCompile": true,
+			"main_file": "skin.dev.less",
+			"minify": false,
+			"outputFile": "skin.min",
+			"minName": true,
+		}
+	}
+}

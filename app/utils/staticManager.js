@@ -13,6 +13,10 @@ class StaticManager {
             js: []
         };
     }
+    setCommonStatic(cssPath, jsPath) {
+        this.commonStatic.css = cssPath;
+        this.commonStatic.js = jsPath;
+    }
     addCommonStatic(cssPath, jsPath) {
         this.commonStatic.css = this.commonStatic.css.concat(cssPath);
         this.commonStatic.js = this.commonStatic.js.concat(jsPath);

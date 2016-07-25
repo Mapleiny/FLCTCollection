@@ -1,13 +1,7 @@
 "use strict";
-let cssPaths = ['/css/main.css'];
+let cssPaths = ['/blog/css/main.css'];
 let jsPaths = [''];
 exports.blogRouter = function (router, staticManager) {
-    staticManager.addCommonStatic([
-        '/css/bootstrap.min.css'
-    ], [
-        '/js/jquery-3.1.0.min.js',
-        '<script type="text/javascript" src="/js/require.js" data-main="/js/main.js"></script>'
-    ]);
     let item = {
         link: '#',
         title: '我是一个标题',

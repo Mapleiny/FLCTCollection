@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+    	"emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "removeComments": false,
+		"noImplicitAny": false,
+    	"target": "es6",
+        "module": "system",
+        "outFile":"js/main.js",
+        "moduleResolution": "node"
+    },"exclude": [
+    ]
+}

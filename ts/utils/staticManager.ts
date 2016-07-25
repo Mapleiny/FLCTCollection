@@ -19,6 +19,11 @@ export class StaticManager{
 			js : []
 		}
 	}
+	setCommonStatic(cssPath:Array<String>,jsPath:Array<String>){
+		this.commonStatic.css = cssPath;
+		this.commonStatic.js = jsPath;
+
+	}
 	addCommonStatic(cssPath:Array<String>,jsPath:Array<String>){
 		this.commonStatic.css = this.commonStatic.css.concat(cssPath);
 		this.commonStatic.js = this.commonStatic.js.concat(jsPath);

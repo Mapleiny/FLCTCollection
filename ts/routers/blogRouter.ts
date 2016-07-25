@@ -3,7 +3,7 @@ import {StaticManager} from '../utils/staticManager'
 import {blogModel} from '../models/blogModel'
 
 
-let cssPaths:Array<String> = ['/css/main.css'];
+let cssPaths:Array<String> = ['/blog/css/main.css'];
 let jsPaths:Array<String> = [''];
 
 interface ITag{
@@ -22,13 +22,6 @@ interface IContentItem{
 }
 
 export let blogRouter = function(router:express.Router,staticManager:StaticManager){
-
-	staticManager.addCommonStatic([
-		'/css/bootstrap.min.css'
-	],[
-		'/js/jquery-3.1.0.min.js',
-		'<script type="text/javascript" src="/js/require.js" data-main="/js/main.js"></script>'
-	]);
 
 	let item:IContentItem = {
 		link:'#',

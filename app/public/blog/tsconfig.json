@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+    	"target": "es6",
+        "module": "amd",
+        // "outDir" : "js",
+        "outFile":"js/main.js"
+    },"exclude": [
+    ]
+}

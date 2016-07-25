@@ -1,0 +1,63 @@
+// nav
+// 
+.side-nav{
+	width: 180px;
+    position: fixed;
+    margin-top: 50px;
+    padding-bottom: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 0;
+    border: none;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.menu{
+	li{
+		position: relative;
+		width: 100%;
+		a{
+			display: inline-block;
+			line-height: 40px;
+			padding: 0 15px;
+			transition: all 0.2s linear;
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.9);
+			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+			width: 100%;
+			position: relative;
+			z-index: 2;
+			font-weight: 100;
+			&:hover,&:focus{
+				color: white;
+				background: none;
+			}
+			&:after{
+				content: "";
+				display: inline-block;
+				width: 3px;
+				height: 39px;
+				background: linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: -1;
+				transition: all 0.2s linear;
+			}
+			&:hover:after{
+				background: linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
+				width: 100%;
+			}
+		}
+		&.active{
+			a{
+				color: white;
+				text-shadow: none;
+				&:after{
+					background: rgba(0, 0, 0, 0.2) !important;
+					width: 100%;
+				}
+			}
+		}
+	}
+}

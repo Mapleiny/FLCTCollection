@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"path": "app/public/admin"
+		}
+	],
+	"settings":
+	{
+		"less2css":
+		{
+			"autoCompile": true,
+			"main_file": "main.less",
+			"outputDir": "./css"
+		}
+	}
+}

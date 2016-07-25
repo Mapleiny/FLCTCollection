@@ -1,0 +1,1057 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"tex",
+				"text-decoration"
+			],
+			[
+				"bor",
+				"border"
+			],
+			[
+				"inl",
+				"inline-block"
+			],
+			[
+				"bo",
+				"bottom"
+			],
+			[
+				"pad",
+				"padding-right"
+			],
+			[
+				"Rou",
+				"Router	alias"
+			],
+			[
+				"c",
+				"component	property"
+			],
+			[
+				"r",
+				"render	function"
+			],
+			[
+				"imp",
+				"import	keyword"
+			],
+			[
+				"IComponent",
+				"IComponentTemplateFn	interface"
+			],
+			[
+				"icomp",
+				"IComponentController	interface"
+			],
+			[
+				"im",
+				"import	keyword"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"rb",
+				"rgba(r,g,b,a)"
+			],
+			[
+				"bac",
+				"background"
+			],
+			[
+				"bacl",
+				"background-clip"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"box",
+				"box-shadow"
+			],
+			[
+				"rgb",
+				"rgb(r,g,b)"
+			],
+			[
+				"nam",
+				"name	var"
+			],
+			[
+				"re",
+				"require	keyword"
+			],
+			[
+				"e",
+				"forEach	method"
+			],
+			[
+				"le",
+				"length	local var"
+			],
+			[
+				"for",
+				"for	keyword"
+			],
+			[
+				"arra",
+				"ArrayLike	interface"
+			],
+			[
+				"fun",
+				"function	keyword"
+			],
+			[
+				"BO",
+				"boolean	keyword"
+			],
+			[
+				"con",
+				"constructor	keyword"
+			],
+			[
+				"ex",
+				"export	keyword"
+			],
+			[
+				"li",
+				"link	Tag"
+			],
+			[
+				"qi",
+				"Qiniu	alias"
+			],
+			[
+				"pu",
+				"putPolicy	local var"
+			],
+			[
+				"F",
+				"Function	interface"
+			],
+			[
+				"q",
+				"Qiniu	alias"
+			],
+			[
+				"pa",
+				"params	property"
+			],
+			[
+				"s",
+				"stringify	method"
+			],
+			[
+				"ME",
+				"methods	property"
+			],
+			[
+				"v",
+				"void	keyword"
+			],
+			[
+				"use",
+				"UserSchema	var"
+			],
+			[
+				"d",
+				"Document	interface"
+			],
+			[
+				"ba",
+				"BaseModel	class"
+			],
+			[
+				"m",
+				"Model	interface"
+			],
+			[
+				"mo",
+				"mongoose	alias"
+			],
+			[
+				"user",
+				"UserModel	class"
+			],
+			[
+				"db",
+				"dbSetting"
+			],
+			[
+				"o",
+				"ObjectId	property"
+			],
+			[
+				"num",
+				"Number	interface"
+			],
+			[
+				"mod",
+				"Models	alias"
+			],
+			[
+				"str",
+				"String	interface"
+			],
+			[
+				"impo",
+				"import	keyword"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"on",
+				"once	method"
+			],
+			[
+				"CON",
+				"connect	function"
+			],
+			[
+				"ser",
+				"ServerOptions	interface"
+			],
+			[
+				"l",
+				"listen	method"
+			],
+			[
+				"sl",
+				"slice	method"
+			],
+			[
+				"class",
+				"ClassDecorator	type"
+			],
+			[
+				"ob",
+				"Object	interface"
+			],
+			[
+				"file",
+				"files	let"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"ev",
+				"event	parameter"
+			],
+			[
+				"tr",
+				"transition"
+			],
+			[
+				"n",
+				"none"
+			],
+			[
+				"z",
+				"z-index"
+			],
+			[
+				"te",
+				"text"
+			],
+			[
+				"pe",
+				"paper"
+			],
+			[
+				"off",
+				"offsetX"
+			],
+			[
+				"col",
+				"clone"
+			],
+			[
+				"tree",
+				"treeMap"
+			],
+			[
+				"al",
+				"text-align"
+			],
+			[
+				"tab",
+				"table-cell"
+			],
+			[
+				"ch",
+				"children"
+			],
+			[
+				"f",
+				"function"
+			],
+			[
+				"op",
+				"opacity"
+			],
+			[
+				"cu",
+				"cursor"
+			],
+			[
+				"cha",
+				"ChartType	alias"
+			],
+			[
+				"co",
+				"constructor	keyword"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"ma",
+				"mapWidth"
+			],
+			[
+				"T",
+				"T	type parameter"
+			],
+			[
+				"pri",
+				"private	keyword"
+			],
+			[
+				"t",
+				"text	var"
+			],
+			[
+				"R",
+				"Rect	alias"
+			],
+			[
+				"fr",
+				"from	keyword"
+			],
+			[
+				"page",
+				"Page	alias"
+			],
+			[
+				"func",
+				"function	keyword"
+			],
+			[
+				"res",
+				"responseType"
+			],
+			[
+				"base",
+				"baseURL"
+			],
+			[
+				"bas",
+				"BASE64_MARKER"
+			],
+			[
+				"data",
+				"dataURL"
+			],
+			[
+				"roa",
+				"rotate3d()"
+			],
+			[
+				"tra",
+				"transform"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"lo",
+				"longestPalindrome"
+			],
+			[
+				"len",
+				"length2"
+			],
+			[
+				"nu",
+				"nums2"
+			],
+			[
+				"index",
+				"index1"
+			],
+			[
+				"ne",
+				"next2"
+			],
+			[
+				"def",
+				"defined"
+			],
+			[
+				"if",
+				"ifelse	<?php if (…) ?> … <?php else ?> … <?php endif ?>"
+			],
+			[
+				"h",
+				"hidden"
+			],
+			[
+				"DOCU",
+				"document"
+			],
+			[
+				"win",
+				"WIN"
+			],
+			[
+				"bord",
+				"border-left"
+			],
+			[
+				"trans",
+				"translate"
+			],
+			[
+				"clas",
+				"classList"
+			],
+			[
+				"cone",
+				"console"
+			],
+			[
+				"rg",
+				"rgba(r,g,b,a)"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"prin",
+				"print_r"
+			],
+			[
+				"el",
+				"elem"
+			],
+			[
+				"add",
+				"addClass"
+			],
+			[
+				"remove",
+				"removeClass"
+			],
+			[
+				"rou",
+				"rounds"
+			],
+			[
+				"bcak",
+				"background"
+			],
+			[
+				"border",
+				"border"
+			],
+			[
+				"fade",
+				"fadeInDown"
+			],
+			[
+				"SC",
+				"scroll"
+			],
+			[
+				"se",
+				"setTimeout"
+			],
+			[
+				"wf",
+				"wfsm-s	-webkit-font-smoothing: subpixel-antialiased;"
+			],
+			[
+				"flip",
+				"flipInX"
+			],
+			[
+				"we",
+				"-webkit-font-smoothing"
+			],
+			[
+				"web",
+				"webkitAnimationEnd"
+			],
+			[
+				"pr",
+				"previewStatus"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Content.less",
+			"settings":
+			{
+				"buffer_size": 592,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Better CoffeeScript/CoffeeScript.sublime-build",
+					""
+				],
+				[
+					"Packages/Better CoffeeScript/CoffeeScript.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/Better CoffeeScript/CoffeeScript.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "ins",
+		"selected_items":
+		[
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"pac",
+				"Package Control: Remove Repository"
+			],
+			[
+				"rem",
+				"Package Control: Remove Package"
+			]
+		],
+		"width": 485.0
+	},
+	"console":
+	{
+		"height": 153.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/common/js/skins/cool"
+	],
+	"file_history":
+	[
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/common/js/skins/cool/css.sublime-project",
+		"/Users/mapleiny/Library/Application Support/Sublime Text 3/Packages/Less2Css/less2css.sublime-settings",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/common/js/skins/cool/skin.dev.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/common/js/skins/cool/skin.less",
+		"/Users/mapleiny/Documents/Work/sublime-project/collection.sublime-project",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/js/main.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/typings/tinymce/tinymce.d.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/desktop.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/desktop.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/navigation.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/editor/parserRules.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/editor.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/header.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/editor.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/panel.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/main.less",
+		"/Users/mapleiny/.Trash/main-page.less",
+		"/Users/mapleiny/.Trash/main.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/main-page.less",
+		"/Users/mapleiny/Documents/Project/frame/wysihtml5-master/dist/wysihtml5-0.3.0.js",
+		"/Users/mapleiny/Library/Application Support/Sublime Text 3/Packages/JsFormat/Default (OSX).sublime-keymap",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/configure.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/typings/wysihtml5/wysihtml5.d.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/js/quill.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/typings/quill/quill.d.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/typings/systemjs/systemjs.d.ts",
+		"/Users/mapleiny/Documents/Project/frame/wysihtml5-master/examples/simple.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/header.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/navigation.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/navigation.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/panel/panel.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/header.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/editor/editor.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/desktop.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/panel/dashboard.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/panel.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/dashboard.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/dashboard/dashboard.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/app.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/editor/editor.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/index.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/dashboard/navigation.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/tsconfig.json",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/main.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/login.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/login/login.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/dashboard/article.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/article.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/dashboard/overview.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/overview.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/common.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/css/main.css",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/css/minimal.css",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/css/font-awesome.css",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/login/login.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/login.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/main.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/js/login.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/blogRouter.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/tsconfig.json",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/router.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/admin/index.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/adminRouter.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/main.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/nav.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/css/main.css",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/common.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/tsconfig.json",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/ts/admin/main.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/less/admin/main.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/ts/main.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/utils/staticManager.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/css/main.css",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/less/color.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/models/blogModel.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/app.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/package.json",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/blog/detail.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/less/blog.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/blog/main.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/index.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/blog/tag.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/blog/tags.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/blog/article.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/blog/list.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/less/common.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/less/nav.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/less/main.less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/common/navigation.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/ts/app.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/js/main.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/router.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/app.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/utils/staticManager.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/routers/blogRouter.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/common/footer.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/common/header.ejs",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/tsconfig.json",
+		"/Users/mapleiny/Library/Application Support/Sublime Text 3/Packages/TypeScript/TypeScript.sublime-settings",
+		"/Users/mapleiny/Documents/Work/sublime-project/FLCTChartCreate.sublime-project",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/css/bootstrap.min.css",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/router.ts",
+		"/Users/mapleiny/Library/Application Support/Sublime Text 3/Packages/Tag/Tag Package.sublime-settings",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/statusHTML/index.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/.gitignore",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/statusHTML/package.json",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/statusHTML/tsconfig.json",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/statusHTML/typings.json",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/typings/qiniu/qiniu.d.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/models/qiniuModel.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/models/test1.txt",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/models/qiniuModel.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/models/test1.txt",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/models/test",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/typings/qiniu/rs.d.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/typings/tsd.d.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/models/qiniu.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/views/index.ejs",
+		"/Users/mapleiny/Documents/Project/test/test.coffee",
+		"/Users/mapleiny/Documents/Project/test/test.html",
+		"/Users/mapleiny/Documents/Project/test/test.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/models/baseModel.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/models/userModel.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/typings/mongoose/mongoose.d.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/node_modules/mongoose/examples/doc-methods.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/node_modules/mongoose/lib/model.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/db/mongooseInit.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/db/mongooseInit.ts"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/mapleiny/Documents/Work/git/FLCTCollection",
+			"/Users/mapleiny/Desktop/基于Raphael.js的svg地图插件/基于Raphael.js的svg地图插件",
+			"/Users/mapleiny/Desktop/chrome-app-samples-master/samples",
+			"/Users/mapleiny/Documents/Project/svn/BBDataDB/application",
+			"/Users/mapleiny/Documents/Project/PHPWeb/phpMyAdmin",
+			"/Users/mapleiny/Documents/Project/svn/BBDataDB/application",
+			"/Users/mapleiny/Desktop/parttime",
+			"/Users/mapleiny/Desktop/parttime/css",
+			"/Users/mapleiny/Documents/Work/git/Felicity",
+			"/Users/mapleiny/Documents/Project/svn/WeRoBot-SAE-demo/site-packages/werobot"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"-btn",
+			"@import",
+			"prefix",
+			"parse ",
+			"parse",
+			"firstChild",
+			"toolbar.Toolbar",
+			"wysihtml5.Editor",
+			"export ",
+			"export default",
+			"default",
+			"default=",
+			"default =",
+			"default",
+			"module",
+			"global",
+			"wysihtml5",
+			"navigation",
+			"core",
+			"!text",
+			"text",
+			"Component",
+			"path",
+			"<img ",
+			"orange",
+			"Light",
+			"green",
+			"info",
+			"Blue",
+			"postMultipart",
+			"class",
+			"MediaType",
+			"Application",
+			"node",
+			"declare node",
+			"declare module",
+			"MapConstructor",
+			"tsd.d",
+			"tsd",
+			"path(",
+			"path (",
+			"path ",
+			"path",
+			"play =",
+			"bgm",
+			"getRes",
+			"bgm",
+			"mp3",
+			"_",
+			"sharedView",
+			"NTESNBALActivityView",
+			"T1374550407902",
+			"static",
+			"class Schema",
+			"methods",
+			"Schema",
+			",",
+			"Model",
+			"model",
+			"entity",
+			"tid",
+			"Schema",
+			"dbsetting_1.",
+			"use",
+			"SocketOptions",
+			"ServerOptions",
+			"Connection",
+			";",
+			"port",
+			"webpack",
+			"FileResult",
+			"gulp",
+			"3000",
+			"400",
+			"useAllAngular2AppRoots",
+			"node_modules",
+			"name",
+			"navbar-header",
+			"router",
+			"route",
+			"price",
+			"stepController",
+			"configs",
+			"0",
+			"ChartAdmin",
+			"chartAdmin",
+			"Felicity",
+			"ng2-quickstart",
+			"gif",
+			"defaults.width",
+			"-30",
+			"fiveChange",
+			"lineObjectData[name].items[0].getBBox()",
+			".node.attributes.d.nodeValue",
+			"全球股市",
+			"prepareData",
+			"0",
+			"prepareData",
+			"ccc",
+			"000",
+			"fff",
+			"drawLine",
+			"stroke-dasharray",
+			"drawLine",
+			"getRandomColor",
+			"color",
+			"OffsetY",
+			"MIN_VALUE",
+			"goin",
+			"goIn",
+			"goin",
+			"o =",
+			"goin",
+			"customEvent",
+			"goIn",
+			"_goToLeaf",
+			"goIn",
+			"hoverIn",
+			"customEvent =",
+			"customEvent",
+			".hoverIn",
+			"hoverIn",
+			"setOptions",
+			"setOptions =",
+			"setOptions",
+			"hoverIn",
+			"jquery",
+			"scaleRaphael"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Content.less",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 592,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 242.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 306.0
+	},
+	"pinned_build_system": "",
+	"project": "css.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"test.ts"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Documents/Work/sublime-project/collection.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 197.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

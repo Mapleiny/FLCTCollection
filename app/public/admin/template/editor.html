@@ -1,0 +1,33 @@
+<section id="editor-container">
+	<input type="text" class="title-editor" placeholder="Title">
+	<section class="toolbar">
+		<select>
+			<option value="10px" data-wysihtml5-command="fontSize">Small</option>
+			<option value="13px" selected="" data-wysihtml5-command="fontSize">Normal</option>
+			<option value="18px" data-wysihtml5-command="fontSize">Large</option>
+			<option value="32px" data-wysihtml5-command="fontSize">Huge</option>
+		</select>
+		<a class="tool-btn" data-wysihtml5-command="bold"><i class="fa fa-bold"></i></a>
+		<a class="tool-btn" data-wysihtml5-command="italic"><i class="fa fa-italic"></i></a>
+		<a class="tool-btn" data-wysihtml5-command="underline"><i class="fa fa-underline"></i></a>
+		<i class="separator">|</i>
+		<a class="tool-btn" data-wysihtml5-command="insertOrderedList"><i class="fa fa-list-ol"></i></a>
+		<a class="tool-btn" data-wysihtml5-command="insertUnorderedList"><i class="fa fa-list-ul"></i></a>
+		<i class="separator">|</i>
+		<a class="tool-btn" data-wysihtml5-command="createLink"><i class="fa fa-link"></i></a>
+		<div data-wysihtml5-dialog="createLink" style="display: none;">
+			<label>
+			Link:
+			<input data-wysihtml5-dialog-field="href" value="http://">
+			</label>
+			<a data-wysihtml5-dialog-action="save">OK</a>
+			<a data-wysihtml5-dialog-action="cancel">Cancel</a>
+		</div>
+		<a class="tool-btn" data-wysihtml5-action="change_view"><i class="fa fa-code"></i></a>
+	</section>
+	<section class="editor">
+		<textarea></textarea>
+	</section>
+</section>
+<aside id="editor-aside-function"></aside>
+
