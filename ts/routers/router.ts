@@ -2,6 +2,7 @@ import express = require("express");
 import {StaticManager} from '../utils/staticManager'
 import {blogRouter} from './blogRouter'
 import {adminRouter} from './adminRouter'
+import {apiRouter} from './apiRouter'
 
 
 
@@ -21,3 +22,7 @@ adminRouter(router,staticManager);
 
 // index
 blogRouter(router,staticManager);
+
+
+// api
+apiRouter(router);

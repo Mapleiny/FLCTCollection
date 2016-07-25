@@ -11,10 +11,22 @@ exports.BlogSchema = new baseModel_1.DB.Schema({
     weather: baseModel_1.DB.Schema.Types.ObjectId
 });
 class BlogModel extends baseModel_1.BaseModel {
-    constructor() {
+    // Blog = 
+    constructor(db) {
         super();
+        this.db = db;
     }
-    getContentList() {
+    publicPost(data) {
+        return new Promise(function (resolve, reject) {
+            if (data) {
+                resolve(data);
+            }
+            else {
+                reject("data must not be null");
+            }
+        });
+    }
+    getPosts() {
     }
 }
 exports.blogModel = new BlogModel();

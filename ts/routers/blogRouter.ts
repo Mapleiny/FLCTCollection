@@ -1,6 +1,6 @@
 import express = require("express");
 import {StaticManager} from '../utils/staticManager'
-import {blogModel} from '../models/blogModel'
+import {blogServer} from '../models/blogServer'
 
 
 let cssPaths:Array<String> = ['/blog/css/main.css'];

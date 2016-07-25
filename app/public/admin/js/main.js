@@ -61,69 +61,121 @@ System.register("desktop/header", ['angular2/core', 'angular2/router'], function
         }
     }
 });
-System.register("desktop/editor/editor", ['angular2/core'], function(exports_3, context_3) {
+System.register("desktop/editor/editorManager", ['angular2/core', 'angular2/http', 'rxjs/add/operator/toPromise'], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
-    var core_3;
-    var Editor;
+    var core_3, http_1;
+    var EditorManager;
     return {
         setters:[
             function (core_3_1) {
                 core_3 = core_3_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
+            function (_1) {}],
+        execute: function() {
+            let EditorManager = class EditorManager {
+                constructor(http) {
+                    this.http = http;
+                    this.postUrl = '/api/post';
+                }
+                extractData(res) {
+                    let body = res.json();
+                    return body || {};
+                }
+                handleError(error) {
+                    console.error('An error occurred', error);
+                    return Promise.reject(error.message || error);
+                }
+                post(content) {
+                    let body = JSON.stringify(content);
+                    let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+                    let options = new http_1.RequestOptions({ headers: headers });
+                    return this.http
+                        .post(this.postUrl, body, options)
+                        .toPromise()
+                        .then(this.extractData)
+                        .catch(this.handleError);
+                    ;
+                }
+            };
+            EditorManager = __decorate([
+                core_3.Injectable(), 
+                __metadata('design:paramtypes', [http_1.Http])
+            ], EditorManager);
+            exports_3("EditorManager", EditorManager);
+        }
+    }
+});
+System.register("desktop/editor/editor", ['angular2/core', "desktop/editor/editorManager"], function(exports_4, context_4) {
+    "use strict";
+    var __moduleName = context_4 && context_4.id;
+    var core_4, editorManager_1;
+    var Editor;
+    return {
+        setters:[
+            function (core_4_1) {
+                core_4 = core_4_1;
+            },
+            function (editorManager_1_1) {
+                editorManager_1 = editorManager_1_1;
             }],
         execute: function() {
             // import * as wysihtml5 from 'wysihtml5'
             let Editor = class Editor {
-                constructor(elementRef) {
-                    this.elementRef = elementRef;
+                constructor(editorManager) {
+                    this.editorManager = editorManager;
                 }
                 ngAfterViewInit() {
                     tinymce.init({
                         selector: '#editor-container .editor textarea',
                         height: 300,
-                        // plugins: [
-                        // 	'advlist autolink lists link image preview anchor',
-                        // 	'searchreplace code fullscreen',
-                        // 	'insertdatetime media table contextmenu code'
-                        // ],
-                        toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                        plugins: [
+                            'advlist autolink lists link image preview anchor',
+                            'searchreplace code fullscreen',
+                            'insertdatetime media table contextmenu code textcolor'
+                        ],
+                        toolbar: 'bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                         // skin_url:'/admin/css',
                         skin: 'cool',
                         statusbar: false,
-                        menubar: false,
-                        setup: function (editor) {
-                            // editor.addButton('mybutton',{
-                            // 	classes:'tool-btn',
-                            // 	text : '',
-                            // 	icon : 'bold',
-                            // 	onclick:function(){
-                            // 	}
-                            // });
-                        }
+                        menubar: false
                     });
                     // console.log(tinymce.Editor.schema.getCustomElements());
                 }
+                post() {
+                    this.postContent = tinymce.activeEditor.getContent();
+                    this.editorManager.post({
+                        title: this.postTitle,
+                        content: this.postContent
+                    }).then(function (data) {
+                        console.log(data);
+                    });
+                }
             };
             Editor = __decorate([
-                core_3.Component({
-                    'selector': 'editor.editor',
-                    'templateUrl': 'template/editor.html'
+                core_4.Component({
+                    selector: 'editor.editor',
+                    templateUrl: 'template/editor.html',
+                    providers: [editorManager_1.EditorManager]
                 }), 
-                __metadata('design:paramtypes', [core_3.ElementRef])
+                __metadata('design:paramtypes', [editorManager_1.EditorManager])
             ], Editor);
-            exports_3("Editor", Editor);
+            exports_4("Editor", Editor);
         }
     }
 });
-System.register("desktop/navigation", ['angular2/core', 'angular2/router'], function(exports_4, context_4) {
+System.register("desktop/navigation", ['angular2/core', 'angular2/router'], function(exports_5, context_5) {
     "use strict";
-    var __moduleName = context_4 && context_4.id;
-    var core_4, router_2;
+    var __moduleName = context_5 && context_5.id;
+    var core_5, router_2;
     var Navigation;
     return {
         setters:[
-            function (core_4_1) {
-                core_4 = core_4_1;
+            function (core_5_1) {
+                core_5 = core_5_1;
             },
             function (router_2_1) {
                 router_2 = router_2_1;
@@ -135,74 +187,74 @@ System.register("desktop/navigation", ['angular2/core', 'angular2/router'], func
                 }
             };
             Navigation = __decorate([
-                core_4.Component({
+                core_5.Component({
                     'selector': 'navigation',
                     'templateUrl': 'template/navigation.html',
                     'directives': [router_2.RouterLink]
                 }), 
                 __metadata('design:paramtypes', [router_2.Router])
             ], Navigation);
-            exports_4("Navigation", Navigation);
+            exports_5("Navigation", Navigation);
         }
     }
 });
-System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_5, context_5) {
-    "use strict";
-    var __moduleName = context_5 && context_5.id;
-    var core_5;
-    var Dashboard;
-    return {
-        setters:[
-            function (core_5_1) {
-                core_5 = core_5_1;
-            }],
-        execute: function() {
-            let Dashboard = class Dashboard {
-            };
-            Dashboard = __decorate([
-                core_5.Component({
-                    'selector': 'dashboard.dashboard',
-                    'templateUrl': 'template/dashboard.html'
-                }), 
-                __metadata('design:paramtypes', [])
-            ], Dashboard);
-            exports_5("Dashboard", Dashboard);
-        }
-    }
-});
-System.register("desktop/panel/article", ['angular2/core'], function(exports_6, context_6) {
+System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
     var core_6;
-    var Article;
+    var Dashboard;
     return {
         setters:[
             function (core_6_1) {
                 core_6 = core_6_1;
             }],
         execute: function() {
+            let Dashboard = class Dashboard {
+            };
+            Dashboard = __decorate([
+                core_6.Component({
+                    'selector': 'dashboard.dashboard',
+                    'templateUrl': 'template/dashboard.html'
+                }), 
+                __metadata('design:paramtypes', [])
+            ], Dashboard);
+            exports_6("Dashboard", Dashboard);
+        }
+    }
+});
+System.register("desktop/panel/article", ['angular2/core'], function(exports_7, context_7) {
+    "use strict";
+    var __moduleName = context_7 && context_7.id;
+    var core_7;
+    var Article;
+    return {
+        setters:[
+            function (core_7_1) {
+                core_7 = core_7_1;
+            }],
+        execute: function() {
             let Article = class Article {
             };
             Article = __decorate([
-                core_6.Component({
+                core_7.Component({
                     'selector': 'article.article',
                     'templateUrl': 'template/article.html'
                 }), 
                 __metadata('design:paramtypes', [])
             ], Article);
-            exports_6("Article", Article);
+            exports_7("Article", Article);
         }
     }
 });
-System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "desktop/navigation", "desktop/panel/dashboard", "desktop/panel/article"], function(exports_7, context_7) {
+System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "desktop/navigation", "desktop/panel/dashboard", "desktop/panel/article"], function(exports_8, context_8) {
     "use strict";
-    var __moduleName = context_7 && context_7.id;
-    var core_7, router_3, navigation_1, dashboard_1, article_1;
+    var __moduleName = context_8 && context_8.id;
+    var core_8, router_3, navigation_1, dashboard_1, article_1;
     var Panel;
     return {
         setters:[
-            function (core_7_1) {
-                core_7 = core_7_1;
+            function (core_8_1) {
+                core_8 = core_8_1;
             },
             function (router_3_1) {
                 router_3 = router_3_1;
@@ -223,7 +275,7 @@ System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "des
                 }
             };
             Panel = __decorate([
-                core_7.Component({
+                core_8.Component({
                     'selector': 'panel',
                     'templateUrl': 'template/panel.html',
                     'directives': [router_3.RouterLink, router_3.ROUTER_DIRECTIVES, navigation_1.Navigation]
@@ -234,19 +286,19 @@ System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "des
                 ]), 
                 __metadata('design:paramtypes', [router_3.Router])
             ], Panel);
-            exports_7("Panel", Panel);
+            exports_8("Panel", Panel);
         }
     }
 });
-System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop/header", "desktop/editor/editor", "desktop/panel/panel"], function(exports_8, context_8) {
+System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop/header", "desktop/editor/editor", "desktop/panel/panel"], function(exports_9, context_9) {
     "use strict";
-    var __moduleName = context_8 && context_8.id;
-    var core_8, router_4, header_1, editor_1, panel_1;
+    var __moduleName = context_9 && context_9.id;
+    var core_9, router_4, header_1, editor_1, panel_1;
     var Desktop;
     return {
         setters:[
-            function (core_8_1) {
-                core_8 = core_8_1;
+            function (core_9_1) {
+                core_9 = core_9_1;
             },
             function (router_4_1) {
                 router_4 = router_4_1;
@@ -267,7 +319,7 @@ System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop
                 }
             };
             Desktop = __decorate([
-                core_8.Component({
+                core_9.Component({
                     'selector': 'desktop.desktop',
                     'templateUrl': 'template/desktop.html',
                     'directives': [router_4.RouterLink, router_4.ROUTER_DIRECTIVES, header_1.Header],
@@ -278,19 +330,19 @@ System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop
                 ]), 
                 __metadata('design:paramtypes', [router_4.Router])
             ], Desktop);
-            exports_8("Desktop", Desktop);
+            exports_9("Desktop", Desktop);
         }
     }
 });
-System.register("app", ['angular2/core', 'angular2/router', "login/login", "desktop/desktop"], function(exports_9, context_9) {
+System.register("app", ['angular2/core', 'angular2/router', "login/login", "desktop/desktop"], function(exports_10, context_10) {
     "use strict";
-    var __moduleName = context_9 && context_9.id;
-    var core_9, router_5, login_1, desktop_1;
+    var __moduleName = context_10 && context_10.id;
+    var core_10, router_5, login_1, desktop_1;
     var App;
     return {
         setters:[
-            function (core_9_1) {
-                core_9 = core_9_1;
+            function (core_10_1) {
+                core_10 = core_10_1;
             },
             function (router_5_1) {
                 router_5 = router_5_1;
@@ -308,7 +360,7 @@ System.register("app", ['angular2/core', 'angular2/router', "login/login", "desk
                 }
             };
             App = __decorate([
-                core_9.Component({
+                core_10.Component({
                     'selector': 'body',
                     'templateUrl': 'template/main.html',
                     'directives': [router_5.RouterLink, router_5.ROUTER_DIRECTIVES]
@@ -319,7 +371,7 @@ System.register("app", ['angular2/core', 'angular2/router', "login/login", "desk
                 ]), 
                 __metadata('design:paramtypes', [router_5.Router])
             ], App);
-            exports_9("App", App);
+            exports_10("App", App);
         }
     }
 });
@@ -336,527 +388,29 @@ System.config({
     }
 });
 System.import('main');
-System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', "app"], function(exports_10, context_10) {
+System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', 'angular2/http', "app"], function(exports_11, context_11) {
     "use strict";
-    var __moduleName = context_10 && context_10.id;
-    var browser_1, core_10, router_6, app_1;
+    var __moduleName = context_11 && context_11.id;
+    var browser_1, core_11, router_6, http_2, app_1;
     return {
         setters:[
             function (browser_1_1) {
                 browser_1 = browser_1_1;
             },
-            function (core_10_1) {
-                core_10 = core_10_1;
+            function (core_11_1) {
+                core_11 = core_11_1;
             },
             function (router_6_1) {
                 router_6 = router_6_1;
+            },
+            function (http_2_1) {
+                http_2 = http_2_1;
             },
             function (app_1_1) {
                 app_1 = app_1_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_1.App, [router_6.ROUTER_PROVIDERS, core_10.provide(router_6.LocationStrategy, { useClass: router_6.HashLocationStrategy })]);
-        }
-    }
-});
-System.register("desktop/editor/parserRules", [], function(exports_11, context_11) {
-    "use strict";
-    var __moduleName = context_11 && context_11.id;
-    var parserRules;
-    return {
-        setters:[],
-        execute: function() {
-            exports_11("parserRules", parserRules = {
-                /**
-                 * CSS Class white-list
-                 * Following css classes won't be removed when parsed by the wysihtml5 html parser
-                 */
-                "classes": {
-                    "wysiwyg-clear-both": 1,
-                    "wysiwyg-clear-left": 1,
-                    "wysiwyg-clear-right": 1,
-                    "wysiwyg-color-aqua": 1,
-                    "wysiwyg-color-black": 1,
-                    "wysiwyg-color-blue": 1,
-                    "wysiwyg-color-fuchsia": 1,
-                    "wysiwyg-color-gray": 1,
-                    "wysiwyg-color-green": 1,
-                    "wysiwyg-color-lime": 1,
-                    "wysiwyg-color-maroon": 1,
-                    "wysiwyg-color-navy": 1,
-                    "wysiwyg-color-olive": 1,
-                    "wysiwyg-color-purple": 1,
-                    "wysiwyg-color-red": 1,
-                    "wysiwyg-color-silver": 1,
-                    "wysiwyg-color-teal": 1,
-                    "wysiwyg-color-white": 1,
-                    "wysiwyg-color-yellow": 1,
-                    "wysiwyg-float-left": 1,
-                    "wysiwyg-float-right": 1,
-                    "wysiwyg-font-size-large": 1,
-                    "wysiwyg-font-size-larger": 1,
-                    "wysiwyg-font-size-medium": 1,
-                    "wysiwyg-font-size-small": 1,
-                    "wysiwyg-font-size-smaller": 1,
-                    "wysiwyg-font-size-x-large": 1,
-                    "wysiwyg-font-size-x-small": 1,
-                    "wysiwyg-font-size-xx-large": 1,
-                    "wysiwyg-font-size-xx-small": 1,
-                    "wysiwyg-text-align-center": 1,
-                    "wysiwyg-text-align-justify": 1,
-                    "wysiwyg-text-align-left": 1,
-                    "wysiwyg-text-align-right": 1
-                },
-                "tags": {
-                    "tr": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "strike": {
-                        "remove": 1
-                    },
-                    "form": {
-                        "rename_tag": "div"
-                    },
-                    "rt": {
-                        "rename_tag": "span"
-                    },
-                    "code": {},
-                    "acronym": {
-                        "rename_tag": "span"
-                    },
-                    "br": {
-                        "add_class": {
-                            "clear": "clear_br"
-                        }
-                    },
-                    "details": {
-                        "rename_tag": "div"
-                    },
-                    "h4": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "em": {},
-                    "title": {
-                        "remove": 1
-                    },
-                    "multicol": {
-                        "rename_tag": "div"
-                    },
-                    "figure": {
-                        "rename_tag": "div"
-                    },
-                    "xmp": {
-                        "rename_tag": "span"
-                    },
-                    "small": {
-                        "rename_tag": "span",
-                        "set_class": "wysiwyg-font-size-smaller"
-                    },
-                    "area": {
-                        "remove": 1
-                    },
-                    "time": {
-                        "rename_tag": "span"
-                    },
-                    "dir": {
-                        "rename_tag": "ul"
-                    },
-                    "bdi": {
-                        "rename_tag": "span"
-                    },
-                    "command": {
-                        "remove": 1
-                    },
-                    "ul": {},
-                    "progress": {
-                        "rename_tag": "span"
-                    },
-                    "dfn": {
-                        "rename_tag": "span"
-                    },
-                    "iframe": {
-                        "remove": 1
-                    },
-                    "figcaption": {
-                        "rename_tag": "div"
-                    },
-                    "a": {
-                        "check_attributes": {
-                            "href": "url"
-                        },
-                        "set_attributes": {
-                            "rel": "nofollow",
-                            "target": "_blank"
-                        }
-                    },
-                    "img": {
-                        "check_attributes": {
-                            "width": "numbers",
-                            "alt": "alt",
-                            "src": "url",
-                            "height": "numbers"
-                        },
-                        "add_class": {
-                            "align": "align_img"
-                        }
-                    },
-                    "rb": {
-                        "rename_tag": "span"
-                    },
-                    "footer": {
-                        "rename_tag": "div"
-                    },
-                    "noframes": {
-                        "remove": 1
-                    },
-                    "abbr": {
-                        "rename_tag": "span"
-                    },
-                    "u": {},
-                    "bgsound": {
-                        "remove": 1
-                    },
-                    "sup": {
-                        "rename_tag": "span"
-                    },
-                    "address": {
-                        "rename_tag": "div"
-                    },
-                    "basefont": {
-                        "remove": 1
-                    },
-                    "nav": {
-                        "rename_tag": "div"
-                    },
-                    "h1": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "head": {
-                        "remove": 1
-                    },
-                    "tbody": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "dd": {
-                        "rename_tag": "div"
-                    },
-                    "s": {
-                        "rename_tag": "span"
-                    },
-                    "li": {},
-                    "td": {
-                        "check_attributes": {
-                            "rowspan": "numbers",
-                            "colspan": "numbers"
-                        },
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "object": {
-                        "remove": 1
-                    },
-                    "div": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "option": {
-                        "rename_tag": "span"
-                    },
-                    "select": {
-                        "rename_tag": "span"
-                    },
-                    "i": {},
-                    "track": {
-                        "remove": 1
-                    },
-                    "wbr": {
-                        "remove": 1
-                    },
-                    "fieldset": {
-                        "rename_tag": "div"
-                    },
-                    "big": {
-                        "rename_tag": "span",
-                        "set_class": "wysiwyg-font-size-larger"
-                    },
-                    "button": {
-                        "rename_tag": "span"
-                    },
-                    "noscript": {
-                        "remove": 1
-                    },
-                    "svg": {
-                        "remove": 1
-                    },
-                    "input": {
-                        "remove": 1
-                    },
-                    "table": {},
-                    "keygen": {
-                        "remove": 1
-                    },
-                    "h5": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "meta": {
-                        "remove": 1
-                    },
-                    "map": {
-                        "rename_tag": "div"
-                    },
-                    "isindex": {
-                        "remove": 1
-                    },
-                    "mark": {
-                        "rename_tag": "span"
-                    },
-                    "caption": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "tfoot": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "base": {
-                        "remove": 1
-                    },
-                    "video": {
-                        "remove": 1
-                    },
-                    "strong": {},
-                    "canvas": {
-                        "remove": 1
-                    },
-                    "output": {
-                        "rename_tag": "span"
-                    },
-                    "marquee": {
-                        "rename_tag": "span"
-                    },
-                    "b": {},
-                    "q": {
-                        "check_attributes": {
-                            "cite": "url"
-                        }
-                    },
-                    "applet": {
-                        "remove": 1
-                    },
-                    "span": {},
-                    "rp": {
-                        "rename_tag": "span"
-                    },
-                    "spacer": {
-                        "remove": 1
-                    },
-                    "source": {
-                        "remove": 1
-                    },
-                    "aside": {
-                        "rename_tag": "div"
-                    },
-                    "frame": {
-                        "remove": 1
-                    },
-                    "section": {
-                        "rename_tag": "div"
-                    },
-                    "body": {
-                        "rename_tag": "div"
-                    },
-                    "ol": {},
-                    "nobr": {
-                        "rename_tag": "span"
-                    },
-                    "html": {
-                        "rename_tag": "div"
-                    },
-                    "summary": {
-                        "rename_tag": "span"
-                    },
-                    "var": {
-                        "rename_tag": "span"
-                    },
-                    "del": {
-                        "remove": 1
-                    },
-                    "blockquote": {
-                        "check_attributes": {
-                            "cite": "url"
-                        }
-                    },
-                    "style": {
-                        "remove": 1
-                    },
-                    "device": {
-                        "remove": 1
-                    },
-                    "meter": {
-                        "rename_tag": "span"
-                    },
-                    "h3": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "textarea": {
-                        "rename_tag": "span"
-                    },
-                    "embed": {
-                        "remove": 1
-                    },
-                    "hgroup": {
-                        "rename_tag": "div"
-                    },
-                    "font": {
-                        "rename_tag": "span",
-                        "add_class": {
-                            "size": "size_font"
-                        }
-                    },
-                    "tt": {
-                        "rename_tag": "span"
-                    },
-                    "noembed": {
-                        "remove": 1
-                    },
-                    "thead": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "blink": {
-                        "rename_tag": "span"
-                    },
-                    "plaintext": {
-                        "rename_tag": "span"
-                    },
-                    "xml": {
-                        "remove": 1
-                    },
-                    "h6": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "param": {
-                        "remove": 1
-                    },
-                    "th": {
-                        "check_attributes": {
-                            "rowspan": "numbers",
-                            "colspan": "numbers"
-                        },
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "legend": {
-                        "rename_tag": "span"
-                    },
-                    "hr": {},
-                    "label": {
-                        "rename_tag": "span"
-                    },
-                    "dl": {
-                        "rename_tag": "div"
-                    },
-                    "kbd": {
-                        "rename_tag": "span"
-                    },
-                    "listing": {
-                        "rename_tag": "div"
-                    },
-                    "dt": {
-                        "rename_tag": "span"
-                    },
-                    "nextid": {
-                        "remove": 1
-                    },
-                    "pre": {},
-                    "center": {
-                        "rename_tag": "div",
-                        "set_class": "wysiwyg-text-align-center"
-                    },
-                    "audio": {
-                        "remove": 1
-                    },
-                    "datalist": {
-                        "rename_tag": "span"
-                    },
-                    "samp": {
-                        "rename_tag": "span"
-                    },
-                    "col": {
-                        "remove": 1
-                    },
-                    "article": {
-                        "rename_tag": "div"
-                    },
-                    "cite": {},
-                    "link": {
-                        "remove": 1
-                    },
-                    "script": {
-                        "remove": 1
-                    },
-                    "bdo": {
-                        "rename_tag": "span"
-                    },
-                    "menu": {
-                        "rename_tag": "ul"
-                    },
-                    "colgroup": {
-                        "remove": 1
-                    },
-                    "ruby": {
-                        "rename_tag": "span"
-                    },
-                    "h2": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "ins": {
-                        "rename_tag": "span"
-                    },
-                    "p": {
-                        "add_class": {
-                            "align": "align_text"
-                        }
-                    },
-                    "sub": {
-                        "rename_tag": "span"
-                    },
-                    "comment": {
-                        "remove": 1
-                    },
-                    "frameset": {
-                        "remove": 1
-                    },
-                    "optgroup": {
-                        "rename_tag": "span"
-                    },
-                    "header": {
-                        "rename_tag": "div"
-                    }
-                }
-            });
+            browser_1.bootstrap(app_1.App, [router_6.ROUTER_PROVIDERS, http_2.HTTP_PROVIDERS, core_11.provide(router_6.LocationStrategy, { useClass: router_6.HashLocationStrategy })]);
         }
     }
 });

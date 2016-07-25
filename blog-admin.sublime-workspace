@@ -4,12 +4,32 @@
 		"selected_items":
 		[
 			[
-				"padd",
-				"padding-top"
+				"nu",
+				"null	keyword"
+			],
+			[
+				"ex",
+				"extends	keyword"
+			],
+			[
+				"imp",
+				"implements	keyword"
+			],
+			[
+				"p",
+				"providers	property"
+			],
+			[
+				"le",
+				"let	keyword"
 			],
 			[
 				"mar",
-				"margin-left"
+				"margin-bottom"
+			],
+			[
+				"padd",
+				"padding-top"
 			],
 			[
 				"in",
@@ -46,10 +66,6 @@
 			[
 				"r",
 				"render	function"
-			],
-			[
-				"imp",
-				"import	keyword"
 			],
 			[
 				"IComponent",
@@ -108,10 +124,6 @@
 				"forEach	method"
 			],
 			[
-				"le",
-				"length	local var"
-			],
-			[
 				"for",
 				"for	keyword"
 			],
@@ -130,10 +142,6 @@
 			[
 				"con",
 				"constructor	keyword"
-			],
-			[
-				"ex",
-				"export	keyword"
 			],
 			[
 				"li",
@@ -400,10 +408,6 @@
 				"length2"
 			],
 			[
-				"nu",
-				"nums2"
-			],
-			[
 				"index",
 				"index1"
 			],
@@ -510,10 +514,6 @@
 			[
 				"web",
 				"webkitAnimationEnd"
-			],
-			[
-				"pr",
-				"previewStatus"
 			]
 		]
 	},
@@ -523,23 +523,23 @@
 			"file": "app/public/admin/ts/desktop/editor/editor.ts",
 			"settings":
 			{
-				"buffer_size": 1039,
+				"buffer_size": 1180,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/public/admin/typings/tinymce/tinymce.d.ts",
+			"file": "app/public/admin/ts/desktop/servers/postServer.ts",
 			"settings":
 			{
-				"buffer_size": 81,
+				"buffer_size": 537,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/public/admin/ts/configure.ts",
+			"file": "app/public/admin/ts/desktop/servers/baseServer.ts",
 			"settings":
 			{
-				"buffer_size": 259,
+				"buffer_size": 959,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,7 +547,7 @@
 			"file": "app/public/admin/template/editor.html",
 			"settings":
 			{
-				"buffer_size": 1549,
+				"buffer_size": 1961,
 				"line_ending": "Unix"
 			}
 		}
@@ -645,23 +645,28 @@
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/editor",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/panel",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/servers",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/login",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/typings",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/typings/tinymce"
 	],
 	"file_history":
 	[
-		"/Users/mapleiny/Desktop/tinymce 2/js/tinymce/tinymce.dev.js",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/editor/editorManager.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/main.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/configure.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/tsconfig.json",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/app.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/editor.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/js/main.js",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/typings/tinymce/tinymce.d.ts",
+		"/Users/mapleiny/Desktop/tinymce 2/js/tinymce/tinymce.dev.js",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/desktop.html",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/desktop.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/navigation.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/editor/parserRules.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/editor.html",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/header.less",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/editor.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/panel.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/main.less",
 		"/Users/mapleiny/.Trash/main-page.less",
@@ -669,7 +674,6 @@
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/main-page.less",
 		"/Users/mapleiny/Documents/Project/frame/wysihtml5-master/dist/wysihtml5-0.3.0.js",
 		"/Users/mapleiny/Library/Application Support/Sublime Text 3/Packages/JsFormat/Default (OSX).sublime-keymap",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/configure.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/typings/wysihtml5/wysihtml5.d.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/js/quill.js",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/typings/quill/quill.d.ts",
@@ -686,11 +690,9 @@
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/panel.html",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/dashboard.html",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/dashboard/dashboard.ts",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/app.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/editor/editor.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/desktop/index.html",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/dashboard/navigation.ts",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/tsconfig.json",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/main.html",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/template/login.html",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/login/login.ts",
@@ -704,7 +706,6 @@
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/css/font-awesome.css",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/login/login.html",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/less/login.less",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/ts/main.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/js/login.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/blogRouter.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/tsconfig.json",
@@ -778,8 +779,7 @@
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/node_modules/mongoose/lib/model.js",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/db/mongooseInit.js",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/db/mongooseInit.ts",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/node_modules/mongoose/lib/schema/objectid.js",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/node_modules/typings/node_modules/any-promise/index.d.ts"
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/node_modules/mongoose/lib/schema/objectid.js"
 	],
 	"find":
 	{
@@ -807,6 +807,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			",",
+			"()\n",
+			"EditorManager",
+			"reflect-metadata",
 			"tinymce",
 			"init",
 			"parse ",
@@ -930,11 +934,7 @@
 			"hoverIn",
 			"setOptions",
 			"setOptions =",
-			"setOptions",
-			"hoverIn",
-			"jquery",
-			"scaleRaphael",
-			"sharpHover"
+			"setOptions"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -952,7 +952,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -961,15 +961,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1039,
+						"buffer_size": 1180,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								967,
-								967
+								1169,
+								1169
 							]
 						],
 						"settings":
@@ -986,56 +986,27 @@
 							"word_wrap": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 846.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/public/admin/typings/tinymce/tinymce.d.ts",
+					"file": "app/public/admin/ts/desktop/servers/postServer.ts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 81,
+						"buffer_size": 537,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								69,
-								69
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/public/admin/ts/configure.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 259,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								88,
-								88
+								535,
+								535
 							]
 						],
 						"settings":
@@ -1048,7 +1019,36 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/public/admin/ts/desktop/servers/baseServer.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 959,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								401,
+								401
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 56.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1063,15 +1063,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1549,
+						"buffer_size": 1961,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								530,
-								530
+								110,
+								110
 							]
 						],
 						"settings":
@@ -1084,7 +1084,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1118,7 +1118,7 @@
 		"cols":
 		[
 			0.0,
-			0.188957179132,
+			0.693704531134,
 			1.0
 		],
 		"rows":
@@ -1172,7 +1172,7 @@
 		[
 			[
 				"",
-				"~/Documents/Work/sublime-project/collection.sublime-project"
+				"~/Desktop/chartAdmin.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -1186,7 +1186,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},

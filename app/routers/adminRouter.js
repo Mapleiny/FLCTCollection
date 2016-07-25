@@ -7,9 +7,11 @@ let jsPaths = [
     '/common/js/system.js',
     '/common/js/system-polyfills.js',
     '/common/js/Rx.min.js',
+    // '/common/js/angular2-all.umd.min.js',
     '/common/js/angular2.min.js',
     '/common/js/angular2-polyfills.min.js',
-    '/common/js/router.js',
+    '/common/js/router.min.js',
+    '/common/js/http.min.js',
     '/common/js/tinymce.min.js',
     '/admin/js/main.js'
 ];
