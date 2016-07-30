@@ -1,6 +1,6 @@
 import {Component,AfterViewInit} from 'angular2/core';
-import {PostServer,PostContent} from '../servers/postServer'
-// import * as wysihtml5 from 'wysihtml5'
+import {PostServer,PostContent} from '../../servers/postServer'
+
 @Component({
 	selector: 'editor.editor',
 	templateUrl: 'template/editor.html',

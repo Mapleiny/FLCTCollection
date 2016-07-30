@@ -7,7 +7,6 @@ let jsPaths = [
     '/common/js/system.js',
     '/common/js/system-polyfills.js',
     '/common/js/Rx.min.js',
-    // '/common/js/angular2-all.umd.min.js',
     '/common/js/angular2.min.js',
     '/common/js/angular2-polyfills.min.js',
     '/common/js/router.min.js',
@@ -17,7 +16,6 @@ let jsPaths = [
 ];
 exports.adminRouter = function (router, staticManager) {
     router.get('/admin/', function (req, res) {
-        // blog list
         res.render('admin/index', {
             'static': staticManager.createStatic(cssPaths, jsPaths)
         });

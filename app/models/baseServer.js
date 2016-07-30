@@ -1,7 +1,7 @@
 "use strict";
 var baseDB_1 = require('../db/baseDB');
 exports.DB = baseDB_1.DB;
-class BaseModel {
+class BaseServer {
     constructor() {
     }
     save() {
@@ -11,4 +11,4 @@ class BaseModel {
     delete(query) { }
     update(query, data) { }
 }
-exports.BaseModel = BaseModel;
+exports.BaseServer = BaseServer;

@@ -61,11 +61,11 @@ System.register("desktop/header", ['angular2/core', 'angular2/router'], function
         }
     }
 });
-System.register("desktop/editor/editorManager", ['angular2/core', 'angular2/http', 'rxjs/add/operator/toPromise'], function(exports_3, context_3) {
+System.register("servers/baseServer", ['angular2/core', 'angular2/http'], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
     var core_3, http_1;
-    var EditorManager;
+    var StatusCode, BaseServer;
     return {
         setters:[
             function (core_3_1) {
@@ -73,13 +73,44 @@ System.register("desktop/editor/editorManager", ['angular2/core', 'angular2/http
             },
             function (http_1_1) {
                 http_1 = http_1_1;
-            },
-            function (_1) {}],
+            }],
         execute: function() {
-            let EditorManager = class EditorManager {
+            (function (StatusCode) {
+                StatusCode[StatusCode["success"] = 0] = "success";
+                StatusCode[StatusCode["unauthorized"] = 100] = "unauthorized";
+                StatusCode[StatusCode["missparams"] = 200] = "missparams";
+                StatusCode[StatusCode["universal"] = 500] = "universal";
+            })(StatusCode || (StatusCode = {}));
+            exports_3("StatusCode", StatusCode);
+            let BaseServer = class BaseServer {
                 constructor(http) {
                     this.http = http;
-                    this.postUrl = '/api/post';
+                }
+                post(url, params, options) {
+                    let body = JSON.stringify(params);
+                    let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+                    options = options || new http_1.RequestOptions({ headers: headers });
+                    return this.http
+                        .post(url, body, options)
+                        .toPromise()
+                        .then(this.extractData)
+                        .catch(this.handleError);
+                }
+                get(url, params, options) {
+                    let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+                    options = options || new http_1.RequestOptions({ headers: headers });
+                    let searchParams = new http_1.URLSearchParams();
+                    if (params) {
+                        for (var key in params) {
+                            searchParams.set(key, params[key]);
+                        }
+                    }
+                    options.search = searchParams;
+                    return this.http
+                        .get(url, options)
+                        .toPromise()
+                        .then(this.extractData)
+                        .catch(this.handleError);
                 }
                 extractData(res) {
                     let body = res.json();
@@ -89,44 +120,59 @@ System.register("desktop/editor/editorManager", ['angular2/core', 'angular2/http
                     console.error('An error occurred', error);
                     return Promise.reject(error.message || error);
                 }
-                post(content) {
-                    let body = JSON.stringify(content);
-                    let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-                    let options = new http_1.RequestOptions({ headers: headers });
-                    return this.http
-                        .post(this.postUrl, body, options)
-                        .toPromise()
-                        .then(this.extractData)
-                        .catch(this.handleError);
-                    ;
-                }
             };
-            EditorManager = __decorate([
+            BaseServer = __decorate([
                 core_3.Injectable(), 
                 __metadata('design:paramtypes', [http_1.Http])
-            ], EditorManager);
-            exports_3("EditorManager", EditorManager);
+            ], BaseServer);
+            exports_3("BaseServer", BaseServer);
         }
     }
 });
-System.register("desktop/editor/editor", ['angular2/core', "desktop/editor/editorManager"], function(exports_4, context_4) {
+System.register("servers/postServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
-    var core_4, editorManager_1;
+    var baseServer_1;
+    var PostServer;
+    return {
+        setters:[
+            function (_1) {},
+            function (baseServer_1_1) {
+                baseServer_1 = baseServer_1_1;
+            }],
+        execute: function() {
+            class PostServer extends baseServer_1.BaseServer {
+                constructor(http) {
+                    super(http);
+                    this.http = http;
+                    this.baseUrl = '/api/blog';
+                }
+                public(content) {
+                    let url = this.baseUrl + '/post';
+                    return this.post(url, content);
+                }
+            }
+            exports_4("PostServer", PostServer);
+        }
+    }
+});
+System.register("desktop/editor/editor", ['angular2/core', "servers/postServer"], function(exports_5, context_5) {
+    "use strict";
+    var __moduleName = context_5 && context_5.id;
+    var core_4, postServer_1;
     var Editor;
     return {
         setters:[
             function (core_4_1) {
                 core_4 = core_4_1;
             },
-            function (editorManager_1_1) {
-                editorManager_1 = editorManager_1_1;
+            function (postServer_1_1) {
+                postServer_1 = postServer_1_1;
             }],
         execute: function() {
-            // import * as wysihtml5 from 'wysihtml5'
             let Editor = class Editor {
-                constructor(editorManager) {
-                    this.editorManager = editorManager;
+                constructor(postServer) {
+                    this.postServer = postServer;
                 }
                 ngAfterViewInit() {
                     tinymce.init({
@@ -147,7 +193,7 @@ System.register("desktop/editor/editor", ['angular2/core', "desktop/editor/edito
                 }
                 post() {
                     this.postContent = tinymce.activeEditor.getContent();
-                    this.editorManager.post({
+                    this.postServer.public({
                         title: this.postTitle,
                         content: this.postContent
                     }).then(function (data) {
@@ -159,17 +205,17 @@ System.register("desktop/editor/editor", ['angular2/core', "desktop/editor/edito
                 core_4.Component({
                     selector: 'editor.editor',
                     templateUrl: 'template/editor.html',
-                    providers: [editorManager_1.EditorManager]
+                    providers: [postServer_1.PostServer]
                 }), 
-                __metadata('design:paramtypes', [editorManager_1.EditorManager])
+                __metadata('design:paramtypes', [postServer_1.PostServer])
             ], Editor);
-            exports_4("Editor", Editor);
+            exports_5("Editor", Editor);
         }
     }
 });
-System.register("desktop/navigation", ['angular2/core', 'angular2/router'], function(exports_5, context_5) {
+System.register("desktop/navigation", ['angular2/core', 'angular2/router'], function(exports_6, context_6) {
     "use strict";
-    var __moduleName = context_5 && context_5.id;
+    var __moduleName = context_6 && context_6.id;
     var core_5, router_2;
     var Navigation;
     return {
@@ -194,13 +240,13 @@ System.register("desktop/navigation", ['angular2/core', 'angular2/router'], func
                 }), 
                 __metadata('design:paramtypes', [router_2.Router])
             ], Navigation);
-            exports_5("Navigation", Navigation);
+            exports_6("Navigation", Navigation);
         }
     }
 });
-System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_6, context_6) {
+System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_7, context_7) {
     "use strict";
-    var __moduleName = context_6 && context_6.id;
+    var __moduleName = context_7 && context_7.id;
     var core_6;
     var Dashboard;
     return {
@@ -218,13 +264,13 @@ System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_6
                 }), 
                 __metadata('design:paramtypes', [])
             ], Dashboard);
-            exports_6("Dashboard", Dashboard);
+            exports_7("Dashboard", Dashboard);
         }
     }
 });
-System.register("desktop/panel/article", ['angular2/core'], function(exports_7, context_7) {
+System.register("desktop/panel/article", ['angular2/core'], function(exports_8, context_8) {
     "use strict";
-    var __moduleName = context_7 && context_7.id;
+    var __moduleName = context_8 && context_8.id;
     var core_7;
     var Article;
     return {
@@ -242,13 +288,13 @@ System.register("desktop/panel/article", ['angular2/core'], function(exports_7, 
                 }), 
                 __metadata('design:paramtypes', [])
             ], Article);
-            exports_7("Article", Article);
+            exports_8("Article", Article);
         }
     }
 });
-System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "desktop/navigation", "desktop/panel/dashboard", "desktop/panel/article"], function(exports_8, context_8) {
+System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "desktop/navigation", "desktop/panel/dashboard", "desktop/panel/article"], function(exports_9, context_9) {
     "use strict";
-    var __moduleName = context_8 && context_8.id;
+    var __moduleName = context_9 && context_9.id;
     var core_8, router_3, navigation_1, dashboard_1, article_1;
     var Panel;
     return {
@@ -286,13 +332,13 @@ System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "des
                 ]), 
                 __metadata('design:paramtypes', [router_3.Router])
             ], Panel);
-            exports_8("Panel", Panel);
+            exports_9("Panel", Panel);
         }
     }
 });
-System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop/header", "desktop/editor/editor", "desktop/panel/panel"], function(exports_9, context_9) {
+System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop/header", "desktop/editor/editor", "desktop/panel/panel"], function(exports_10, context_10) {
     "use strict";
-    var __moduleName = context_9 && context_9.id;
+    var __moduleName = context_10 && context_10.id;
     var core_9, router_4, header_1, editor_1, panel_1;
     var Desktop;
     return {
@@ -322,7 +368,7 @@ System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop
                 core_9.Component({
                     'selector': 'desktop.desktop',
                     'templateUrl': 'template/desktop.html',
-                    'directives': [router_4.RouterLink, router_4.ROUTER_DIRECTIVES, header_1.Header],
+                    'directives': [router_4.RouterLink, router_4.ROUTER_DIRECTIVES, header_1.Header]
                 }),
                 router_4.RouteConfig([
                     { path: '/...', component: panel_1.Panel, as: 'Panel', useAsDefault: true },
@@ -330,13 +376,40 @@ System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop
                 ]), 
                 __metadata('design:paramtypes', [router_4.Router])
             ], Desktop);
-            exports_9("Desktop", Desktop);
+            exports_10("Desktop", Desktop);
         }
     }
 });
-System.register("app", ['angular2/core', 'angular2/router', "login/login", "desktop/desktop"], function(exports_10, context_10) {
+System.register("servers/userServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_11, context_11) {
     "use strict";
-    var __moduleName = context_10 && context_10.id;
+    var __moduleName = context_11 && context_11.id;
+    var baseServer_2;
+    var UserServer;
+    return {
+        setters:[
+            function (_2) {},
+            function (baseServer_2_1) {
+                baseServer_2 = baseServer_2_1;
+            }],
+        execute: function() {
+            class UserServer extends baseServer_2.BaseServer {
+                constructor(http) {
+                    super(http);
+                    this.http = http;
+                    this.userBaseUrl = '/api/user';
+                }
+                getUserInfo(username) {
+                    let url = this.userBaseUrl + '/username';
+                    return this.get(url);
+                }
+            }
+            exports_11("UserServer", UserServer);
+        }
+    }
+});
+System.register("app", ['angular2/core', 'angular2/router', "login/login", "desktop/desktop"], function(exports_12, context_12) {
+    "use strict";
+    var __moduleName = context_12 && context_12.id;
     var core_10, router_5, login_1, desktop_1;
     var App;
     return {
@@ -357,6 +430,21 @@ System.register("app", ['angular2/core', 'angular2/router', "login/login", "desk
             let App = class App {
                 constructor(router) {
                     this.router = router;
+                    let self = this;
+                    this.router.subscribe(function (value) {
+                        self.checkLogin();
+                    });
+                }
+                ngOnChanges() {
+                    this.checkLogin();
+                }
+                checkLogin() {
+                    if (!this.router.isRouteActive(this.router.generate(['Login']))) {
+                        let userInfo = window.localStorage.getItem('userInfo');
+                        if (!userInfo) {
+                            this.router.navigate(['/Login']);
+                        }
+                    }
                 }
             };
             App = __decorate([
@@ -371,7 +459,7 @@ System.register("app", ['angular2/core', 'angular2/router', "login/login", "desk
                 ]), 
                 __metadata('design:paramtypes', [router_5.Router])
             ], App);
-            exports_10("App", App);
+            exports_12("App", App);
         }
     }
 });
@@ -388,9 +476,9 @@ System.config({
     }
 });
 System.import('main');
-System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', 'angular2/http', "app"], function(exports_11, context_11) {
+System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', 'angular2/http', "app"], function(exports_13, context_13) {
     "use strict";
-    var __moduleName = context_11 && context_11.id;
+    var __moduleName = context_13 && context_13.id;
     var browser_1, core_11, router_6, http_2, app_1;
     return {
         setters:[

@@ -1,6 +1,8 @@
 import express = require("express");
 import {StaticManager} from '../utils/staticManager'
-import {blogServer} from '../models/blogServer'
+import {IBlog} from '../models/blogModel'
+
+import {blogServer} from '../servers/blogServer'
 
 
 let cssPaths:Array<String> = ['/blog/css/main.css'];
@@ -21,22 +23,29 @@ interface IContentItem{
 	postDate:Date;
 }
 
+let ConvertBlogToContentItem = function(blog:IBlog):IContentItem{
+	return {
+		banner:null,
+		link:"/blog/"+blog.id,
+		title:blog.title,
+		subTitle:blog.subTitle,
+		content:blog.content,
+		tags:null,
+		postDate:blog.postTime
+	}
+}
+
 export let blogRouter = function(router:express.Router,staticManager:StaticManager){
 
-	let item:IContentItem = {
-		link:'#',
-		title:'我是一个标题',
-		subTitle:'我是副标题',
-		content:'我是正文内容。我是正文内容。我是正文内容。我是正文内容。我是正文内容。我是正文内容。我是正文内容。我是正文内容。我是正文内容。我是正文内容。我是正文内容。我是正文内容。我是正文内容。我是正文内容。',
-		tags:[{name:"旅行",link:'#'},{name:"飞翔",link:'#'}],
-		postDate:new Date()
-	};
 	router.get('/',function(req,res){
 		// blog list
-		res.render('index',{
-			'title':'Blog',
-			'articles':[item],
-			'static':staticManager.createStatic(cssPaths,jsPaths)
+		blogServer.getPosts().then(function(result){
+
+			res.render('index',{
+				'title':'Blog',
+				'articles':result,
+				'static':staticManager.createStatic(cssPaths,jsPaths)
+			});
 		});
 	});
 };

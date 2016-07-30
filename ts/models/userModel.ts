@@ -1,6 +1,6 @@
-import M = require('mongoose');
+import {DB,M} from '../db/baseDB'
 
-var userSchema: M.Schema = new M.Schema({
+let UserSchema: M.Schema = new DB.Schema({
 	nickname: String,
 	avatar: String,
 	username: { type: String, unique: true, required: true },
@@ -23,16 +23,18 @@ export interface IUser extends M.Document{
 	authenticate(password: String): boolean;
 }
 
-userSchema.methods.authenticate = function(password: String): boolean{
-	return true;
+UserSchema.methods.authenticate = function(password: String): boolean{
+	return password == this.password;
 }
 
 export interface IUserModel extends M.Model<IUser>{
 	findByUsername(name, cb): void;
 }
-userSchema.statics.findByUsername = function(name, cb) {
+UserSchema.statics.findByUsername = function(name, cb) {
 	this.find({ username: new RegExp(name, 'i') }, cb);
 }
 
 
-export let UserModel = <IUserModel>M.model('user', userSchema);
+export let UserModel = <IUserModel>DB.model('user', UserSchema);
+
+

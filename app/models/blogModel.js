@@ -1,32 +1,17 @@
 "use strict";
-const baseModel_1 = require('./baseModel');
-exports.BlogSchema = new baseModel_1.DB.Schema({
-    title: String,
+const baseDB_1 = require('../db/baseDB');
+// content
+let BlogSchema = new baseDB_1.DB.Schema({
+    title: { type: String, required: true },
     subTitle: String,
+    author: baseDB_1.DB.Schema.Types.ObjectId,
     content: String,
     postTime: Date,
     updateTime: Date,
-    attachment: [baseModel_1.DB.Schema.Types.ObjectId],
-    readCount: Number,
-    weather: baseModel_1.DB.Schema.Types.ObjectId
+    attachments: [baseDB_1.DB.Schema.Types.ObjectId],
+    readCount: Number
 });
-class BlogModel extends baseModel_1.BaseModel {
-    // Blog = 
-    constructor(db) {
-        super();
-        this.db = db;
-    }
-    publicPost(data) {
-        return new Promise(function (resolve, reject) {
-            if (data) {
-                resolve(data);
-            }
-            else {
-                reject("data must not be null");
-            }
-        });
-    }
-    getPosts() {
-    }
-}
-exports.blogModel = new BlogModel();
+BlogSchema.statics.findBlogById = function (id, cb) {
+    this.find({ _id: id }, cb);
+};
+exports.BlogModel = baseDB_1.DB.model('blog', BlogSchema);

@@ -1,6 +1,6 @@
 "use strict";
-const M = require('mongoose');
-var userSchema = new M.Schema({
+const baseDB_1 = require('../db/baseDB');
+let UserSchema = new baseDB_1.DB.Schema({
     nickname: String,
     avatar: String,
     username: { type: String, unique: true, required: true },
@@ -9,10 +9,10 @@ var userSchema = new M.Schema({
     registerData: Date,
     lastLogin: Date
 });
-userSchema.methods.authenticate = function (password) {
-    return true;
+UserSchema.methods.authenticate = function (password) {
+    return password == this.password;
 };
-userSchema.statics.findByUsername = function (name, cb) {
+UserSchema.statics.findByUsername = function (name, cb) {
     this.find({ username: new RegExp(name, 'i') }, cb);
 };
-exports.UserModel = M.model('user', userSchema);
+exports.UserModel = baseDB_1.DB.model('user', UserSchema);
