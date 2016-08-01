@@ -12,6 +12,15 @@ let UserSchema = new baseDB_1.DB.Schema({
 UserSchema.methods.authenticate = function (password) {
     return password == this.password;
 };
+UserSchema.methods.exportFilter = function () {
+    return {
+        nickname: this.nickname,
+        avatar: this.avatar,
+        username: this.username,
+        registerData: this.registerData,
+        lastLogin: this.lastLogin
+    };
+};
 UserSchema.statics.findByUsername = function (name, cb) {
     this.find({ username: new RegExp(name, 'i') }, cb);
 };

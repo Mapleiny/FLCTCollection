@@ -27,4 +27,11 @@ export class UserServer extends BaseServer{
 		let url = this.userBaseUrl+'/username'
 		return this.get<ResponseObject<IUser>>(url);
 	}
+	validate(username:String,password:String){
+		let url = this.userBaseUrl+'/validate'
+		return this.post<ResponseObject<IUser>>(url,{
+			username: username,
+			password: password
+		});
+	}
 }

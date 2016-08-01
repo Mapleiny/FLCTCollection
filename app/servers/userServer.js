@@ -9,12 +9,12 @@ class UserServer extends baseServer_1.BaseServer {
         let self = this;
         return new Promise(function (resolve, reject) {
             if (userName && userName.length > 0) {
-                userModel_1.UserModel.findByUsername(userName, function (err, user) {
+                userModel_1.UserModel.findByUsername(userName, function (err, users) {
                     if (err) {
                         reject(self.createResponse(baseServer_1.StatusCode.universal, err.message));
                     }
                     else {
-                        resolve(self.createResponse(baseServer_1.StatusCode.success, null, user));
+                        resolve(self.createResponse(baseServer_1.StatusCode.success, 'ok', users[0]));
                     }
                 });
             }
@@ -40,7 +40,7 @@ class UserServer extends baseServer_1.BaseServer {
                         reject(self.createResponse(baseServer_1.StatusCode.universal, err.message));
                     }
                     else {
-                        resolve(self.createResponse(baseServer_1.StatusCode.success, null, savedUser));
+                        resolve(self.createResponse(baseServer_1.StatusCode.success, 'ok', savedUser));
                     }
                 });
             }

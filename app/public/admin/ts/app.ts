@@ -30,7 +30,7 @@ export class App {
 
 	checkLogin(){
 		if(!this.router.isRouteActive(this.router.generate(['Login']))) {
-			let userInfo:IUser = <IUser>window.localStorage.getItem('userInfo');
+			let userInfo:IUser = <IUser>JSON.parse(window.localStorage.getItem('userInfo'));
 			if(!userInfo) {
 				this.router.navigate(['/Login']);
 			}

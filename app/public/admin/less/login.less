@@ -1,0 +1,81 @@
+.login{
+	height: 100%;
+	display: block;
+	.container-wrap{
+		height: 100%;
+	}
+	.full-page{
+		height: 100%;
+		background: url(/admin/images/noise.png) left top repeat, url(/admin/images/dot_pattern.png) left top repeat, url(/admin/images/backgrounds/1.jpg) left top/cover no-repeat;
+		.inside-block{
+			display: block;
+			margin: 0 auto;
+			text-align: center;
+			width: 360px;
+			background-color: rgba(0, 0, 0, 0.3);
+			height: 100%;
+			box-sizing: content-box;
+			padding: 50px;
+			color: white;
+			overflow: auto;
+
+			.input-group{
+				margin-bottom: 10px;
+			}
+			input{
+				outline: 0;
+				box-shadow: none;
+				padding: 6px 11px !important;
+				line-height: 18px;
+				font-size: 13px;
+				min-height: 37px;
+				background-color: rgba(0, 0, 0, 0.2) !important;
+			    border: 0 !important;
+			    border-radius: 4px 0 0 4px !important;
+			    color: white !important;
+			    transition: all 0.1s linear;
+			    &::-webkit-input-placeholder{
+					color: rgba(255, 255, 255, 0.6);
+				}
+			}
+			.input-group-addon {
+				padding: 6px 12px;
+				font-size: 14px;
+				font-weight: 400;
+				line-height: 1;
+				color: #555;
+				text-align: center;
+				background-color: rgba(0, 0, 0, 0.2);
+				border-radius: 0 4px 4px 0 !important;
+				transition: all 0.1s linear;
+				border: 0;
+				i{
+					width: 18px;
+					color: rgba(255, 255, 255, 0.6);
+				}
+			}
+
+			.log-in{
+				margin-top: 20px;
+				border-top: 5px dashed rgba(0, 0, 0, 0.1);
+				.btn{
+					display: inline-block;
+    				margin-top: 20px;
+    				outline: none;
+					&.btn-greensea {
+						background-color: #1ccdaa;
+						color: #f2f2f2;
+						&:hover {
+							background-color: #14937a;
+							color: white;
+						}
+						&:active,&:focus{
+							box-shadow: none;
+						}
+					}
+				}
+			}
+		}
+
+	}
+}

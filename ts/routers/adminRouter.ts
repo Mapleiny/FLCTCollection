@@ -1,4 +1,5 @@
 import * as express from "express"
+import {StatusCode} from '../servers/baseServer'
 import {StaticManager} from '../utils/staticManager'
 
 let cssPaths:Array<String> = [

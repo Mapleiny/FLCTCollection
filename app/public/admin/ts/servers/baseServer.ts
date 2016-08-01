@@ -4,6 +4,7 @@ import {Http,Response,Headers,RequestOptions,URLSearchParams} from 'angular2/htt
 export enum StatusCode{
 	success = 0,
 	unauthorized = 100,
+	accounterror = 101, // 账号或密码错误
 	missparams = 200,
 	universal = 500
 }

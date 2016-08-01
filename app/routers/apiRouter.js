@@ -1,4 +1,5 @@
 "use strict";
+const baseServer_1 = require('../servers/baseServer');
 const blogServer_1 = require('../servers/blogServer');
 const userServer_1 = require('../servers/userServer');
 let defaultResponse = function (res) {
@@ -6,9 +7,21 @@ let defaultResponse = function (res) {
         res.json(result);
     };
 };
+let authorize = function (req, res, next) {
+    if (!req.session.user_id) {
+        res.json({
+            code: baseServer_1.StatusCode.unauthorized,
+            message: '没有权限'
+        });
+    }
+    else {
+        next();
+    }
+};
 exports.apiRouter = function (router) {
     // blog
-    router.post('/api/blog/post', function (req, res) {
+    router.post('/api/blog/post', authorize, function (req, res) {
+        req.body.author = req.session['user_id'];
         blogServer_1.blogServer.publicPost(req.body).then(defaultResponse(res)).catch(defaultResponse(res));
     });
     router.get('/api/post/:id', function (req, res) {
@@ -22,5 +35,22 @@ exports.apiRouter = function (router) {
     });
     router.post('/api/user/create', function (req, res) {
         userServer_1.userServer.createUser(req.body).then(defaultResponse(res)).catch(defaultResponse(res));
+    });
+    router.post('/api/user/validate', function (req, res) {
+        userServer_1.userServer.getByUserName(req.body.username).then(function (result) {
+            if (result.code != baseServer_1.StatusCode.success || !result.data.authenticate(req.body.password)) {
+                result.code = baseServer_1.StatusCode.accounterror;
+                result.message = '账号或密码错误';
+            }
+            else {
+                req.session['user_id'] = result.data.id;
+                req.session['user'] = result.data;
+            }
+            res.json({
+                code: result.code,
+                data: result.data.exportFilter(),
+                message: result.message
+            });
+        }).catch(defaultResponse(res));
     });
 };

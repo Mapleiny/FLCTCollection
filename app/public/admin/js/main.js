@@ -7,69 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-System.register("login/login", ['angular2/core'], function(exports_1, context_1) {
+System.register("servers/baseServer", ['angular2/core', 'angular2/http'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var core_1;
-    var Login;
+    var core_1, http_1;
+    var StatusCode, BaseServer;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            }],
-        execute: function() {
-            let Login = class Login {
-            };
-            Login = __decorate([
-                core_1.Component({
-                    'selector': 'login.login',
-                    'templateUrl': 'template/login.html'
-                }), 
-                __metadata('design:paramtypes', [])
-            ], Login);
-            exports_1("Login", Login);
-        }
-    }
-});
-System.register("desktop/header", ['angular2/core', 'angular2/router'], function(exports_2, context_2) {
-    "use strict";
-    var __moduleName = context_2 && context_2.id;
-    var core_2, router_1;
-    var Header;
-    return {
-        setters:[
-            function (core_2_1) {
-                core_2 = core_2_1;
-            },
-            function (router_1_1) {
-                router_1 = router_1_1;
-            }],
-        execute: function() {
-            let Header = class Header {
-                constructor() {
-                }
-            };
-            Header = __decorate([
-                core_2.Component({
-                    'selector': 'page-header',
-                    'templateUrl': 'template/header.html',
-                    'directives': [router_1.RouterLink]
-                }), 
-                __metadata('design:paramtypes', [])
-            ], Header);
-            exports_2("Header", Header);
-        }
-    }
-});
-System.register("servers/baseServer", ['angular2/core', 'angular2/http'], function(exports_3, context_3) {
-    "use strict";
-    var __moduleName = context_3 && context_3.id;
-    var core_3, http_1;
-    var StatusCode, BaseServer;
-    return {
-        setters:[
-            function (core_3_1) {
-                core_3 = core_3_1;
             },
             function (http_1_1) {
                 http_1 = http_1_1;
@@ -78,10 +24,11 @@ System.register("servers/baseServer", ['angular2/core', 'angular2/http'], functi
             (function (StatusCode) {
                 StatusCode[StatusCode["success"] = 0] = "success";
                 StatusCode[StatusCode["unauthorized"] = 100] = "unauthorized";
+                StatusCode[StatusCode["accounterror"] = 101] = "accounterror";
                 StatusCode[StatusCode["missparams"] = 200] = "missparams";
                 StatusCode[StatusCode["universal"] = 500] = "universal";
             })(StatusCode || (StatusCode = {}));
-            exports_3("StatusCode", StatusCode);
+            exports_1("StatusCode", StatusCode);
             let BaseServer = class BaseServer {
                 constructor(http) {
                     this.http = http;
@@ -122,18 +69,18 @@ System.register("servers/baseServer", ['angular2/core', 'angular2/http'], functi
                 }
             };
             BaseServer = __decorate([
-                core_3.Injectable(), 
+                core_1.Injectable(), 
                 __metadata('design:paramtypes', [http_1.Http])
             ], BaseServer);
-            exports_3("BaseServer", BaseServer);
+            exports_1("BaseServer", BaseServer);
         }
     }
 });
-System.register("servers/postServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_4, context_4) {
+System.register("servers/userServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_2, context_2) {
     "use strict";
-    var __moduleName = context_4 && context_4.id;
+    var __moduleName = context_2 && context_2.id;
     var baseServer_1;
-    var PostServer;
+    var UserServer;
     return {
         setters:[
             function (_1) {},
@@ -141,7 +88,129 @@ System.register("servers/postServer", ['rxjs/add/operator/toPromise', "servers/b
                 baseServer_1 = baseServer_1_1;
             }],
         execute: function() {
-            class PostServer extends baseServer_1.BaseServer {
+            class UserServer extends baseServer_1.BaseServer {
+                constructor(http) {
+                    super(http);
+                    this.http = http;
+                    this.userBaseUrl = '/api/user';
+                }
+                getUserInfo(username) {
+                    let url = this.userBaseUrl + '/username';
+                    return this.get(url);
+                }
+                validate(username, password) {
+                    let url = this.userBaseUrl + '/validate';
+                    return this.post(url, {
+                        username: username,
+                        password: password
+                    });
+                }
+            }
+            exports_2("UserServer", UserServer);
+        }
+    }
+});
+System.register("login/login", ['angular2/core', 'angular2/router', "servers/baseServer", "servers/userServer"], function(exports_3, context_3) {
+    "use strict";
+    var __moduleName = context_3 && context_3.id;
+    var core_2, router_1, baseServer_2, userServer_1;
+    var Login;
+    return {
+        setters:[
+            function (core_2_1) {
+                core_2 = core_2_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (baseServer_2_1) {
+                baseServer_2 = baseServer_2_1;
+            },
+            function (userServer_1_1) {
+                userServer_1 = userServer_1_1;
+            }],
+        execute: function() {
+            let Login = class Login {
+                constructor(userServer, router) {
+                    this.userServer = userServer;
+                    this.router = router;
+                }
+                login(username, password) {
+                    let self = this;
+                    this.userServer.validate(username, password).then(function (result) {
+                        if (result.code == baseServer_2.StatusCode.success) {
+                            window.localStorage.setItem('userInfo', JSON.stringify(result.data));
+                            self.loginSuccess();
+                        }
+                        else {
+                            self.loginError(result.message);
+                        }
+                    }).catch(function (result) {
+                        self.loginError(result.message);
+                    });
+                }
+                loginSuccess() {
+                    this.router.navigate(['Desktop']);
+                }
+                loginError(error) {
+                    console.log(error);
+                }
+            };
+            Login = __decorate([
+                core_2.Component({
+                    selector: 'login.login',
+                    templateUrl: 'template/login.html',
+                    providers: [userServer_1.UserServer]
+                }), 
+                __metadata('design:paramtypes', [userServer_1.UserServer, router_1.Router])
+            ], Login);
+            exports_3("Login", Login);
+        }
+    }
+});
+System.register("desktop/header", ['angular2/core', 'angular2/router'], function(exports_4, context_4) {
+    "use strict";
+    var __moduleName = context_4 && context_4.id;
+    var core_3, router_2;
+    var Header;
+    return {
+        setters:[
+            function (core_3_1) {
+                core_3 = core_3_1;
+            },
+            function (router_2_1) {
+                router_2 = router_2_1;
+            }],
+        execute: function() {
+            let Header = class Header {
+                constructor() {
+                }
+            };
+            Header = __decorate([
+                core_3.Component({
+                    'selector': 'page-header',
+                    'templateUrl': 'template/header.html',
+                    'directives': [router_2.RouterLink]
+                }), 
+                __metadata('design:paramtypes', [])
+            ], Header);
+            exports_4("Header", Header);
+        }
+    }
+});
+System.register("servers/postServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_5, context_5) {
+    "use strict";
+    var __moduleName = context_5 && context_5.id;
+    var baseServer_3;
+    var PostServer;
+    return {
+        setters:[
+            function (_2) {},
+            function (baseServer_3_1) {
+                baseServer_3 = baseServer_3_1;
+            }],
+        execute: function() {
+            class PostServer extends baseServer_3.BaseServer {
                 constructor(http) {
                     super(http);
                     this.http = http;
@@ -152,13 +221,13 @@ System.register("servers/postServer", ['rxjs/add/operator/toPromise', "servers/b
                     return this.post(url, content);
                 }
             }
-            exports_4("PostServer", PostServer);
+            exports_5("PostServer", PostServer);
         }
     }
 });
-System.register("desktop/editor/editor", ['angular2/core', "servers/postServer"], function(exports_5, context_5) {
+System.register("desktop/editor/editor", ['angular2/core', "servers/postServer"], function(exports_6, context_6) {
     "use strict";
-    var __moduleName = context_5 && context_5.id;
+    var __moduleName = context_6 && context_6.id;
     var core_4, postServer_1;
     var Editor;
     return {
@@ -209,22 +278,22 @@ System.register("desktop/editor/editor", ['angular2/core', "servers/postServer"]
                 }), 
                 __metadata('design:paramtypes', [postServer_1.PostServer])
             ], Editor);
-            exports_5("Editor", Editor);
+            exports_6("Editor", Editor);
         }
     }
 });
-System.register("desktop/navigation", ['angular2/core', 'angular2/router'], function(exports_6, context_6) {
+System.register("desktop/navigation", ['angular2/core', 'angular2/router'], function(exports_7, context_7) {
     "use strict";
-    var __moduleName = context_6 && context_6.id;
-    var core_5, router_2;
+    var __moduleName = context_7 && context_7.id;
+    var core_5, router_3;
     var Navigation;
     return {
         setters:[
             function (core_5_1) {
                 core_5 = core_5_1;
             },
-            function (router_2_1) {
-                router_2 = router_2_1;
+            function (router_3_1) {
+                router_3 = router_3_1;
             }],
         execute: function() {
             let Navigation = class Navigation {
@@ -236,17 +305,17 @@ System.register("desktop/navigation", ['angular2/core', 'angular2/router'], func
                 core_5.Component({
                     'selector': 'navigation',
                     'templateUrl': 'template/navigation.html',
-                    'directives': [router_2.RouterLink]
+                    'directives': [router_3.RouterLink]
                 }), 
-                __metadata('design:paramtypes', [router_2.Router])
+                __metadata('design:paramtypes', [router_3.Router])
             ], Navigation);
-            exports_6("Navigation", Navigation);
+            exports_7("Navigation", Navigation);
         }
     }
 });
-System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_7, context_7) {
+System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_8, context_8) {
     "use strict";
-    var __moduleName = context_7 && context_7.id;
+    var __moduleName = context_8 && context_8.id;
     var core_6;
     var Dashboard;
     return {
@@ -264,13 +333,13 @@ System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_7
                 }), 
                 __metadata('design:paramtypes', [])
             ], Dashboard);
-            exports_7("Dashboard", Dashboard);
+            exports_8("Dashboard", Dashboard);
         }
     }
 });
-System.register("desktop/panel/article", ['angular2/core'], function(exports_8, context_8) {
+System.register("desktop/panel/article", ['angular2/core'], function(exports_9, context_9) {
     "use strict";
-    var __moduleName = context_8 && context_8.id;
+    var __moduleName = context_9 && context_9.id;
     var core_7;
     var Article;
     return {
@@ -288,22 +357,22 @@ System.register("desktop/panel/article", ['angular2/core'], function(exports_8, 
                 }), 
                 __metadata('design:paramtypes', [])
             ], Article);
-            exports_8("Article", Article);
+            exports_9("Article", Article);
         }
     }
 });
-System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "desktop/navigation", "desktop/panel/dashboard", "desktop/panel/article"], function(exports_9, context_9) {
+System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "desktop/navigation", "desktop/panel/dashboard", "desktop/panel/article"], function(exports_10, context_10) {
     "use strict";
-    var __moduleName = context_9 && context_9.id;
-    var core_8, router_3, navigation_1, dashboard_1, article_1;
+    var __moduleName = context_10 && context_10.id;
+    var core_8, router_4, navigation_1, dashboard_1, article_1;
     var Panel;
     return {
         setters:[
             function (core_8_1) {
                 core_8 = core_8_1;
             },
-            function (router_3_1) {
-                router_3 = router_3_1;
+            function (router_4_1) {
+                router_4 = router_4_1;
             },
             function (navigation_1_1) {
                 navigation_1 = navigation_1_1;
@@ -324,30 +393,30 @@ System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "des
                 core_8.Component({
                     'selector': 'panel',
                     'templateUrl': 'template/panel.html',
-                    'directives': [router_3.RouterLink, router_3.ROUTER_DIRECTIVES, navigation_1.Navigation]
+                    'directives': [router_4.RouterLink, router_4.ROUTER_DIRECTIVES, navigation_1.Navigation]
                 }),
-                router_3.RouteConfig([
+                router_4.RouteConfig([
                     { path: '/', component: dashboard_1.Dashboard, as: 'Dashboard', useAsDefault: true },
                     { path: '/article', component: article_1.Article, as: 'Article' }
                 ]), 
-                __metadata('design:paramtypes', [router_3.Router])
+                __metadata('design:paramtypes', [router_4.Router])
             ], Panel);
-            exports_9("Panel", Panel);
+            exports_10("Panel", Panel);
         }
     }
 });
-System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop/header", "desktop/editor/editor", "desktop/panel/panel"], function(exports_10, context_10) {
+System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop/header", "desktop/editor/editor", "desktop/panel/panel"], function(exports_11, context_11) {
     "use strict";
-    var __moduleName = context_10 && context_10.id;
-    var core_9, router_4, header_1, editor_1, panel_1;
+    var __moduleName = context_11 && context_11.id;
+    var core_9, router_5, header_1, editor_1, panel_1;
     var Desktop;
     return {
         setters:[
             function (core_9_1) {
                 core_9 = core_9_1;
             },
-            function (router_4_1) {
-                router_4 = router_4_1;
+            function (router_5_1) {
+                router_5 = router_5_1;
             },
             function (header_1_1) {
                 header_1 = header_1_1;
@@ -368,57 +437,30 @@ System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop
                 core_9.Component({
                     'selector': 'desktop.desktop',
                     'templateUrl': 'template/desktop.html',
-                    'directives': [router_4.RouterLink, router_4.ROUTER_DIRECTIVES, header_1.Header]
+                    'directives': [router_5.RouterLink, router_5.ROUTER_DIRECTIVES, header_1.Header]
                 }),
-                router_4.RouteConfig([
+                router_5.RouteConfig([
                     { path: '/...', component: panel_1.Panel, as: 'Panel', useAsDefault: true },
                     { path: '/editor', component: editor_1.Editor, as: 'Editor' },
                 ]), 
-                __metadata('design:paramtypes', [router_4.Router])
+                __metadata('design:paramtypes', [router_5.Router])
             ], Desktop);
-            exports_10("Desktop", Desktop);
-        }
-    }
-});
-System.register("servers/userServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_11, context_11) {
-    "use strict";
-    var __moduleName = context_11 && context_11.id;
-    var baseServer_2;
-    var UserServer;
-    return {
-        setters:[
-            function (_2) {},
-            function (baseServer_2_1) {
-                baseServer_2 = baseServer_2_1;
-            }],
-        execute: function() {
-            class UserServer extends baseServer_2.BaseServer {
-                constructor(http) {
-                    super(http);
-                    this.http = http;
-                    this.userBaseUrl = '/api/user';
-                }
-                getUserInfo(username) {
-                    let url = this.userBaseUrl + '/username';
-                    return this.get(url);
-                }
-            }
-            exports_11("UserServer", UserServer);
+            exports_11("Desktop", Desktop);
         }
     }
 });
 System.register("app", ['angular2/core', 'angular2/router', "login/login", "desktop/desktop"], function(exports_12, context_12) {
     "use strict";
     var __moduleName = context_12 && context_12.id;
-    var core_10, router_5, login_1, desktop_1;
+    var core_10, router_6, login_1, desktop_1;
     var App;
     return {
         setters:[
             function (core_10_1) {
                 core_10 = core_10_1;
             },
-            function (router_5_1) {
-                router_5 = router_5_1;
+            function (router_6_1) {
+                router_6 = router_6_1;
             },
             function (login_1_1) {
                 login_1 = login_1_1;
@@ -440,7 +482,7 @@ System.register("app", ['angular2/core', 'angular2/router', "login/login", "desk
                 }
                 checkLogin() {
                     if (!this.router.isRouteActive(this.router.generate(['Login']))) {
-                        let userInfo = window.localStorage.getItem('userInfo');
+                        let userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
                         if (!userInfo) {
                             this.router.navigate(['/Login']);
                         }
@@ -451,13 +493,13 @@ System.register("app", ['angular2/core', 'angular2/router', "login/login", "desk
                 core_10.Component({
                     'selector': 'body',
                     'templateUrl': 'template/main.html',
-                    'directives': [router_5.RouterLink, router_5.ROUTER_DIRECTIVES]
+                    'directives': [router_6.RouterLink, router_6.ROUTER_DIRECTIVES]
                 }),
-                router_5.RouteConfig([
+                router_6.RouteConfig([
                     { path: '/Login', component: login_1.Login, as: 'Login', useAsDefault: true },
                     { path: '/...', component: desktop_1.Desktop, as: 'Desktop' }
                 ]), 
-                __metadata('design:paramtypes', [router_5.Router])
+                __metadata('design:paramtypes', [router_6.Router])
             ], App);
             exports_12("App", App);
         }
@@ -479,7 +521,7 @@ System.import('main');
 System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', 'angular2/http', "app"], function(exports_13, context_13) {
     "use strict";
     var __moduleName = context_13 && context_13.id;
-    var browser_1, core_11, router_6, http_2, app_1;
+    var browser_1, core_11, router_7, http_2, app_1;
     return {
         setters:[
             function (browser_1_1) {
@@ -488,8 +530,8 @@ System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2
             function (core_11_1) {
                 core_11 = core_11_1;
             },
-            function (router_6_1) {
-                router_6 = router_6_1;
+            function (router_7_1) {
+                router_7 = router_7_1;
             },
             function (http_2_1) {
                 http_2 = http_2_1;
@@ -498,7 +540,7 @@ System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2
                 app_1 = app_1_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_1.App, [router_6.ROUTER_PROVIDERS, http_2.HTTP_PROVIDERS, core_11.provide(router_6.LocationStrategy, { useClass: router_6.HashLocationStrategy })]);
+            browser_1.bootstrap(app_1.App, [router_7.ROUTER_PROVIDERS, http_2.HTTP_PROVIDERS, core_11.provide(router_7.LocationStrategy, { useClass: router_7.HashLocationStrategy })]);
         }
     }
 });

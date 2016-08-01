@@ -2,6 +2,7 @@
 (function (StatusCode) {
     StatusCode[StatusCode["success"] = 0] = "success";
     StatusCode[StatusCode["unauthorized"] = 100] = "unauthorized";
+    StatusCode[StatusCode["accounterror"] = 101] = "accounterror";
     StatusCode[StatusCode["missparams"] = 200] = "missparams";
     StatusCode[StatusCode["universal"] = 500] = "universal";
 })(exports.StatusCode || (exports.StatusCode = {}));

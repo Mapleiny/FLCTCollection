@@ -21,10 +21,21 @@ export interface IUser extends M.Document{
 	lastLogin: Date;
 
 	authenticate(password: String): boolean;
+	exportFilter():Object;
 }
 
 UserSchema.methods.authenticate = function(password: String): boolean{
 	return password == this.password;
+}
+
+UserSchema.methods.exportFilter = function():Object{
+	return {
+		nickname: this.nickname,
+		avatar: this.avatar,
+		username: this.username,
+		registerData: this.registerData,
+		lastLogin: this.lastLogin
+	}
 }
 
 export interface IUserModel extends M.Model<IUser>{

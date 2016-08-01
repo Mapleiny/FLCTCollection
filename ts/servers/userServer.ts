@@ -1,5 +1,5 @@
 import {BaseServer, StatusCode,ResponseObject} from './baseServer'
-import {UserModel,IUserModel} from '../models/userModel'
+import {UserModel,IUserModel,IUser} from '../models/userModel'
 
 
 class UserServer extends BaseServer {
@@ -7,19 +7,19 @@ class UserServer extends BaseServer {
 		super();
 	}
 
-	getByUserName(userName:String):Promise<ResponseObject<any>>{
+	getByUserName(userName:String):Promise<ResponseObject<IUser>>{
 		let self = this;
 		return new Promise(function(resolve,reject){
 			if(userName&&userName.length>0) {
-				UserModel.findByUsername(userName,function(err,user:IUserModel){
+				UserModel.findByUsername(userName,function(err,users:[IUser]){
 					if(err) {
-						reject(self.createResponse<any>(StatusCode.universal,err.message));
+						reject(self.createResponse<IUser>(StatusCode.universal,err.message));
 					}else{
-						resolve(self.createResponse<IUserModel>(StatusCode.success,null,user));
+						resolve(self.createResponse<IUser>(StatusCode.success,'ok',users[0]));
 					}
 				});
 			}else{
-				reject(self.createResponse<any>(StatusCode.missparams,"miss params"));
+				reject(self.createResponse<IUser>(StatusCode.missparams,"miss params"));
 			}
 		});
 	}
@@ -39,7 +39,7 @@ class UserServer extends BaseServer {
 					if(err) {
 						reject(self.createResponse<any>(StatusCode.universal,err.message));
 					}else{
-						resolve(self.createResponse<IUserModel>(StatusCode.success,null,savedUser));
+						resolve(self.createResponse<IUserModel>(StatusCode.success,'ok',savedUser));
 					}
 				});
 
