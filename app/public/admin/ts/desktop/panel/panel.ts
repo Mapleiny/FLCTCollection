@@ -6,7 +6,7 @@ import {Dashboard} from './dashboard'
 import {Article} from './article'
 
 @Component({
-	'selector': 'panel',
+	'selector': 'panel.admin-panel',
     'templateUrl': 'template/panel.html',
     'directives': [RouterLink,ROUTER_DIRECTIVES,Navigation]
 })

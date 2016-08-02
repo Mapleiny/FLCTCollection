@@ -519,22 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "app/public/blog/less/main.less",
-			"settings":
-			{
-				"buffer_size": 66,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/public/blog/ts/main.ts",
-			"settings":
-			{
-				"buffer_size": 42,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -629,13 +613,14 @@
 	],
 	"file_history":
 	[
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/blog-admin.sublime-project",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/main.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/blogRouter.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/tsconfig.json",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/tsconfig.json",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/router.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/admin/index.ejs",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/adminRouter.ts",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/main.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/nav.less",
 		"/Users/mapleiny/Documents/Work/sublime-project/collection.sublime-project",
 		"/Users/mapleiny/Library/Application Support/Sublime Text 3/Packages/Less2Css/less2css.sublime-settings",
@@ -755,8 +740,7 @@
 		"/Users/mapleiny/Desktop/chartAdmin/ts/main.ts",
 		"/Users/mapleiny/Desktop/chartAdmin/node_modules/lite-server/lib/config-defaults.js",
 		"/Users/mapleiny/Downloads/DMVancyPPT/VancyDMppt.html",
-		"/Users/mapleiny/Desktop/chartAdmin/app/run.js",
-		"/Users/mapleiny/Desktop/chartAdmin/manifest.json"
+		"/Users/mapleiny/Desktop/chartAdmin/app/run.js"
 	],
 	"find":
 	{
@@ -929,72 +913,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "app/public/blog/less/main.less",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 66,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LESS/LESS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/public/blog/ts/main.ts",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 42,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								42,
-								42
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"typescript_plugin_format_options":
-							{
-								"convertTabsToSpaces": false,
-								"indentSize": 4,
-								"tabSize": 4
-							},
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1073,10 +993,10 @@
 		[
 			[
 				"",
-				"~/Documents/Work/sublime-project/collection.sublime-project"
+				"~/Documents/Work/sublime-project/FLCTChartCreate.sublime-project"
 			]
 		],
-		"width": 380.0
+		"width": 477.0
 	},
 	"select_symbol":
 	{

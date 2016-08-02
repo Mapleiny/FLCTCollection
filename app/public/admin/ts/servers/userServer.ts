@@ -11,8 +11,6 @@ export interface IUser{
 	nickname: String;
 	avatar: String;
 	username: String;
-	password: String;
-	encryptedPassword: String;
 	registerData: Date;
 	lastLogin: Date;
 }

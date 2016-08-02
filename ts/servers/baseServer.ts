@@ -27,11 +27,40 @@ export interface ResponseArray<T>{
 
 export class BaseServer{
 	constructor(){}
-	createResponse<T>(code:StatusCode,message:String,data?:T):ResponseObject<T>{
+
+	commonBDResponse(reject,callBack){
+		let self = this;
+		return function(error,data){
+			if(error) {
+				reject(self.createErrorResponse<any>(StatusCode.universal,error.message));
+			}else{
+				callBack(data);
+			}
+		}
+	}
+
+	createResponse<T>(data?:T):ResponseObject<T>{
+		return {
+			code : StatusCode.success,
+			message : 'ok',
+			data : data
+		}
+	}
+	createArrayResponse<T>(data:[T],page?:Number,count?:Number):ResponseArray<T>{
+		return {
+			code : StatusCode.success,
+			message : 'ok',
+			data : {
+				page:page||0,
+				count:count||data.length,
+				list:data
+			}
+		}
+	}
+	createErrorResponse<T>(code:StatusCode,message?:String):ResponseObject<T>{
 		return {
 			code : code,
-			message : message,
-			data : data
+			message : message||'error'
 		}
 	}
 }

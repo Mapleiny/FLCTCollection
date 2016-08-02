@@ -59,6 +59,9 @@ System.register("servers/baseServer", ['angular2/core', 'angular2/http'], functi
                         .then(this.extractData)
                         .catch(this.handleError);
                 }
+                componentUrl(path) {
+                    return this.baseUrl + '/' + path;
+                }
                 extractData(res) {
                     let body = res.json();
                     return body || {};
@@ -198,11 +201,11 @@ System.register("desktop/header", ['angular2/core', 'angular2/router'], function
         }
     }
 });
-System.register("servers/postServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_5, context_5) {
+System.register("servers/blogServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_5, context_5) {
     "use strict";
     var __moduleName = context_5 && context_5.id;
     var baseServer_3;
-    var PostServer;
+    var BlogServer;
     return {
         setters:[
             function (_2) {},
@@ -210,38 +213,42 @@ System.register("servers/postServer", ['rxjs/add/operator/toPromise', "servers/b
                 baseServer_3 = baseServer_3_1;
             }],
         execute: function() {
-            class PostServer extends baseServer_3.BaseServer {
+            class BlogServer extends baseServer_3.BaseServer {
                 constructor(http) {
                     super(http);
                     this.http = http;
                     this.baseUrl = '/api/blog';
                 }
                 public(content) {
-                    let url = this.baseUrl + '/post';
+                    let url = this.componentUrl('post');
                     return this.post(url, content);
                 }
+                list() {
+                    let url = this.componentUrl('posts');
+                    return this.get(url);
+                }
             }
-            exports_5("PostServer", PostServer);
+            exports_5("BlogServer", BlogServer);
         }
     }
 });
-System.register("desktop/editor/editor", ['angular2/core', "servers/postServer"], function(exports_6, context_6) {
+System.register("desktop/editor/editor", ['angular2/core', "servers/blogServer"], function(exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
-    var core_4, postServer_1;
+    var core_4, blogServer_1;
     var Editor;
     return {
         setters:[
             function (core_4_1) {
                 core_4 = core_4_1;
             },
-            function (postServer_1_1) {
-                postServer_1 = postServer_1_1;
+            function (blogServer_1_1) {
+                blogServer_1 = blogServer_1_1;
             }],
         execute: function() {
             let Editor = class Editor {
-                constructor(postServer) {
-                    this.postServer = postServer;
+                constructor(blogServer) {
+                    this.blogServer = blogServer;
                 }
                 ngAfterViewInit() {
                     tinymce.init({
@@ -261,10 +268,10 @@ System.register("desktop/editor/editor", ['angular2/core', "servers/postServer"]
                     // console.log(tinymce.Editor.schema.getCustomElements());
                 }
                 post() {
-                    this.postContent = tinymce.activeEditor.getContent();
-                    this.postServer.public({
-                        title: this.postTitle,
-                        content: this.postContent
+                    this.blogContent = tinymce.activeEditor.getContent();
+                    this.blogServer.public({
+                        title: this.blogTitle,
+                        content: this.blogContent
                     }).then(function (data) {
                         console.log(data);
                     });
@@ -274,9 +281,9 @@ System.register("desktop/editor/editor", ['angular2/core', "servers/postServer"]
                 core_4.Component({
                     selector: 'editor.editor',
                     templateUrl: 'template/editor.html',
-                    providers: [postServer_1.PostServer]
+                    providers: [blogServer_1.BlogServer]
                 }), 
-                __metadata('design:paramtypes', [postServer_1.PostServer])
+                __metadata('design:paramtypes', [blogServer_1.BlogServer])
             ], Editor);
             exports_6("Editor", Editor);
         }
@@ -337,25 +344,52 @@ System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_8
         }
     }
 });
-System.register("desktop/panel/article", ['angular2/core'], function(exports_9, context_9) {
+System.register("desktop/panel/article", ['angular2/core', "servers/baseServer", "servers/blogServer"], function(exports_9, context_9) {
     "use strict";
     var __moduleName = context_9 && context_9.id;
-    var core_7;
+    var core_7, baseServer_4, blogServer_2;
     var Article;
     return {
         setters:[
             function (core_7_1) {
                 core_7 = core_7_1;
+            },
+            function (baseServer_4_1) {
+                baseServer_4 = baseServer_4_1;
+            },
+            function (blogServer_2_1) {
+                blogServer_2 = blogServer_2_1;
             }],
         execute: function() {
             let Article = class Article {
+                constructor(blogServer) {
+                    this.blogServer = blogServer;
+                }
+                ngOnInit() {
+                    let self = this;
+                    this.blogServer.list().then(function (result) {
+                        if (result.code == baseServer_4.StatusCode.success) {
+                            self.blogList = result.data.list;
+                            self.count = result.data.count;
+                            self.page = result.data.page;
+                        }
+                        else {
+                            console.log(result);
+                        }
+                    }).catch(function (result) {
+                        console.log(result);
+                    });
+                }
+                noData() {
+                }
             };
             Article = __decorate([
                 core_7.Component({
-                    'selector': 'article.article',
-                    'templateUrl': 'template/article.html'
+                    selector: 'article.article',
+                    templateUrl: 'template/article.html',
+                    providers: [blogServer_2.BlogServer]
                 }), 
-                __metadata('design:paramtypes', [])
+                __metadata('design:paramtypes', [blogServer_2.BlogServer])
             ], Article);
             exports_9("Article", Article);
         }
@@ -391,7 +425,7 @@ System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "des
             };
             Panel = __decorate([
                 core_8.Component({
-                    'selector': 'panel',
+                    'selector': 'panel.admin-panel',
                     'templateUrl': 'template/panel.html',
                     'directives': [router_4.RouterLink, router_4.ROUTER_DIRECTIVES, navigation_1.Navigation]
                 }),

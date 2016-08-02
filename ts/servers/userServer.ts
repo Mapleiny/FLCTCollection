@@ -11,15 +11,11 @@ class UserServer extends BaseServer {
 		let self = this;
 		return new Promise(function(resolve,reject){
 			if(userName&&userName.length>0) {
-				UserModel.findByUsername(userName,function(err,users:[IUser]){
-					if(err) {
-						reject(self.createResponse<IUser>(StatusCode.universal,err.message));
-					}else{
-						resolve(self.createResponse<IUser>(StatusCode.success,'ok',users[0]));
-					}
-				});
+				UserModel.findByUsername(userName,self.commonBDResponse(reject,function(users){
+					resolve(self.createResponse<IUser>(users[0]));
+				}));
 			}else{
-				reject(self.createResponse<IUser>(StatusCode.missparams,"miss params"));
+				reject(self.createErrorResponse<IUser>(StatusCode.missparams,"miss params"));
 			}
 		});
 	}
@@ -35,16 +31,11 @@ class UserServer extends BaseServer {
 					registerData: new Date(),
 					lastLogin: new Date()
 				});
-				newUser.save(function(err,savedUser:IUserModel){
-					if(err) {
-						reject(self.createResponse<any>(StatusCode.universal,err.message));
-					}else{
-						resolve(self.createResponse<IUserModel>(StatusCode.success,'ok',savedUser));
-					}
-				});
-
+				newUser.save(self.commonBDResponse(reject,function(savedUser:IUserModel){
+					resolve(self.createResponse<IUserModel>(savedUser));
+				}));
 			}else{
-				reject(self.createResponse<any>(StatusCode.missparams,"miss params"));
+				reject(self.createErrorResponse<any>(StatusCode.missparams,"miss params"));
 			}
 		});
 	}

@@ -29,10 +29,10 @@ export let apiRouter = function(router:express.Router){
 		req.body.author = req.session['user_id'];
 		blogServer.publicPost(req.body).then(defaultResponse(res)).catch(defaultResponse(res));
 	});
-	router.get('/api/post/:id',function(req,res){
+	router.get('/api/blog/post/:id',function(req,res){
 
 	});
-	router.get('/api/posts',function(req,res){
+	router.get('/api/blog/posts',function(req,res){
 		blogServer.getPosts().then(defaultResponse(res));
 	});
 

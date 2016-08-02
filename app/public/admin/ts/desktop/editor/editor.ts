@@ -1,17 +1,17 @@
 import {Component,AfterViewInit} from 'angular2/core';
-import {PostServer,PostContent} from '../../servers/postServer'
+import {BlogServer,IBlog} from '../../servers/blogServer'
 
 @Component({
 	selector: 'editor.editor',
 	templateUrl: 'template/editor.html',
-	providers:[PostServer]
+	providers:[BlogServer]
 })
 
 export class Editor implements AfterViewInit {
-	postTitle:String;
-	postContent:String;
+	blogTitle:String;
+	blogContent:String;
 
-	constructor(public postServer:PostServer) {
+	constructor(public blogServer:BlogServer) {
 	}
 
 	ngAfterViewInit() {
@@ -32,10 +32,10 @@ export class Editor implements AfterViewInit {
 		// console.log(tinymce.Editor.schema.getCustomElements());
 	}
 	post(){
-		this.postContent = tinymce.activeEditor.getContent();
-		this.postServer.public({
-			title:this.postTitle,
-			content: this.postContent
+		this.blogContent = tinymce.activeEditor.getContent();
+		this.blogServer.public({
+			title:this.blogTitle,
+			content: this.blogContent
 		}).then(function(data){
 			console.log(data);
 		});

@@ -1,0 +1,27 @@
+<!-- 搜索 -->
+
+
+<!-- 列表 -->
+<table class="table table-light">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td width="60%">Title</td>
+			<td>Post date</td>
+			<td>Operation</td>
+		</tr>
+	</thead>
+	<tbody>
+		
+		<tr *ngFor="#blog of blogList">
+			<td></td>
+			<td>{{blog.title}}</td>
+			<td>{{blog.postTime}}</td>
+			<td>
+				<a href="javascript:;" class="btn btn-danger btn-xs">Delete</a>
+				<a href="javascript:;" class="btn btn-warning btn-xs">Modify</a>
+				<a href="javascript:;" class="btn btn-info btn-xs">Preview</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

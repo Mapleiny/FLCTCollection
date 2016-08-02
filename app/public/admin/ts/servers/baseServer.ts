@@ -30,6 +30,9 @@ export interface ResponseArray<T>{
 
 @Injectable()
 export class BaseServer{
+	baseUrl: String;
+
+
 	constructor(public http:Http){
 	}
 
@@ -60,6 +63,10 @@ export class BaseServer{
 			.toPromise()
 			.then(this.extractData)
 			.catch(this.handleError);
+	}
+
+	componentUrl(path){
+		return this.baseUrl+'/'+path;
 	}
 
 	extractData(res: Response) {

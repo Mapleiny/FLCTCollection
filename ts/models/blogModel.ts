@@ -1,4 +1,6 @@
 import {DB,M} from '../db/baseDB'
+import {UserModel,IUser} from './userModel'
+
 
 
 // content
@@ -17,6 +19,7 @@ export interface IBlog extends M.Document{
 	_id : String;
 	title: String;
 	subTitle: String;
+	author:IUser;
 	content: String;
 	postTime: Date;
 	updateTime: Date;

@@ -9,17 +9,12 @@ class UserServer extends baseServer_1.BaseServer {
         let self = this;
         return new Promise(function (resolve, reject) {
             if (userName && userName.length > 0) {
-                userModel_1.UserModel.findByUsername(userName, function (err, users) {
-                    if (err) {
-                        reject(self.createResponse(baseServer_1.StatusCode.universal, err.message));
-                    }
-                    else {
-                        resolve(self.createResponse(baseServer_1.StatusCode.success, 'ok', users[0]));
-                    }
-                });
+                userModel_1.UserModel.findByUsername(userName, self.commonBDResponse(reject, function (users) {
+                    resolve(self.createResponse(users[0]));
+                }));
             }
             else {
-                reject(self.createResponse(baseServer_1.StatusCode.missparams, "miss params"));
+                reject(self.createErrorResponse(baseServer_1.StatusCode.missparams, "miss params"));
             }
         });
     }
@@ -35,17 +30,12 @@ class UserServer extends baseServer_1.BaseServer {
                     registerData: new Date(),
                     lastLogin: new Date()
                 });
-                newUser.save(function (err, savedUser) {
-                    if (err) {
-                        reject(self.createResponse(baseServer_1.StatusCode.universal, err.message));
-                    }
-                    else {
-                        resolve(self.createResponse(baseServer_1.StatusCode.success, 'ok', savedUser));
-                    }
-                });
+                newUser.save(self.commonBDResponse(reject, function (savedUser) {
+                    resolve(self.createResponse(savedUser));
+                }));
             }
             else {
-                reject(self.createResponse(baseServer_1.StatusCode.missparams, "miss params"));
+                reject(self.createErrorResponse(baseServer_1.StatusCode.missparams, "miss params"));
             }
         });
     }

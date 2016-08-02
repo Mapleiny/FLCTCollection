@@ -24,9 +24,9 @@ exports.apiRouter = function (router) {
         req.body.author = req.session['user_id'];
         blogServer_1.blogServer.publicPost(req.body).then(defaultResponse(res)).catch(defaultResponse(res));
     });
-    router.get('/api/post/:id', function (req, res) {
+    router.get('/api/blog/post/:id', function (req, res) {
     });
-    router.get('/api/posts', function (req, res) {
+    router.get('/api/blog/posts', function (req, res) {
         blogServer_1.blogServer.getPosts().then(defaultResponse(res));
     });
     // user

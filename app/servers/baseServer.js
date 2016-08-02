@@ -10,11 +10,39 @@ var StatusCode = exports.StatusCode;
 class BaseServer {
     constructor() {
     }
-    createResponse(code, message, data) {
+    commonBDResponse(reject, callBack) {
+        let self = this;
+        return function (error, data) {
+            if (error) {
+                reject(self.createErrorResponse(StatusCode.universal, error.message));
+            }
+            else {
+                callBack(data);
+            }
+        };
+    }
+    createResponse(data) {
+        return {
+            code: StatusCode.success,
+            message: 'ok',
+            data: data
+        };
+    }
+    createArrayResponse(data, page, count) {
+        return {
+            code: StatusCode.success,
+            message: 'ok',
+            data: {
+                page: page || 0,
+                count: count || data.length,
+                list: data
+            }
+        };
+    }
+    createErrorResponse(code, message) {
         return {
             code: code,
-            message: message,
-            data: data
+            message: message || 'error'
         };
     }
 }

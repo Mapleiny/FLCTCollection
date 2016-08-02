@@ -17,27 +17,28 @@ class BlogServer extends BaseServer {
 					postTime: data.postDate || new Date()
 				});
 
-				blog.save(function(err,savedBlog:IBlogModel){
-					if(err) {
-						reject(self.createResponse<any>(StatusCode.universal,err.message));
-					}else{
-						resolve(self.createResponse<IBlogModel>(StatusCode.success,null,savedBlog));
-					}
-				});
+				blog.save(self.commonBDResponse(reject,function(savedBlog:IBlogModel){
+					resolve(self.createResponse<IBlogModel>(savedBlog));
+				}));
 			}else{
-				reject(self.createResponse<any>(StatusCode.missparams,"miss params"));
+				reject(self.createErrorResponse<any>(StatusCode.missparams,"miss params"));
 			}
 		});
 	}
 	getPosts():Promise<any>{
+		let self = this;
 		return new Promise(function(resolve,reject){
-			BlogModel.find(function(err,blogs){
-				if(err) {
-					reject(err);
-				}else{
-					resolve(blogs);
-				}
-			});
+			BlogModel.find(self.commonBDResponse(reject,function(blogs:[IBlogModel]){
+				resolve(self.createArrayResponse(blogs));
+			}));
+		});
+	}
+	deletePosts(postIds):Promise<any>{
+		let self = this;
+		return new Promise(function(resolve,reject){
+			BlogModel.find(self.commonBDResponse(reject,function(blogs:[IBlogModel]){
+				resolve(self.createArrayResponse(blogs));
+			}));
 		});
 	}
 }

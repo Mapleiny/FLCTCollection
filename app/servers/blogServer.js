@@ -14,30 +14,21 @@ class BlogServer extends baseServer_1.BaseServer {
                     content: data.content,
                     postTime: data.postDate || new Date()
                 });
-                blog.save(function (err, savedBlog) {
-                    if (err) {
-                        reject(self.createResponse(baseServer_1.StatusCode.universal, err.message));
-                    }
-                    else {
-                        resolve(self.createResponse(baseServer_1.StatusCode.success, null, savedBlog));
-                    }
-                });
+                blog.save(self.commonBDResponse(reject, function (savedBlog) {
+                    resolve(self.createResponse(savedBlog));
+                }));
             }
             else {
-                reject(self.createResponse(baseServer_1.StatusCode.missparams, "miss params"));
+                reject(self.createErrorResponse(baseServer_1.StatusCode.missparams, "miss params"));
             }
         });
     }
     getPosts() {
+        let self = this;
         return new Promise(function (resolve, reject) {
-            blogModel_1.BlogModel.find(function (err, blogs) {
-                if (err) {
-                    reject(err);
-                }
-                else {
-                    resolve(blogs);
-                }
-            });
+            blogModel_1.BlogModel.find(self.commonBDResponse(reject, function (blogs) {
+                resolve(self.createArrayResponse(blogs));
+            }));
         });
     }
 }
