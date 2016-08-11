@@ -1,4 +1,6 @@
 import {Component} from 'angular2/core';
+import {Router} from 'angular2/router'
+import {Editor} from '../editor/editor'
 import {StatusCode} from '../../servers/baseServer'
 import {BlogServer,IBlog} from '../../servers/blogServer'
 
@@ -14,7 +16,10 @@ export class Article{
 	count : Number;
 	page : Number
 
-	constructor(private blogServer:BlogServer){
+	constructor(
+		private blogServer:BlogServer,
+		public router:Router
+	){
 	}
 
 	ngOnInit(){
@@ -30,5 +35,9 @@ export class Article{
 		}).catch(function(result){
 			console.log(result);
 		});
+	}
+
+	editContent(id:Number){
+		this.router.navigate(['/Desktop/Editor',{id:id}]);
 	}
 }

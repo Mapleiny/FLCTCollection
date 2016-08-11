@@ -19,7 +19,16 @@ exports.blogRouter = function (router, staticManager) {
         blogServer_1.blogServer.getPosts().then(function (result) {
             res.render('index', {
                 'title': 'Blog',
-                'articles': result,
+                'articles': result.data.list,
+                'static': staticManager.createStatic(cssPaths, jsPaths)
+            });
+        });
+    });
+    router.get('/post/:id', function (req, res) {
+        blogServer_1.blogServer.getPost(req.params.id).then(function (result) {
+            res.render('blog/detail', {
+                'title': result.data.title,
+                'article': result.data,
                 'static': staticManager.createStatic(cssPaths, jsPaths)
             });
         });

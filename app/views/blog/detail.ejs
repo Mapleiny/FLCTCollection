@@ -1,17 +1,22 @@
+<% include ../common/header %>
+<body class="blog">
+<% include ../common/navigation %>
 <section class="blog-detail">
 	<!-- <section class="banner" style="background-image:url(/images/banner.jpg);">
 	</section>
  -->	<header class="blog-detail-header">
-		<h1><%=title%></h1>
-		<%if(subTitle.length){%>
-		<h2><span><%=subTitle%></span></h2>
+		<h1><%=article.title%></h1>
+		<%if(article.subTitle){%>
+		<h2><span><%=article.subTitle%></span></h2>
 		<%}%>
 	</header>
 	<section class="blog-detail-content">
-		<%=content%>
+		<%-article.content%>
 	</section>
 	<footer class="blog-detail-footer">
 		<% include tags %>
-		<time><%=postDate%></time>
+		<time><%=article.postDate%></time>
 	</footer>
 </section>
+</body>
+<% include ../common/footer %>

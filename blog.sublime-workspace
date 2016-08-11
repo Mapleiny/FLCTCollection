@@ -519,6 +519,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "app/public/blog/ts/main.ts",
+			"settings":
+			{
+				"buffer_size": 42,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -607,12 +615,16 @@
 	[
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/css",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/fonts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/images",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/js",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts"
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/typings"
 	],
 	"file_history":
 	[
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/common.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/blog-admin.sublime-project",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/main.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/blogRouter.ts",
@@ -625,7 +637,6 @@
 		"/Users/mapleiny/Documents/Work/sublime-project/collection.sublime-project",
 		"/Users/mapleiny/Library/Application Support/Sublime Text 3/Packages/Less2Css/less2css.sublime-settings",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/css/main.css",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/common.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/tsconfig.json",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/ts/admin/main.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/less/admin/main.less",
@@ -913,8 +924,38 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "app/public/blog/ts/main.ts",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 42,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								42,
+								42
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -993,7 +1034,7 @@
 		[
 			[
 				"",
-				"~/Documents/Work/sublime-project/FLCTChartCreate.sublime-project"
+				"~/Documents/Work/sublime-project/collection.sublime-project"
 			]
 		],
 		"width": 477.0

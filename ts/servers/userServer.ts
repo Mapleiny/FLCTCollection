@@ -31,8 +31,8 @@ class UserServer extends BaseServer {
 					registerData: new Date(),
 					lastLogin: new Date()
 				});
-				newUser.save(self.commonBDResponse(reject,function(savedUser:IUserModel){
-					resolve(self.createResponse<IUserModel>(savedUser));
+				newUser.save(self.commonBDResponse(reject,function(savedUser:IUser){
+					resolve(self.createResponse<IUser>(savedUser));
 				}));
 			}else{
 				reject(self.createErrorResponse<any>(StatusCode.missparams,"miss params"));

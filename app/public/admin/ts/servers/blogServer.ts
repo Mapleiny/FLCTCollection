@@ -26,11 +26,19 @@ export class BlogServer extends BaseServer{
 
 	public(content:IBlog):Promise<ResponseObject<any>>{
 		let url = this.componentUrl('post');
-		return this.post<ResponseObject<any>>(url,content)
+		return this.post<ResponseObject<IBlog>>(url,content)
 	}
-	list(){
+	list():Promise<ResponseArray<IBlog>>{
 		let url = this.componentUrl('posts');
-		return this.get<ResponseArray<IBlog>>(url)
+		return this.get<ResponseArray<IBlog>>(url);
+	}
+	getPost(postId:String){
+		let url = this.componentUrl(['post',postId]);
+		return this.get<ResponseObject<IBlog>>(url);
+	}
+	update(id:String,content:IBlog){
+		let url = this.componentUrl(['update',id]);
+		return this.post<ResponseObject<IBlog>>(url,content)
 	}
 	delete(postIds){
 		let url = this.componentUrl('delete');

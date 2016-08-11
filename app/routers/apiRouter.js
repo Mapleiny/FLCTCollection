@@ -24,7 +24,11 @@ exports.apiRouter = function (router) {
         req.body.author = req.session['user_id'];
         blogServer_1.blogServer.publicPost(req.body).then(defaultResponse(res)).catch(defaultResponse(res));
     });
+    router.post('/api/blog/update/:id', function (req, res) {
+        blogServer_1.blogServer.updatePost(req.params.id, req.body).then(defaultResponse(res)).catch(defaultResponse(res));
+    });
     router.get('/api/blog/post/:id', function (req, res) {
+        blogServer_1.blogServer.getPost(req.params.id).then(defaultResponse(res)).catch(defaultResponse(res));
     });
     router.get('/api/blog/posts', function (req, res) {
         blogServer_1.blogServer.getPosts().then(defaultResponse(res));

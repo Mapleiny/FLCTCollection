@@ -66,6 +66,9 @@ export class BaseServer{
 	}
 
 	componentUrl(path){
+		if(path instanceof Array) {
+			path = path.join('/')
+		}
 		return this.baseUrl+'/'+path;
 	}
 

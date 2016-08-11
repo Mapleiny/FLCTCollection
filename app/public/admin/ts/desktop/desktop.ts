@@ -13,7 +13,8 @@ import {Panel} from './panel/panel'
 
 @RouteConfig([
 	{path:'/...',component:Panel, as:'Panel', useAsDefault:true},
-	{path:'/editor',component:Editor, as:'Editor'},
+	{path:'/editor-new',component:Editor, as:'EditorNew'},
+	{path:'/editor/:id',component:Editor, as:'Editor'},
 ])
 
 export class Desktop{
