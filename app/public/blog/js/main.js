@@ -7,6 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 System.register("common/navigation", ['angular2/core', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
@@ -21,19 +26,20 @@ System.register("common/navigation", ['angular2/core', 'angular2/router'], funct
                 router_1 = router_1_1;
             }],
         execute: function() {
-            let Navigation = class Navigation {
-                constructor(router) {
+            Navigation = (function () {
+                function Navigation(router) {
                     this.router = router;
                 }
-            };
-            Navigation = __decorate([
-                core_1.Component({
-                    'selector': 'header.navigation',
-                    'templateUrl': '/blog/template/navigation.html',
-                    'directives': [router_1.RouterLink]
-                }), 
-                __metadata('design:paramtypes', [router_1.Router])
-            ], Navigation);
+                Navigation = __decorate([
+                    core_1.Component({
+                        'selector': 'header.navigation',
+                        'templateUrl': '/blog/template/navigation.html',
+                        'directives': [router_1.RouterLink]
+                    }), 
+                    __metadata('design:paramtypes', [router_1.Router])
+                ], Navigation);
+                return Navigation;
+            }());
             exports_1("Navigation", Navigation);
         }
     }
@@ -60,24 +66,24 @@ System.register("servers/baseServer", ['angular2/core', 'angular2/http'], functi
                 StatusCode[StatusCode["universal"] = 500] = "universal";
             })(StatusCode || (StatusCode = {}));
             exports_2("StatusCode", StatusCode);
-            let BaseServer = class BaseServer {
-                constructor(http) {
+            BaseServer = (function () {
+                function BaseServer(http) {
                     this.http = http;
                 }
-                post(url, params, options) {
-                    let body = JSON.stringify(params);
-                    let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+                BaseServer.prototype.post = function (url, params, options) {
+                    var body = JSON.stringify(params);
+                    var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
                     options = options || new http_1.RequestOptions({ headers: headers });
                     return this.http
                         .post(url, body, options)
                         .toPromise()
                         .then(this.extractData)
                         .catch(this.handleError);
-                }
-                get(url, params, options) {
-                    let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+                };
+                BaseServer.prototype.get = function (url, params, options) {
+                    var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
                     options = options || new http_1.RequestOptions({ headers: headers });
-                    let searchParams = new http_1.URLSearchParams();
+                    var searchParams = new http_1.URLSearchParams();
                     if (params) {
                         for (var key in params) {
                             searchParams.set(key, params[key]);
@@ -89,26 +95,27 @@ System.register("servers/baseServer", ['angular2/core', 'angular2/http'], functi
                         .toPromise()
                         .then(this.extractData)
                         .catch(this.handleError);
-                }
-                componentUrl(path) {
+                };
+                BaseServer.prototype.componentUrl = function (path) {
                     if (path instanceof Array) {
                         path = path.join('/');
                     }
                     return this.baseUrl + '/' + path;
-                }
-                extractData(res) {
-                    let body = res.json();
+                };
+                BaseServer.prototype.extractData = function (res) {
+                    var body = res.json();
                     return body || {};
-                }
-                handleError(error) {
+                };
+                BaseServer.prototype.handleError = function (error) {
                     console.error('An error occurred', error);
                     return Promise.reject(error.message || error);
-                }
-            };
-            BaseServer = __decorate([
-                core_2.Injectable(), 
-                __metadata('design:paramtypes', [http_1.Http])
-            ], BaseServer);
+                };
+                BaseServer = __decorate([
+                    core_2.Injectable(), 
+                    __metadata('design:paramtypes', [http_1.Http])
+                ], BaseServer);
+                return BaseServer;
+            }());
             exports_2("BaseServer", BaseServer);
         }
     }
@@ -125,24 +132,26 @@ System.register("servers/userServer", ['rxjs/add/operator/toPromise', "servers/b
                 baseServer_1 = baseServer_1_1;
             }],
         execute: function() {
-            class UserServer extends baseServer_1.BaseServer {
-                constructor(http) {
-                    super(http);
+            UserServer = (function (_super) {
+                __extends(UserServer, _super);
+                function UserServer(http) {
+                    _super.call(this, http);
                     this.http = http;
                     this.userBaseUrl = '/api/user';
                 }
-                getUserInfo(username) {
-                    let url = this.userBaseUrl + '/username';
+                UserServer.prototype.getUserInfo = function (username) {
+                    var url = this.userBaseUrl + '/username';
                     return this.get(url);
-                }
-                validate(username, password) {
-                    let url = this.userBaseUrl + '/validate';
+                };
+                UserServer.prototype.validate = function (username, password) {
+                    var url = this.userBaseUrl + '/validate';
                     return this.post(url, {
                         username: username,
                         password: password
                     });
-                }
-            }
+                };
+                return UserServer;
+            }(baseServer_1.BaseServer));
             exports_3("UserServer", UserServer);
         }
     }
@@ -170,36 +179,38 @@ System.register("servers/blogServer", ['rxjs/add/operator/toPromise', "servers/b
                 exportStar_1(baseServer_2_1);
             }],
         execute: function() {
-            class BlogServer extends baseServer_2.BaseServer {
-                constructor(http) {
-                    super(http);
+            BlogServer = (function (_super) {
+                __extends(BlogServer, _super);
+                function BlogServer(http) {
+                    _super.call(this, http);
                     this.http = http;
                     this.baseUrl = '/api/blog';
                 }
-                public(content) {
-                    let url = this.componentUrl('post');
+                BlogServer.prototype.public = function (content) {
+                    var url = this.componentUrl('post');
                     return this.post(url, content);
-                }
-                list() {
-                    let url = this.componentUrl('posts');
+                };
+                BlogServer.prototype.list = function () {
+                    var url = this.componentUrl('posts');
                     return this.get(url);
-                }
-                getPost(postId) {
-                    let url = this.componentUrl(['post', postId]);
+                };
+                BlogServer.prototype.getPost = function (postId) {
+                    var url = this.componentUrl(['post', postId]);
                     return this.get(url);
-                }
-                update(id, content) {
-                    let url = this.componentUrl(['update', id]);
+                };
+                BlogServer.prototype.update = function (id, content) {
+                    var url = this.componentUrl(['update', id]);
                     return this.post(url, content);
-                }
-                delete(postIds) {
-                    let url = this.componentUrl('delete');
+                };
+                BlogServer.prototype.delete = function (postIds) {
+                    var url = this.componentUrl('delete');
                     if (!(postIds instanceof Array)) {
                         postIds = [postIds];
                     }
                     return this.post(url, postIds);
-                }
-            }
+                };
+                return BlogServer;
+            }(baseServer_2.BaseServer));
             exports_4("BlogServer", BlogServer);
         }
     }
@@ -227,15 +238,15 @@ System.register("blog/listView", ['angular2/core', 'angular2/router', 'angular2/
                 baseServer_4 = baseServer_4_1;
             }],
         execute: function() {
-            let ListView = class ListView {
-                constructor(blogServer, router, titleService) {
+            ListView = (function () {
+                function ListView(blogServer, router, titleService) {
                     this.blogServer = blogServer;
                     this.router = router;
                     this.titleService = titleService;
                     this.titleService.setTitle('Blog');
                 }
-                ngOnInit() {
-                    let self = this;
+                ListView.prototype.ngOnInit = function () {
+                    var self = this;
                     this.blogServer.list().then(function (result) {
                         if (result.code == baseServer_4.StatusCode.success) {
                             self.blogList = result.data.list;
@@ -248,20 +259,21 @@ System.register("blog/listView", ['angular2/core', 'angular2/router', 'angular2/
                     }).catch(function (result) {
                         console.log(result);
                     });
-                }
-                postDetail(id) {
+                };
+                ListView.prototype.postDetail = function (id) {
                     this.router.navigate(['Detail', 'dsadas']);
-                }
-            };
-            ListView = __decorate([
-                core_3.Component({
-                    'selector': 'section.blog-list',
-                    'templateUrl': '/blog/template/listView.html',
-                    'directives': [router_2.RouterLink],
-                    'providers': [blogServer_1.BlogServer, browser_1.Title]
-                }), 
-                __metadata('design:paramtypes', [blogServer_1.BlogServer, router_2.Router, browser_1.Title])
-            ], ListView);
+                };
+                ListView = __decorate([
+                    core_3.Component({
+                        'selector': 'section.blog-list',
+                        'templateUrl': '/blog/template/listView.html',
+                        'directives': [router_2.RouterLink],
+                        'providers': [blogServer_1.BlogServer, browser_1.Title]
+                    }), 
+                    __metadata('design:paramtypes', [blogServer_1.BlogServer, router_2.Router, browser_1.Title])
+                ], ListView);
+                return ListView;
+            }());
             exports_5("ListView", ListView);
         }
     }
@@ -286,8 +298,8 @@ System.register("blog/detail", ['angular2/core', 'angular2/platform/browser', 'a
                 blogServer_2 = blogServer_2_1;
             }],
         execute: function() {
-            let Detail = class Detail {
-                constructor(blogServer, router, routeParams, titleService) {
+            Detail = (function () {
+                function Detail(blogServer, router, routeParams, titleService) {
                     this.blogServer = blogServer;
                     this.router = router;
                     this.routeParams = routeParams;
@@ -297,8 +309,8 @@ System.register("blog/detail", ['angular2/core', 'angular2/platform/browser', 'a
                         content: ''
                     };
                 }
-                ngOnInit() {
-                    let self = this;
+                Detail.prototype.ngOnInit = function () {
+                    var self = this;
                     this.postId = this.routeParams.get('id');
                     this.blogServer.getPost(this.postId).then(function (result) {
                         if (result.code == blogServer_2.StatusCode.success) {
@@ -309,17 +321,18 @@ System.register("blog/detail", ['angular2/core', 'angular2/platform/browser', 'a
                             this.eidtContentId = null;
                         }
                     });
-                }
-            };
-            Detail = __decorate([
-                core_4.Component({
-                    'selector': 'section.blog-detail',
-                    'templateUrl': '/blog/template/detail.html',
-                    'directives': [router_3.RouterLink],
-                    'providers': [blogServer_2.BlogServer, browser_2.Title]
-                }), 
-                __metadata('design:paramtypes', [blogServer_2.BlogServer, router_3.Router, router_3.RouteParams, browser_2.Title])
-            ], Detail);
+                };
+                Detail = __decorate([
+                    core_4.Component({
+                        'selector': 'section.blog-detail',
+                        'templateUrl': '/blog/template/detail.html',
+                        'directives': [router_3.RouterLink],
+                        'providers': [blogServer_2.BlogServer, browser_2.Title]
+                    }), 
+                    __metadata('design:paramtypes', [blogServer_2.BlogServer, router_3.Router, router_3.RouteParams, browser_2.Title])
+                ], Detail);
+                return Detail;
+            }());
             exports_6("Detail", Detail);
         }
     }
@@ -347,22 +360,23 @@ System.register("blog/blog", ['angular2/core', 'angular2/router', "common/naviga
                 detail_1 = detail_1_1;
             }],
         execute: function() {
-            let Blog = class Blog {
-                constructor() {
+            Blog = (function () {
+                function Blog() {
                 }
-            };
-            Blog = __decorate([
-                core_5.Component({
-                    'selector': 'blog.blog',
-                    'templateUrl': '/blog/template/blog.html',
-                    'directives': [router_4.RouterLink, router_4.ROUTER_DIRECTIVES, navigation_1.Navigation]
-                }),
-                router_4.RouteConfig([
-                    { path: '/', component: listView_1.ListView, as: 'Posts', useAsDefault: true },
-                    { path: '/post/:id', component: detail_1.Detail, as: 'Detail' }
-                ]), 
-                __metadata('design:paramtypes', [])
-            ], Blog);
+                Blog = __decorate([
+                    core_5.Component({
+                        'selector': 'blog.blog',
+                        'templateUrl': '/blog/template/blog.html',
+                        'directives': [router_4.RouterLink, router_4.ROUTER_DIRECTIVES, navigation_1.Navigation]
+                    }),
+                    router_4.RouteConfig([
+                        { path: '/', component: listView_1.ListView, as: 'Posts', useAsDefault: true },
+                        { path: '/post/:id', component: detail_1.Detail, as: 'Detail' }
+                    ]), 
+                    __metadata('design:paramtypes', [])
+                ], Blog);
+                return Blog;
+            }());
             exports_7("Blog", Blog);
         }
     }
@@ -384,22 +398,23 @@ System.register("app", ['angular2/core', "blog/blog", 'angular2/router'], functi
                 router_5 = router_5_1;
             }],
         execute: function() {
-            let App = class App {
-                constructor(router) {
+            App = (function () {
+                function App(router) {
                     this.router = router;
                 }
-            };
-            App = __decorate([
-                core_6.Component({
-                    'selector': 'body',
-                    'templateUrl': '/blog/template/main.html',
-                    'directives': [router_5.RouterLink, router_5.ROUTER_DIRECTIVES]
-                }),
-                router_5.RouteConfig([
-                    { path: '/...', component: blog_1.Blog, as: 'Blog', useAsDefault: true },
-                ]), 
-                __metadata('design:paramtypes', [router_5.Router])
-            ], App);
+                App = __decorate([
+                    core_6.Component({
+                        'selector': 'body',
+                        'templateUrl': '/blog/template/main.html',
+                        'directives': [router_5.RouterLink, router_5.ROUTER_DIRECTIVES]
+                    }),
+                    router_5.RouteConfig([
+                        { path: '/...', component: blog_1.Blog, as: 'Blog', useAsDefault: true },
+                    ]), 
+                    __metadata('design:paramtypes', [router_5.Router])
+                ], App);
+                return App;
+            }());
             exports_8("App", App);
         }
     }

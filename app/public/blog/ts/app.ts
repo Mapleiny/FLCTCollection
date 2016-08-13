@@ -1,3 +1,4 @@
+///<reference path="../typings/browser.d.ts"/>
 import {Component} from 'angular2/core';
 import {Blog} from './blog/blog'
 import {Router, RouteConfig, RouterLink, ROUTER_DIRECTIVES } from 'angular2/router';

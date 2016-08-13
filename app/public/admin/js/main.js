@@ -441,6 +441,7 @@ System.register("desktop/panel/article", ['angular2/core', 'angular2/router', "s
                 core_7.Component({
                     selector: 'article.article',
                     templateUrl: 'template/article.html',
+                    directives: [router_5.RouterLink],
                     providers: [blogServer_2.BlogServer]
                 }), 
                 __metadata('design:paramtypes', [blogServer_2.BlogServer, router_5.Router])

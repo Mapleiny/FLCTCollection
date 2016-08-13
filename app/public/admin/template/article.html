@@ -15,7 +15,7 @@
 		
 		<tr *ngFor="#blog of blogList;#i=index">
 			<td>{{i+1}}</td>
-			<td><a (click)="editContent(blog._id)">{{blog.title}}</a></td>
+			<td><a [routerLink]="['/Desktop/Editor',{id:blog._id}]">{{blog.title}}</a></td>
 			<td>{{blog.postTime}}</td>
 			<td>
 				<a href="javascript:;" class="btn btn-danger btn-xs">Delete</a>

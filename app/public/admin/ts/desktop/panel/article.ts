@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {Router} from 'angular2/router'
+import {Router,RouterLink} from 'angular2/router'
 import {Editor} from '../editor/editor'
 import {StatusCode} from '../../servers/baseServer'
 import {BlogServer,IBlog} from '../../servers/blogServer'
@@ -8,6 +8,7 @@ import {BlogServer,IBlog} from '../../servers/blogServer'
 @Component({
 	selector: 'article.article',
     templateUrl: 'template/article.html',
+    directives: [RouterLink],
     providers:[BlogServer]
 })
 
