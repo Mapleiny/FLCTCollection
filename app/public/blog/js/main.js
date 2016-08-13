@@ -399,8 +399,16 @@ System.register("app", ['angular2/core', "blog/blog", 'angular2/router'], functi
             }],
         execute: function() {
             App = (function () {
-                function App(router) {
+                function App(applicationRef, router) {
+                    var _this = this;
+                    this.applicationRef = applicationRef;
                     this.router = router;
+                    this.router.subscribe(function () {
+                        _this.applicationRef.tick();
+                        setTimeout(function () {
+                            _this.applicationRef.tick();
+                        }, 100);
+                    });
                 }
                 App = __decorate([
                     core_6.Component({
@@ -411,7 +419,7 @@ System.register("app", ['angular2/core', "blog/blog", 'angular2/router'], functi
                     router_5.RouteConfig([
                         { path: '/...', component: blog_1.Blog, as: 'Blog', useAsDefault: true },
                     ]), 
-                    __metadata('design:paramtypes', [router_5.Router])
+                    __metadata('design:paramtypes', [core_6.ApplicationRef, router_5.Router])
                 ], App);
                 return App;
             }());

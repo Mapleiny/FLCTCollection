@@ -1,5 +1,5 @@
 ///<reference path="../typings/browser.d.ts"/>
-import {Component} from 'angular2/core';
+import {Component,ApplicationRef} from 'angular2/core';
 import {Blog} from './blog/blog'
 import {Router, RouteConfig, RouterLink, ROUTER_DIRECTIVES } from 'angular2/router';
 
@@ -14,6 +14,13 @@ import {Router, RouteConfig, RouterLink, ROUTER_DIRECTIVES } from 'angular2/rout
 ])
 
 export class App {
-	constructor(private router: Router) {
-	}
+	constructor(private applicationRef: ApplicationRef, private router: Router) {
+        this.router.subscribe(() => {
+            this.applicationRef.tick();
+            setTimeout(() => {
+                this.applicationRef.tick();
+            }, 100);
+        });
+
+    }
 }
