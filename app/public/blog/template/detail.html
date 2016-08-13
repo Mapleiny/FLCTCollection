@@ -1,0 +1,19 @@
+<section class="col-lg-9 col-md-9">
+	<section class="blog-detail">
+		<!-- <section class="banner" style="background-image:url(/images/banner.jpg);">
+		</section>
+	 -->	
+	 	<header class="blog-detail-header">
+			<h1>{{article.title}}</h1>
+			<h2 *ngIf="article.subTitle"><span>{{article.subTitle}}</span></h2>
+		</header>
+		<section class="blog-detail-content" [innerHTML]="article.content">
+		</section>
+		<footer class="blog-detail-footer">
+			<time>{{article.postDate}}</time>
+		</footer>
+	</section>
+</section>
+<section class="col-lg-3 col-md-3">
+	
+</section>

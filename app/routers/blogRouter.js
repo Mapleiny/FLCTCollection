@@ -1,36 +1,22 @@
 "use strict";
-const blogServer_1 = require('../servers/blogServer');
-let cssPaths = ['/blog/css/main.css'];
-let jsPaths = [''];
-let ConvertBlogToContentItem = function (blog) {
-    return {
-        banner: null,
-        link: "/blog/" + blog.id,
-        title: blog.title,
-        subTitle: blog.subTitle,
-        content: blog.content,
-        tags: null,
-        postDate: blog.postTime
-    };
-};
+let cssPaths = [
+    '/blog/css/main.css'
+];
+let jsPaths = [
+    '/common/js/es6-shim.min.js',
+    '/common/js/system.js',
+    '/common/js/system-polyfills.js',
+    '/common/js/Rx.min.js',
+    '/common/js/angular2.dev.js',
+    '/common/js/angular2-polyfills.min.js',
+    '/common/js/router.min.js',
+    '/common/js/http.min.js',
+    '/blog/js/main.js'
+];
 exports.blogRouter = function (router, staticManager) {
     router.get('/', function (req, res) {
-        // blog list
-        blogServer_1.blogServer.getPosts().then(function (result) {
-            res.render('index', {
-                'title': 'Blog',
-                'articles': result.data.list,
-                'static': staticManager.createStatic(cssPaths, jsPaths)
-            });
-        });
-    });
-    router.get('/post/:id', function (req, res) {
-        blogServer_1.blogServer.getPost(req.params.id).then(function (result) {
-            res.render('blog/detail', {
-                'title': result.data.title,
-                'article': result.data,
-                'static': staticManager.createStatic(cssPaths, jsPaths)
-            });
+        res.render('blog/index', {
+            'static': staticManager.createStatic(cssPaths, jsPaths)
         });
     });
 };

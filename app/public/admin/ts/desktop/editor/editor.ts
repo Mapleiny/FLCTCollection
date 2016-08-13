@@ -10,7 +10,7 @@ import {BlogServer,IBlog} from '../../servers/blogServer'
 })
 
 export class Editor implements AfterViewInit {
-	blogTitle:String;
+	blogTitle:String = "";
 	blogContent:String;
 	eidtContentId:String;
 

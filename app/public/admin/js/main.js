@@ -275,6 +275,7 @@ System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "s
                     this.blogServer = blogServer;
                     this.router = router;
                     this.routeParams = routeParams;
+                    this.blogTitle = "";
                 }
                 ngOnInit() {
                     this.eidtContentId = this.routeParams.get('id');

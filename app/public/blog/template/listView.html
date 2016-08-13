@@ -1,0 +1,18 @@
+<section class="col-lg-12 col-md-12">
+	<article *ngFor="#blog of blogList;" class="blog-item blog-item-normal">
+		<section class="banner" *ngIf="blog.banner">
+			<img src="/images/banner.jpg">
+		</section>
+		<section class="content">
+			<header class="blog-header">
+				<h1><a [routerLink]="['Detail',{id:blog._id}]">{{blog.title}}</a></h1>
+				<h2 *ngIf="blog.subTitle"><i>{{blog.subTitle}}</i></h2>
+			</header>
+			<section class="blog-body" [innerHTML]="blog.content">
+			</section>
+			<footer class="blog-footer clearfix">
+				<time>{{blog.postDate}}</time>
+			</footer>
+		</section>
+	</article>
+</section>

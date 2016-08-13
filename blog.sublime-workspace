@@ -520,10 +520,10 @@
 	"buffers":
 	[
 		{
-			"file": "app/public/blog/ts/main.ts",
+			"file": "app/public/blog/less/blog.less",
 			"settings":
 			{
-				"buffer_size": 42,
+				"buffer_size": 1418,
 				"line_ending": "Unix"
 			}
 		}
@@ -755,7 +755,7 @@
 	],
 	"find":
 	{
-		"height": 29.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -929,25 +929,25 @@
 			[
 				{
 					"buffer": 0,
-					"file": "app/public/blog/ts/main.ts",
+					"file": "app/public/blog/less/blog.less",
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 42,
+						"buffer_size": 1418,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								42,
-								42
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"use_tab_stops": false
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
