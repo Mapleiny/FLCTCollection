@@ -552,7 +552,10 @@
 			}
 		},
 		{
+			"contents": "import {Component,ApplicationRef} from 'angular2/core';\nimport {Title} from 'angular2/platform/browser';\nimport {RouterLink, RouteParams, Router} from 'angular2/router';\nimport {BlogServer,IBlog,StatusCode} from '../servers/blogServer';\n\n@Component({\n	'selector': 'section.blog-detail',\n    'templateUrl': '/blog/template/detail.html',\n    'directives': [RouterLink],\n    'providers' : [BlogServer,Title]\n})\n\nexport class Detail{\n	postId:String;\n	article:IBlog = {\n		title : '',\n		content : ''\n	};\n	constructor(\n		private applicationRef: ApplicationRef,\n		private blogServer:BlogServer,\n		private router:Router,\n		private routeParams:RouteParams,\n		private titleService: Title\n		){\n	}\n\n	ngOnInit(){\n		this.postId = this.routeParams.get('id');\n		this.blogServer.getPost(this.postId).then((result)=>{\n			if(result.code == StatusCode.success) {\n				this.titleService.setTitle(result.data.title.toString());\n				this.article = result.data;\n				this.applicationRef.tick();\n			}else{\n				this.postId = null;\n			}\n		});\n	}\n\n\n}",
 			"file": "app/public/blog/ts/blog/detail.ts",
+			"file_size": 1019,
+			"file_write_time": 131156188000000000,
 			"settings":
 			{
 				"buffer_size": 1019,
@@ -1101,8 +1104,8 @@
 						"selection":
 						[
 							[
-								820,
-								830
+								511,
+								511
 							]
 						],
 						"settings":
@@ -1138,6 +1141,8 @@
 						"settings":
 						{
 							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true,
 							"typescript_plugin_format_options":
 							{
 								"convertTabsToSpaces": false,

@@ -291,7 +291,7 @@ System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "s
                             'searchreplace code fullscreen pagebreak',
                             'insertdatetime media table contextmenu code textcolor'
                         ],
-                        toolbar: 'fontsizeselect bold italic | blockquote pagebreak | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
+                        toolbar: 'fontsizeselect | styleselect | blockquote pagebreak | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
                         skin: 'cool',
                         statusbar: false,
                         menubar: false
