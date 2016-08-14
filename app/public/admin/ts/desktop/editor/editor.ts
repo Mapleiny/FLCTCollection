@@ -29,14 +29,14 @@ export class Editor implements AfterViewInit {
 		let self = this;
 		tinymce.init({
 			selector:'#editor-container .editor textarea',
-			height: 300,
+			height: '100%',
+			content_style:'p{font-size:14px;}',
 			plugins: [
 				'advlist autolink lists link image preview anchor',
-				'searchreplace code fullscreen',
+				'searchreplace code fullscreen pagebreak',
 				'insertdatetime media table contextmenu code textcolor'
 			],
-			toolbar: 'bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-			// skin_url:'/admin/css',
+			toolbar: 'fontsizeselect bold italic | blockquote pagebreak | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
 			skin:'cool',
 			statusbar: false,
 			menubar: false

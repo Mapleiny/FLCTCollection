@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"cons",
+				"const	keyword"
+			],
+			[
+				"pad",
+				"padding-top"
+			],
+			[
+				"T",
+				"title	property"
+			],
+			[
+				"Router",
+				"Router	alias"
+			],
+			[
+				"n",
+				"number	keyword"
+			],
+			[
 				"bor",
 				"border"
 			],
@@ -188,10 +208,6 @@
 				"import	keyword"
 			],
 			[
-				"cons",
-				"console"
-			],
-			[
 				"r",
 				"Router	interface"
 			],
@@ -232,10 +248,6 @@
 				"files	let"
 			],
 			[
-				"pad",
-				"padding"
-			],
-			[
 				"wid",
 				"width"
 			],
@@ -246,10 +258,6 @@
 			[
 				"tr",
 				"transition"
-			],
-			[
-				"n",
-				"none"
 			],
 			[
 				"z",
@@ -318,10 +326,6 @@
 			[
 				"ma",
 				"mapWidth"
-			],
-			[
-				"T",
-				"T	type parameter"
 			],
 			[
 				"pri",
@@ -510,10 +514,6 @@
 			[
 				"sc",
 				"screenHeight"
-			],
-			[
-				"scr",
-				"screenHeight"
 			]
 		]
 	},
@@ -523,7 +523,47 @@
 			"file": "app/public/blog/less/blog.less",
 			"settings":
 			{
-				"buffer_size": 1418,
+				"buffer_size": 1359,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/public/blog/ts/blog/listView.ts",
+			"settings":
+			{
+				"buffer_size": 1134,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/public/blog/ts/blog/blog.ts",
+			"settings":
+			{
+				"buffer_size": 577,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/public/blog/ts/servers/baseServer.ts",
+			"settings":
+			{
+				"buffer_size": 1808,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/public/blog/ts/blog/detail.ts",
+			"settings":
+			{
+				"buffer_size": 1019,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/public/blog/ts/app.ts",
+			"settings":
+			{
+				"buffer_size": 650,
 				"line_ending": "Unix"
 			}
 		}
@@ -619,17 +659,37 @@
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/images",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/js",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/template",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/typings"
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/blog",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/common",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/servers"
 	],
 	"file_history":
 	[
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/tsconfig.json",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/main.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/servers/baseServer.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/template/detail.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/template/listView.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/blog/blog.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/blog/detail.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/template/blog.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/servers/blogServer.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/app.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/blog/listView.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/blog/listview.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/common/navigation.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/template/main.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/template/navigation.html",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/configure.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/typings/angularjs/angular.d.ts",
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/template/blog/blog.html",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/common.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/blog-admin.sublime-project",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less/main.less",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/blogRouter.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/admin/tsconfig.json",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/tsconfig.json",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/router.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/views/admin/index.ejs",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/ts/routers/adminRouter.ts",
@@ -734,24 +794,7 @@
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app.js",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/index.js",
 		"/Users/mapleiny/.ssh/config",
-		"/Users/mapleiny/Documents/Work/git/Collection/Collection/Assets.xcassets/iocn_tab_list.imageset/Contents.json",
-		"/Users/mapleiny/Desktop/chartAdmin/app/business/file.function/file.get.js",
-		"/Users/mapleiny/Desktop/chartAdmin/tsconfig.json",
-		"/Users/mapleiny/Documents/Project/ftp/demo/excel2json/index.html",
-		"/Users/mapleiny/Desktop/chartAdmin/app/html/file.convert/file.convert.html",
-		"/Users/mapleiny/Desktop/chartAdmin/ts/business/file.function/file.get.ts",
-		"/Users/mapleiny/Desktop/chartAdmin/ts/init.ts",
-		"/Users/mapleiny/Desktop/chartAdmin/index.html",
-		"/Users/mapleiny/Desktop/chartAdmin/app/html/main.html",
-		"/Users/mapleiny/Desktop/chartAdmin/ts/business/file.function/file.result.ts",
-		"/Users/mapleiny/Desktop/chartAdmin/ts/business/file.function/file.convert.ts",
-		"/Users/mapleiny/Desktop/chartAdmin/app/html/file.convert/file.result.html",
-		"/Users/mapleiny/Desktop/chartAdmin/ts/business/common/step.controller.ts",
-		"/Users/mapleiny/Desktop/chartAdmin/ts/app.ts",
-		"/Users/mapleiny/Desktop/chartAdmin/ts/main.ts",
-		"/Users/mapleiny/Desktop/chartAdmin/node_modules/lite-server/lib/config-defaults.js",
-		"/Users/mapleiny/Downloads/DMVancyPPT/VancyDMppt.html",
-		"/Users/mapleiny/Desktop/chartAdmin/app/run.js"
+		"/Users/mapleiny/Documents/Work/git/Collection/Collection/Assets.xcassets/iocn_tab_list.imageset/Contents.json"
 	],
 	"find":
 	{
@@ -779,6 +822,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"blogList",
+			"let",
+			"blogList",
+			"ListView",
+			"template",
+			"System",
 			"path",
 			"<img ",
 			"orange",
@@ -900,13 +949,7 @@
 			"touchstart",
 			"innerContainer",
 			"fontSizeRatio",
-			"click",
-			"touchstart",
-			"index =",
-			"index",
-			"_remapSource",
-			"_createTreemap",
-			"layout"
+			"click"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -924,16 +967,75 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
 					"file": "app/public/blog/less/blog.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1359,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								47,
+								47
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/public/blog/ts/blog/listView.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1134,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								936,
+								963
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 340.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/public/blog/ts/blog/blog.ts",
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 1418,
+						"buffer_size": 577,
 						"regions":
 						{
 						},
@@ -946,14 +1048,109 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/LESS/LESS.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/public/blog/ts/servers/baseServer.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1808,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								613,
+								613
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 541.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/public/blog/ts/blog/detail.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1019,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								820,
+								830
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 230.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/public/blog/ts/app.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 650,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								629,
+								629
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": false,
+								"indentSize": 4,
+								"tabSize": 4
+							},
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -1034,7 +1231,7 @@
 		[
 			[
 				"",
-				"~/Documents/Work/sublime-project/collection.sublime-project"
+				"~/Documents/Work/git/FLCTCollection/blog-admin.sublime-project"
 			]
 		],
 		"width": 477.0
@@ -1056,7 +1253,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 234.0,
+	"side_bar_width": 244.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

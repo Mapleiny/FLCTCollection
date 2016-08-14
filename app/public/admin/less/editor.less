@@ -6,11 +6,13 @@ editor.editor{
 }
 #editor-container{
 	padding: 20px;
-	display: inline-block;
+	display: flex;
+    flex-direction: column;
 	flex-grow:2;
 	width: 20%;
 	background: white;
 	border-radius: 5px;
+	min-height: 500px;
 	.title-editor{
 		border: none;
 		width: 100%;
@@ -19,6 +21,7 @@ editor.editor{
 		font-size: 25px;
 		background: transparent;
 		margin-bottom: 10px;
+		flex-grow: 0;
 	}
 	.toolbar{
 		height: 40px;
@@ -69,9 +72,12 @@ editor.editor{
 		}
 	}
 	.editor{
-		width: 100%;
 		position: relative;
 		margin-bottom: 10px;
+		flex-grow: 1;
+		display: flex;
+		align-content: stretch;
+		align-items: stretch;
 		textarea{
 			border: none;
 		}

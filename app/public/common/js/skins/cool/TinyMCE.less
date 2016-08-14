@@ -2,6 +2,7 @@
 	// Avoid FOUC
 	visibility: inherit !important;
 	position: relative;
+	width: 100%;
 }
 
 .@{prefix}-fullscreen {
@@ -33,6 +34,12 @@ div.@{prefix}-fullscreen {
 div.@{prefix}-edit-area {
 	background: #FFF;
 	filter: none;
+	flex-grow:1;
+	position: relative;
+}
+
+div.@{prefix}-edit-area > iframe{
+	position: absolute;
 }
 
 .@{prefix}-statusbar {

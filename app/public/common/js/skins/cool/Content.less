@@ -1,13 +1,16 @@
 /* Content.less */
 
 @font-family: Verdana, Arial, Helvetica, sans-serif;
-@font-size: 11px;
+@font-size: 14px;
+
+html{
+	height: 100%;
+}
 
 body {
 	background-color: #FFFFFF;
 	color: #000000;
 	font-family: @font-family;
-	font-size: @font-size;
 	scrollbar-3dlight-color: #F0F0EE;
 	scrollbar-arrow-color: #676662;
 	scrollbar-base-color: #F0F0EE;
@@ -16,11 +19,17 @@ body {
 	scrollbar-highlight-color: #F0F0EE;
 	scrollbar-shadow-color: #F0F0EE;
 	scrollbar-track-color: #F5F5F5;
+
+	height: 100%;
+    margin: 0;
+    display: inline-block;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
 td, th {
 	font-family: @font-family;
-	font-size: @font-size;
 }
 
 @import "Mixins.less";

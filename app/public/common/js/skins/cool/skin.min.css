@@ -52,6 +52,7 @@
 .mce-tinymce {
   visibility: inherit !important;
   position: relative;
+  width: 100%;
 }
 .mce-fullscreen {
   border: 0;
@@ -80,6 +81,11 @@ div.mce-fullscreen {
 div.mce-edit-area {
   background: #FFF;
   filter: none;
+  flex-grow: 1;
+  position: relative;
+}
+div.mce-edit-area > iframe {
+  position: absolute;
 }
 .mce-statusbar {
   position: relative;
@@ -351,6 +357,11 @@ div.mce-tinymce-inline {
 }
 .mce-autoscroll {
   overflow: hidden;
+}
+.mce-container-body.mce-stack-layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .mce-scrollbar {
   position: absolute;
