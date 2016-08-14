@@ -31,6 +31,7 @@ export class Editor implements AfterViewInit {
 			selector:'#editor-container .editor textarea',
 			height: '100%',
 			content_style:'p{font-size:14px;}',
+			content_css:'/common/js/skins/cool/bootstrap-content.min.css',
 			plugins: [
 				'advlist autolink lists link image preview anchor',
 				'searchreplace code fullscreen pagebreak',
