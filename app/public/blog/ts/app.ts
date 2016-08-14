@@ -14,12 +14,12 @@ import {Router, RouteConfig, RouterLink, ROUTER_DIRECTIVES } from 'angular2/rout
 ])
 
 export class App {
-	constructor(private applicationRef: ApplicationRef, private router: Router) {
+	constructor(
+		private applicationRef: ApplicationRef, 
+		private router: Router
+		) {
         this.router.subscribe(() => {
             this.applicationRef.tick();
-            setTimeout(() => {
-                this.applicationRef.tick();
-            }, 100);
         });
 
     }

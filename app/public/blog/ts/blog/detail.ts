@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component,ApplicationRef} from 'angular2/core';
 import {Title} from 'angular2/platform/browser';
 import {RouterLink, RouteParams, Router} from 'angular2/router';
 import {BlogServer,IBlog,StatusCode} from '../servers/blogServer';
@@ -17,6 +17,7 @@ export class Detail{
 		content : ''
 	};
 	constructor(
+		private applicationRef: ApplicationRef,
 		private blogServer:BlogServer,
 		private router:Router,
 		private routeParams:RouteParams,
@@ -25,14 +26,14 @@ export class Detail{
 	}
 
 	ngOnInit(){
-		let self = this;
 		this.postId = this.routeParams.get('id');
-		this.blogServer.getPost(this.postId).then(function(result){
+		this.blogServer.getPost(this.postId).then((result)=>{
 			if(result.code == StatusCode.success) {
-				self.titleService.setTitle(result.data.title.toString());
-				self.article = result.data;
+				this.titleService.setTitle(result.data.title.toString());
+				this.article = result.data;
+				this.applicationRef.tick();
 			}else{
-				this.eidtContentId = null;
+				this.postId = null;
 			}
 		});
 	}

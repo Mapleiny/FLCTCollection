@@ -239,19 +239,21 @@ System.register("blog/listView", ['angular2/core', 'angular2/router', 'angular2/
             }],
         execute: function() {
             ListView = (function () {
-                function ListView(blogServer, router, titleService) {
+                function ListView(applicationRef, blogServer, router, titleService) {
+                    this.applicationRef = applicationRef;
                     this.blogServer = blogServer;
                     this.router = router;
                     this.titleService = titleService;
                     this.titleService.setTitle('Blog');
                 }
                 ListView.prototype.ngOnInit = function () {
-                    var self = this;
+                    var _this = this;
                     this.blogServer.list().then(function (result) {
                         if (result.code == baseServer_4.StatusCode.success) {
-                            self.blogList = result.data.list;
-                            self.count = result.data.count;
-                            self.page = result.data.page;
+                            _this.blogList = result.data.list;
+                            _this.count = result.data.count;
+                            _this.page = result.data.page;
+                            _this.applicationRef.tick();
                         }
                         else {
                             console.log(result);
@@ -270,7 +272,7 @@ System.register("blog/listView", ['angular2/core', 'angular2/router', 'angular2/
                         'directives': [router_2.RouterLink],
                         'providers': [blogServer_1.BlogServer, browser_1.Title]
                     }), 
-                    __metadata('design:paramtypes', [blogServer_1.BlogServer, router_2.Router, browser_1.Title])
+                    __metadata('design:paramtypes', [core_3.ApplicationRef, blogServer_1.BlogServer, router_2.Router, browser_1.Title])
                 ], ListView);
                 return ListView;
             }());
@@ -299,7 +301,8 @@ System.register("blog/detail", ['angular2/core', 'angular2/platform/browser', 'a
             }],
         execute: function() {
             Detail = (function () {
-                function Detail(blogServer, router, routeParams, titleService) {
+                function Detail(applicationRef, blogServer, router, routeParams, titleService) {
+                    this.applicationRef = applicationRef;
                     this.blogServer = blogServer;
                     this.router = router;
                     this.routeParams = routeParams;
@@ -310,15 +313,16 @@ System.register("blog/detail", ['angular2/core', 'angular2/platform/browser', 'a
                     };
                 }
                 Detail.prototype.ngOnInit = function () {
-                    var self = this;
+                    var _this = this;
                     this.postId = this.routeParams.get('id');
                     this.blogServer.getPost(this.postId).then(function (result) {
                         if (result.code == blogServer_2.StatusCode.success) {
-                            self.titleService.setTitle(result.data.title.toString());
-                            self.article = result.data;
+                            _this.titleService.setTitle(result.data.title.toString());
+                            _this.article = result.data;
+                            _this.applicationRef.tick();
                         }
                         else {
-                            this.eidtContentId = null;
+                            _this.postId = null;
                         }
                     });
                 };
@@ -329,7 +333,7 @@ System.register("blog/detail", ['angular2/core', 'angular2/platform/browser', 'a
                         'directives': [router_3.RouterLink],
                         'providers': [blogServer_2.BlogServer, browser_2.Title]
                     }), 
-                    __metadata('design:paramtypes', [blogServer_2.BlogServer, router_3.Router, router_3.RouteParams, browser_2.Title])
+                    __metadata('design:paramtypes', [core_4.ApplicationRef, blogServer_2.BlogServer, router_3.Router, router_3.RouteParams, browser_2.Title])
                 ], Detail);
                 return Detail;
             }());
@@ -405,9 +409,6 @@ System.register("app", ['angular2/core', "blog/blog", 'angular2/router'], functi
                     this.router = router;
                     this.router.subscribe(function () {
                         _this.applicationRef.tick();
-                        setTimeout(function () {
-                            _this.applicationRef.tick();
-                        }, 100);
                     });
                 }
                 App = __decorate([
