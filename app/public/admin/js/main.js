@@ -250,10 +250,117 @@ System.register("servers/blogServer", ['rxjs/add/operator/toPromise', "servers/b
         }
     }
 });
-System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "servers/baseServer", "servers/blogServer"], function(exports_6, context_6) {
+System.register("common/tips", [], function(exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
-    var core_4, router_3, baseServer_4, blogServer_1;
+    var TipsType, Tips;
+    return {
+        setters:[],
+        execute: function() {
+            (function (TipsType) {
+                TipsType[TipsType["success"] = 0] = "success";
+                TipsType[TipsType["error"] = 1] = "error";
+                TipsType[TipsType["info"] = 2] = "info";
+                TipsType[TipsType["warning"] = 3] = "warning";
+            })(TipsType || (TipsType = {}));
+            exports_6("TipsType", TipsType);
+            class Tips {
+                constructor() {
+                    this.delay = 5000;
+                    this.animation_show = 'notiny-animation-show 0.4s forwards';
+                    this.animation_hide = 'notiny-animation-hide 0.5s forwards';
+                    this.bodyElement = document.body;
+                    this.createContainerHTML();
+                }
+                createContainerHTML() {
+                    this.containerElement = document.getElementById('tips-container');
+                    if (!this.containerElement) {
+                        this.containerElement = document.createElement('div');
+                        this.containerElement.id = 'tips-container';
+                        this.containerElement.className = 'notiny-container';
+                        this.bodyElement.appendChild(this.containerElement);
+                    }
+                }
+                createTipsHTML(type, message) {
+                    let divElement = document.createElement('div');
+                    var className = 'alert-';
+                    var icon;
+                    switch (type) {
+                        case TipsType.success:
+                            className += 'success';
+                            icon = '<i class="fa fa-check"></i>';
+                            break;
+                        case TipsType.error:
+                            className += 'danger';
+                            icon = '<i class="fa fa-close"></i>';
+                            break;
+                        case TipsType.info:
+                            className += 'info';
+                            icon = '<i class="fa fa-commenting"></i>';
+                            break;
+                        case TipsType.warning:
+                            className += 'warning';
+                            icon = '<i class="fa fa-exclamation"></i>';
+                            break;
+                    }
+                    divElement.className = "tips-warpper";
+                    divElement.innerHTML = `<div class="tips-panel ${className}">${icon} <span>${message}</span></div>`;
+                    divElement.addEventListener('click', (event) => {
+                        this.closeMessage(divElement);
+                    });
+                    return divElement;
+                }
+                updateContainerPosition(style) {
+                    for (var key in style) {
+                        this.containerElement.style[key] = style[key];
+                    }
+                }
+                showMessage(element) {
+                    this.containerElement.insertAdjacentElement('afterBegin', element);
+                    setTimeout((() => {
+                        this.closeMessage(element);
+                    }), this.delay + 500);
+                    setTimeout((() => {
+                        element.classList.add('show');
+                    }), 10);
+                    element.style.animation = this.animation_show;
+                }
+                closeMessage(element) {
+                    if (!element)
+                        return;
+                    element.style.animation = this.animation_hide;
+                    element.addEventListener('webkitAnimationEnd', (event) => {
+                        element.classList.remove('show');
+                    });
+                    element.addEventListener('webkitTransitionEnd', (event) => {
+                        element.remove();
+                    });
+                }
+                showSuccess(message) {
+                    this.showMessage(this.createTipsHTML(TipsType.success, message));
+                }
+                showError(message) {
+                    this.showMessage(this.createTipsHTML(TipsType.error, message));
+                }
+                showInfo(message) {
+                    this.showMessage(this.createTipsHTML(TipsType.info, message));
+                }
+                showWarning(message) {
+                    this.showMessage(this.createTipsHTML(TipsType.warning, message));
+                }
+                showLoading() {
+                }
+                closeLoading() {
+                }
+            }
+            exports_6("Tips", Tips);
+        }
+    }
+});
+System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "servers/baseServer", "servers/blogServer", "common/tips"], function(exports_7, context_7) {
+    "use strict";
+    var __moduleName = context_7 && context_7.id;
+    var core_4, router_3, baseServer_4, blogServer_1, tips_1;
     var Editor;
     return {
         setters:[
@@ -268,14 +375,22 @@ System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "s
             },
             function (blogServer_1_1) {
                 blogServer_1 = blogServer_1_1;
+            },
+            function (tips_1_1) {
+                tips_1 = tips_1_1;
             }],
         execute: function() {
             let Editor = class Editor {
-                constructor(blogServer, router, routeParams) {
+                constructor(blogServer, router, routeParams, tips) {
                     this.blogServer = blogServer;
                     this.router = router;
                     this.routeParams = routeParams;
+                    this.tips = tips;
                     this.blogTitle = "";
+                    this.tips.updateContainerPosition({
+                        top: '55px',
+                        right: '20px'
+                    });
                 }
                 ngOnInit() {
                     this.eidtContentId = this.routeParams.get('id');
@@ -285,7 +400,6 @@ System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "s
                     tinymce.init({
                         selector: '#editor-container .editor textarea',
                         height: '100%',
-                        content_style: 'p{font-size:14px;}',
                         content_css: '/common/js/skins/cool/bootstrap-content.min.css',
                         plugins: [
                             'advlist autolink lists link image preview anchor',
@@ -313,16 +427,16 @@ System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "s
                         this.blogServer.update(this.eidtContentId, {
                             title: this.blogTitle,
                             content: this.blogContent
-                        }).then(function (data) {
-                            console.log(data);
+                        }).then((data) => {
+                            this.tips.showSuccess('修改成功！');
                         });
                     }
                     else {
                         this.blogServer.public({
                             title: this.blogTitle,
                             content: this.blogContent
-                        }).then(function (data) {
-                            console.log(data);
+                        }).then((data) => {
+                            this.tips.showSuccess('发布成功！');
                         });
                     }
                 }
@@ -331,17 +445,17 @@ System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "s
                 core_4.Component({
                     selector: 'editor.editor',
                     templateUrl: 'template/editor.html',
-                    providers: [blogServer_1.BlogServer]
+                    providers: [blogServer_1.BlogServer, tips_1.Tips]
                 }), 
-                __metadata('design:paramtypes', [blogServer_1.BlogServer, router_3.Router, router_3.RouteParams])
+                __metadata('design:paramtypes', [blogServer_1.BlogServer, router_3.Router, router_3.RouteParams, tips_1.Tips])
             ], Editor);
-            exports_6("Editor", Editor);
+            exports_7("Editor", Editor);
         }
     }
 });
-System.register("desktop/navigation", ['angular2/core', 'angular2/router'], function(exports_7, context_7) {
+System.register("desktop/navigation", ['angular2/core', 'angular2/router'], function(exports_8, context_8) {
     "use strict";
-    var __moduleName = context_7 && context_7.id;
+    var __moduleName = context_8 && context_8.id;
     var core_5, router_4;
     var Navigation;
     return {
@@ -366,13 +480,13 @@ System.register("desktop/navigation", ['angular2/core', 'angular2/router'], func
                 }), 
                 __metadata('design:paramtypes', [router_4.Router])
             ], Navigation);
-            exports_7("Navigation", Navigation);
+            exports_8("Navigation", Navigation);
         }
     }
 });
-System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_8, context_8) {
+System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_9, context_9) {
     "use strict";
-    var __moduleName = context_8 && context_8.id;
+    var __moduleName = context_9 && context_9.id;
     var core_6;
     var Dashboard;
     return {
@@ -390,13 +504,13 @@ System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_8
                 }), 
                 __metadata('design:paramtypes', [])
             ], Dashboard);
-            exports_8("Dashboard", Dashboard);
+            exports_9("Dashboard", Dashboard);
         }
     }
 });
-System.register("desktop/panel/article", ['angular2/core', 'angular2/router', "servers/baseServer", "servers/blogServer"], function(exports_9, context_9) {
+System.register("desktop/panel/article", ['angular2/core', 'angular2/router', "servers/baseServer", "servers/blogServer"], function(exports_10, context_10) {
     "use strict";
-    var __moduleName = context_9 && context_9.id;
+    var __moduleName = context_10 && context_10.id;
     var core_7, router_5, baseServer_5, blogServer_2;
     var Article;
     return {
@@ -447,13 +561,13 @@ System.register("desktop/panel/article", ['angular2/core', 'angular2/router', "s
                 }), 
                 __metadata('design:paramtypes', [blogServer_2.BlogServer, router_5.Router])
             ], Article);
-            exports_9("Article", Article);
+            exports_10("Article", Article);
         }
     }
 });
-System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "desktop/navigation", "desktop/panel/dashboard", "desktop/panel/article"], function(exports_10, context_10) {
+System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "desktop/navigation", "desktop/panel/dashboard", "desktop/panel/article"], function(exports_11, context_11) {
     "use strict";
-    var __moduleName = context_10 && context_10.id;
+    var __moduleName = context_11 && context_11.id;
     var core_8, router_6, navigation_1, dashboard_1, article_1;
     var Panel;
     return {
@@ -491,13 +605,13 @@ System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "des
                 ]), 
                 __metadata('design:paramtypes', [router_6.Router])
             ], Panel);
-            exports_10("Panel", Panel);
+            exports_11("Panel", Panel);
         }
     }
 });
-System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop/header", "desktop/editor/editor", "desktop/panel/panel"], function(exports_11, context_11) {
+System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop/header", "desktop/editor/editor", "desktop/panel/panel"], function(exports_12, context_12) {
     "use strict";
-    var __moduleName = context_11 && context_11.id;
+    var __moduleName = context_12 && context_12.id;
     var core_9, router_7, header_1, editor_1, panel_1;
     var Desktop;
     return {
@@ -536,13 +650,13 @@ System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop
                 ]), 
                 __metadata('design:paramtypes', [router_7.Router])
             ], Desktop);
-            exports_11("Desktop", Desktop);
+            exports_12("Desktop", Desktop);
         }
     }
 });
-System.register("app", ['angular2/core', 'angular2/router', "login/login", "desktop/desktop"], function(exports_12, context_12) {
+System.register("app", ['angular2/core', 'angular2/router', "login/login", "desktop/desktop"], function(exports_13, context_13) {
     "use strict";
-    var __moduleName = context_12 && context_12.id;
+    var __moduleName = context_13 && context_13.id;
     var core_10, router_8, login_1, desktop_1;
     var App;
     return {
@@ -592,7 +706,7 @@ System.register("app", ['angular2/core', 'angular2/router', "login/login", "desk
                 ]), 
                 __metadata('design:paramtypes', [router_8.Router])
             ], App);
-            exports_12("App", App);
+            exports_13("App", App);
         }
     }
 });
@@ -609,9 +723,9 @@ System.config({
     }
 });
 System.import('main');
-System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', 'angular2/http', "app"], function(exports_13, context_13) {
+System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', 'angular2/http', "app"], function(exports_14, context_14) {
     "use strict";
-    var __moduleName = context_13 && context_13.id;
+    var __moduleName = context_14 && context_14.id;
     var browser_1, core_11, router_9, http_2, app_1;
     return {
         setters:[

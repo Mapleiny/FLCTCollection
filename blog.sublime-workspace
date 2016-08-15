@@ -5,7 +5,7 @@
 		[
 			[
 				"cons",
-				"const	keyword"
+				"console	var"
 			],
 			[
 				"pad",
@@ -528,22 +528,6 @@
 			}
 		},
 		{
-			"file": "app/public/blog/ts/blog/listView.ts",
-			"settings":
-			{
-				"buffer_size": 1134,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/public/blog/ts/blog/blog.ts",
-			"settings":
-			{
-				"buffer_size": 577,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "app/public/blog/ts/servers/baseServer.ts",
 			"settings":
 			{
@@ -552,13 +536,18 @@
 			}
 		},
 		{
-			"contents": "import {Component,ApplicationRef} from 'angular2/core';\nimport {Title} from 'angular2/platform/browser';\nimport {RouterLink, RouteParams, Router} from 'angular2/router';\nimport {BlogServer,IBlog,StatusCode} from '../servers/blogServer';\n\n@Component({\n	'selector': 'section.blog-detail',\n    'templateUrl': '/blog/template/detail.html',\n    'directives': [RouterLink],\n    'providers' : [BlogServer,Title]\n})\n\nexport class Detail{\n	postId:String;\n	article:IBlog = {\n		title : '',\n		content : ''\n	};\n	constructor(\n		private applicationRef: ApplicationRef,\n		private blogServer:BlogServer,\n		private router:Router,\n		private routeParams:RouteParams,\n		private titleService: Title\n		){\n	}\n\n	ngOnInit(){\n		this.postId = this.routeParams.get('id');\n		this.blogServer.getPost(this.postId).then((result)=>{\n			if(result.code == StatusCode.success) {\n				this.titleService.setTitle(result.data.title.toString());\n				this.article = result.data;\n				this.applicationRef.tick();\n			}else{\n				this.postId = null;\n			}\n		});\n	}\n\n\n}",
 			"file": "app/public/blog/ts/blog/detail.ts",
-			"file_size": 1019,
-			"file_write_time": 131156188000000000,
 			"settings":
 			{
 				"buffer_size": 1019,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/public/blog/ts/blog/listView.ts",
+			"settings":
+			{
+				"buffer_size": 1134,
 				"line_ending": "Unix"
 			}
 		},
@@ -657,12 +646,6 @@
 	"expanded_folders":
 	[
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/css",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/fonts",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/images",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/js",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/less",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/template",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/blog",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/common",
@@ -670,6 +653,7 @@
 	],
 	"file_history":
 	[
+		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/blog/listView.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/tsconfig.json",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/main.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/servers/baseServer.ts",
@@ -680,7 +664,6 @@
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/template/blog.html",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/servers/blogServer.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/app.ts",
-		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/blog/listView.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/blog/listview.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/ts/common/navigation.ts",
 		"/Users/mapleiny/Documents/Work/git/FLCTCollection/app/public/blog/template/main.html",
@@ -970,7 +953,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -993,66 +976,13 @@
 						"settings":
 						{
 							"syntax": "Packages/LESS/LESS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/public/blog/ts/blog/listView.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1134,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								936,
-								963
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
 							"translate_tabs_to_spaces": false,
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 340.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/public/blog/ts/blog/blog.ts",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 577,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"use_tab_stops": false
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": false,
+								"indentSize": 4,
+								"tabSize": 4
+							}
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1062,7 +992,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 1,
 					"file": "app/public/blog/ts/servers/baseServer.ts",
 					"semi_transient": false,
 					"settings":
@@ -1092,7 +1022,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 2,
 					"file": "app/public/blog/ts/blog/detail.ts",
 					"semi_transient": false,
 					"settings":
@@ -1104,8 +1034,8 @@
 						"selection":
 						[
 							[
-								511,
-								511
+								967,
+								967
 							]
 						],
 						"settings":
@@ -1118,11 +1048,47 @@
 						"translation.y": 230.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/public/blog/ts/blog/listView.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1134,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								941,
+								941
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": false,
+								"indentSize": 4,
+								"tabSize": 4
+							},
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 340.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "app/public/blog/ts/app.ts",
 					"semi_transient": false,
 					"settings":

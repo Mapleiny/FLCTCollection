@@ -1,15 +1,17 @@
-import {Component,AfterViewInit} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {Router,RouteParams} from 'angular2/router';
 import {StatusCode} from '../../servers/baseServer'
 import {BlogServer,IBlog} from '../../servers/blogServer'
+import {Tips} from '../../common/tips'
+
 
 @Component({
 	selector: 'editor.editor',
 	templateUrl: 'template/editor.html',
-	providers:[BlogServer]
+	providers:[BlogServer,Tips]
 })
 
-export class Editor implements AfterViewInit {
+export class Editor {
 	blogTitle:String = "";
 	blogContent:String;
 	eidtContentId:String;
@@ -17,8 +19,13 @@ export class Editor implements AfterViewInit {
 	constructor(
 		private blogServer:BlogServer,
 		private router:Router,
-		private routeParams:RouteParams
+		private routeParams:RouteParams,
+		private tips:Tips
 		) {
+		this.tips.updateContainerPosition({
+			top : '55px',
+			right : '20px'
+		});
 	}
 
 	ngOnInit(){
@@ -30,7 +37,6 @@ export class Editor implements AfterViewInit {
 		tinymce.init({
 			selector:'#editor-container .editor textarea',
 			height: '100%',
-			content_style:'p{font-size:14px;}',
 			content_css:'/common/js/skins/cool/bootstrap-content.min.css',
 			plugins: [
 				'advlist autolink lists link image preview anchor',
@@ -57,15 +63,15 @@ export class Editor implements AfterViewInit {
 			this.blogServer.update(this.eidtContentId,{
 				title:this.blogTitle,
 				content: this.blogContent
-			}).then(function(data){
-				console.log(data);
+			}).then((data)=>{
+				this.tips.showSuccess('修改成功！');
 			});
 		}else{
 			this.blogServer.public({
 				title:this.blogTitle,
 				content: this.blogContent
-			}).then(function(data){
-				console.log(data);
+			}).then((data)=>{
+				this.tips.showSuccess('发布成功！');
 			});
 		}
 		
