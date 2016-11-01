@@ -1,13 +1,16 @@
 import {Component} from 'angular2/core';
 import {Router,RouteParams} from 'angular2/router';
 import {StatusCode} from '../../servers/baseServer'
-import {BlogServer,IBlog} from '../../servers/blogServer'
+import {BlogModel} from '../../models/blogModel'
+import {BlogServer} from '../../servers/blogServer'
 import {Tips} from '../../common/tips'
+import {FileUpload} from '../../common/fileUpload'
 
 
 @Component({
-	selector: 'editor.editor',
+	selector: 'section.editor',
 	templateUrl: 'template/editor.html',
+	directives:[FileUpload],
 	providers:[BlogServer,Tips]
 })
 
@@ -15,6 +18,7 @@ export class Editor {
 	blogTitle:String = "";
 	blogContent:String;
 	eidtContentId:String;
+	showUploadFile:Boolean;
 
 	constructor(
 		private blogServer:BlogServer,
@@ -26,6 +30,8 @@ export class Editor {
 			top : '55px',
 			right : '20px'
 		});
+
+		
 	}
 
 	ngOnInit(){
@@ -35,7 +41,7 @@ export class Editor {
 	ngAfterViewInit() {
 		let self = this;
 		tinymce.init({
-			selector:'#editor-container .editor textarea',
+			selector:'#editor-container .editor-area textarea',
 			height: '100%',
 			content_css:'/common/js/skins/cool/bootstrap-content.min.css',
 			plugins: [
@@ -48,33 +54,46 @@ export class Editor {
 			statusbar: false,
 			menubar: false
 		});
-		this.blogServer.getPost(this.eidtContentId).then(function(result){
-			if(result.code == StatusCode.success) {
-				self.blogTitle = result.data.title;
-				tinymce.activeEditor.setContent(result.data.content);
-			}else{
-				this.eidtContentId = null;
-			}
-		});
+		if(!!this.eidtContentId) {
+			this.blogServer.getPost(this.eidtContentId).then(function(result){
+				if(result.code == StatusCode.success) {
+					self.blogTitle = result.data.title;
+					tinymce.activeEditor.setContent(result.data.content);
+				}else{
+					this.eidtContentId = null;
+				}
+			});
+		}else{
+			this.eidtContentId = null;
+		}
+			
 	}
 	post(){
 		this.blogContent = tinymce.activeEditor.getContent();
+		let blogModel = new BlogModel({
+			title:this.blogTitle,
+			content: this.blogContent
+		});
 		if(this.eidtContentId) {
-			this.blogServer.update(this.eidtContentId,{
-				title:this.blogTitle,
-				content: this.blogContent
-			}).then((data)=>{
-				this.tips.showSuccess('修改成功！');
+			this.blogServer
+			.update(this.eidtContentId,blogModel)
+			.then((result)=>{
+				if(result.code == StatusCode.success) {
+					this.tips.showSuccess('修改成功！');
+				}else{
+					this.tips.showError(result.message);
+				}
 			});
 		}else{
-			this.blogServer.public({
-				title:this.blogTitle,
-				content: this.blogContent
-			}).then((data)=>{
-				this.tips.showSuccess('发布成功！');
+			this.blogServer
+			.public(blogModel)
+			.then((result)=>{
+				if(result.code == StatusCode.success) {
+					this.tips.showSuccess('发布成功！');
+				}else{
+					this.tips.showError(result.message);
+				}
 			});
 		}
-		
-		
 	}
 }

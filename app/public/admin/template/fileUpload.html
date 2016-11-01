@@ -1,0 +1,45 @@
+<div class="modal-backdrop fade" [class.in]="isShow"></div>
+<div class="modal fade image-upload" [class.in]="isShow">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">File Upload</h4>
+			</div>
+			<div class="modal-body">
+				<section class="drag-area"
+				*ngIf="uploadStep==IUploadStep.PickFile"
+				(click)="pickInput.click()"
+				(dragover)="dragHover($event)"
+				(dragleave)="dragHover($event)"
+				(drop)="getFiles($event)"
+				[class.hover]="dragStatus==IDragStatus.DragOver"
+				>
+					<p class="info">
+						<template [ngIf]="dragStatus==IDragStatus.DragLeave">
+							将文件拖进此处<br />或<br />点击此区域选择文件
+						</template>
+						<template [ngIf]="dragStatus==IDragStatus.DragOver">
+							可以放手了，大侠！
+						</template>
+					</p>
+					<input type="file" multiple="multiple" class="file-select-input" #pickInput (change)="getFiles($event)">
+				</section>
+				<section class="file-upload-progress"
+				*ngIf="uploadStep==IUploadStep.Upload">
+					<dl class="file-item progress" *ngFor="#file of fileList">
+						<div class="progress-bar" 
+						[style.width.%]="file.progress" 
+						[class.success]="file.complete"></div>
+						<dt class="name">{{file.name}}</dt>
+						<dd class="info">
+							<span class="size">{{file.size}}</span>
+							<span class="type">{{file.type}}</span>
+							<span class="status">status</span>
+						</dd>
+					</dl>
+				</section>
+			</div>
+			<div class="modal-footer"></div>
+		</div>
+	</div>
+</div>

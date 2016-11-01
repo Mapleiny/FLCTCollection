@@ -1,18 +1,20 @@
 "use strict";
 const express = require("express");
-const staticManager_1 = require('../utils/staticManager');
-const blogRouter_1 = require('./blogRouter');
-const adminRouter_1 = require('./adminRouter');
-const apiRouter_1 = require('./apiRouter');
+// import {blogRouter} from './blogRouter'
+// import {adminRouter} from './adminRouter'
+// import {apiRouter} from './apiRouter'
+const wordpressRouter_1 = require('./wordpressRouter');
 exports.router = express.Router();
-let staticManager = new staticManager_1.StaticManager(true);
-staticManager.addCommonStatic([
-    '/common/css/bootstrap.min.css',
-    '/common/css/font-awesome.min.css'
-], []);
+wordpressRouter_1.wordpressRouter(exports.router);
+// let staticManager = new StaticManager(true);
+// staticManager.addCommonStatic([
+// 	'/common/css/bootstrap.min.css',
+// 	'/common/css/font-awesome.min.css'
+// ],[
+// ]);
 // admin
-adminRouter_1.adminRouter(exports.router, staticManager);
+// adminRouter(router,staticManager);
 // index
-blogRouter_1.blogRouter(exports.router, staticManager);
+// blogRouter(router,staticManager);
 // api
-apiRouter_1.apiRouter(exports.router);
+// apiRouter(router);

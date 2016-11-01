@@ -6,7 +6,7 @@ import {Editor} from './editor/editor'
 import {Panel} from './panel/panel'
 
 @Component({
-	'selector': 'desktop.desktop',
+	'selector': 'section.desktop',
     'templateUrl': 'template/desktop.html',
     'directives': [RouterLink,ROUTER_DIRECTIVES,Header]
 })

@@ -3,6 +3,9 @@
 	[
 		{
 			"path": "app/public/admin"
+		},
+		{
+			"path": "/Users/mapleiny/Documents/Project/ftp/demo/excel2json"
 		}
 	],
 	"settings":

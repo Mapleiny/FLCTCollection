@@ -82,9 +82,68 @@ System.register("servers/baseServer", ['angular2/core', 'angular2/http'], functi
         }
     }
 });
-System.register("servers/userServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_2, context_2) {
+System.register("models/baseModel", [], function(exports_2, context_2) {
     "use strict";
     var __moduleName = context_2 && context_2.id;
+    var BaseModel;
+    return {
+        setters:[],
+        execute: function() {
+            class BaseModel {
+                constructor(prop) {
+                    let propMap = this.propertyMap();
+                    for (var key in propMap) {
+                        this[key] = this.preDetailProperty(key, prop[propMap[key]]);
+                    }
+                }
+                propertyMap() {
+                    return {};
+                }
+                preDetailProperty(key, value) {
+                    if (this['propDetail' + key]) {
+                        return this['propDetail' + key](value);
+                    }
+                    else {
+                        return value;
+                    }
+                }
+            }
+            exports_2("BaseModel", BaseModel);
+        }
+    }
+});
+System.register("models/userModel", ["models/baseModel"], function(exports_3, context_3) {
+    "use strict";
+    var __moduleName = context_3 && context_3.id;
+    var baseModel_1;
+    var UserModel;
+    return {
+        setters:[
+            function (baseModel_1_1) {
+                baseModel_1 = baseModel_1_1;
+            }],
+        execute: function() {
+            class UserModel extends baseModel_1.BaseModel {
+                constructor(userInfo) {
+                    super(userInfo);
+                }
+                propertyMap() {
+                    return {
+                        nickname: 'nickname',
+                        avatar: 'avatar',
+                        username: 'username',
+                        registerData: 'registerData',
+                        lastLogin: 'lastLogin',
+                    };
+                }
+            }
+            exports_3("UserModel", UserModel);
+        }
+    }
+});
+System.register("servers/userServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_4, context_4) {
+    "use strict";
+    var __moduleName = context_4 && context_4.id;
     var baseServer_1;
     var UserServer;
     return {
@@ -112,13 +171,13 @@ System.register("servers/userServer", ['rxjs/add/operator/toPromise', "servers/b
                     });
                 }
             }
-            exports_2("UserServer", UserServer);
+            exports_4("UserServer", UserServer);
         }
     }
 });
-System.register("login/login", ['angular2/core', 'angular2/router', "servers/baseServer", "servers/userServer"], function(exports_3, context_3) {
+System.register("login/login", ['angular2/core', 'angular2/router', "servers/baseServer", "servers/userServer"], function(exports_5, context_5) {
     "use strict";
-    var __moduleName = context_3 && context_3.id;
+    var __moduleName = context_5 && context_5.id;
     var core_2, router_1, baseServer_2, userServer_1;
     var Login;
     return {
@@ -170,13 +229,13 @@ System.register("login/login", ['angular2/core', 'angular2/router', "servers/bas
                 }), 
                 __metadata('design:paramtypes', [userServer_1.UserServer, router_1.Router])
             ], Login);
-            exports_3("Login", Login);
+            exports_5("Login", Login);
         }
     }
 });
-System.register("desktop/header", ['angular2/core', 'angular2/router'], function(exports_4, context_4) {
+System.register("desktop/header", ['angular2/core', 'angular2/router'], function(exports_6, context_6) {
     "use strict";
-    var __moduleName = context_4 && context_4.id;
+    var __moduleName = context_6 && context_6.id;
     var core_3, router_2;
     var Header;
     return {
@@ -200,13 +259,44 @@ System.register("desktop/header", ['angular2/core', 'angular2/router'], function
                 }), 
                 __metadata('design:paramtypes', [])
             ], Header);
-            exports_4("Header", Header);
+            exports_6("Header", Header);
         }
     }
 });
-System.register("servers/blogServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_5, context_5) {
+System.register("models/blogModel", ["models/baseModel"], function(exports_7, context_7) {
     "use strict";
-    var __moduleName = context_5 && context_5.id;
+    var __moduleName = context_7 && context_7.id;
+    var baseModel_2;
+    var BlogModel;
+    return {
+        setters:[
+            function (baseModel_2_1) {
+                baseModel_2 = baseModel_2_1;
+            }],
+        execute: function() {
+            class BlogModel extends baseModel_2.BaseModel {
+                constructor(blogInfo) {
+                    super(blogInfo);
+                }
+                propertyMap() {
+                    return {
+                        title: 'title',
+                        subTitle: 'subTitle',
+                        content: 'content',
+                        postTime: 'postTime',
+                        updateTime: 'updateTime',
+                        attachments: 'attachments',
+                        readCount: 'readCount'
+                    };
+                }
+            }
+            exports_7("BlogModel", BlogModel);
+        }
+    }
+});
+System.register("servers/blogServer", ['rxjs/add/operator/toPromise', "servers/baseServer"], function(exports_8, context_8) {
+    "use strict";
+    var __moduleName = context_8 && context_8.id;
     var baseServer_3;
     var BlogServer;
     return {
@@ -228,7 +318,11 @@ System.register("servers/blogServer", ['rxjs/add/operator/toPromise', "servers/b
                 }
                 list() {
                     let url = this.componentUrl('posts');
-                    return this.get(url);
+                    return this.get(url).catch((result) => {
+                        return 1;
+                    }).then((result) => {
+                        return result;
+                    });
                 }
                 getPost(postId) {
                     let url = this.componentUrl(['post', postId]);
@@ -236,7 +330,11 @@ System.register("servers/blogServer", ['rxjs/add/operator/toPromise', "servers/b
                 }
                 update(id, content) {
                     let url = this.componentUrl(['update', id]);
-                    return this.post(url, content);
+                    return this.post(url, content).catch((result) => {
+                        return result;
+                    }).then((result) => {
+                        return result;
+                    });
                 }
                 delete(postIds) {
                     let url = this.componentUrl('delete');
@@ -246,13 +344,13 @@ System.register("servers/blogServer", ['rxjs/add/operator/toPromise', "servers/b
                     return this.post(url, postIds);
                 }
             }
-            exports_5("BlogServer", BlogServer);
+            exports_8("BlogServer", BlogServer);
         }
     }
 });
-System.register("common/tips", [], function(exports_6, context_6) {
+System.register("common/tips", [], function(exports_9, context_9) {
     "use strict";
-    var __moduleName = context_6 && context_6.id;
+    var __moduleName = context_9 && context_9.id;
     var TipsType, Tips;
     return {
         setters:[],
@@ -263,7 +361,7 @@ System.register("common/tips", [], function(exports_6, context_6) {
                 TipsType[TipsType["info"] = 2] = "info";
                 TipsType[TipsType["warning"] = 3] = "warning";
             })(TipsType || (TipsType = {}));
-            exports_6("TipsType", TipsType);
+            exports_9("TipsType", TipsType);
             class Tips {
                 constructor() {
                     this.delay = 5000;
@@ -353,31 +451,230 @@ System.register("common/tips", [], function(exports_6, context_6) {
                 closeLoading() {
                 }
             }
-            exports_6("Tips", Tips);
+            exports_9("Tips", Tips);
         }
     }
 });
-System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "servers/baseServer", "servers/blogServer", "common/tips"], function(exports_7, context_7) {
+System.register("models/fileModel", ["models/baseModel"], function(exports_10, context_10) {
     "use strict";
-    var __moduleName = context_7 && context_7.id;
-    var core_4, router_3, baseServer_4, blogServer_1, tips_1;
-    var Editor;
+    var __moduleName = context_10 && context_10.id;
+    var baseModel_3;
+    var FileModel;
+    return {
+        setters:[
+            function (baseModel_3_1) {
+                baseModel_3 = baseModel_3_1;
+            }],
+        execute: function() {
+            class FileModel extends baseModel_3.BaseModel {
+                constructor(fileInfo) {
+                    super(fileInfo);
+                    this.size = 0;
+                    this.loaded = 0;
+                    this.progress = 0;
+                    this.complete = false;
+                }
+                propertyMap() {
+                    return {
+                        name: 'name',
+                        size: 'size',
+                        type: 'type',
+                        lastModifiedDate: 'lastModifiedDate'
+                    };
+                }
+            }
+            exports_10("FileModel", FileModel);
+        }
+    }
+});
+System.register("servers/fileServer", ['rxjs/add/operator/toPromise', "servers/baseServer", "models/fileModel"], function(exports_11, context_11) {
+    "use strict";
+    var __moduleName = context_11 && context_11.id;
+    var baseServer_4, fileModel_1;
+    var uploadFileUrl, uploadTokenUrl, FileServer;
+    return {
+        setters:[
+            function (_3) {},
+            function (baseServer_4_1) {
+                baseServer_4 = baseServer_4_1;
+            },
+            function (fileModel_1_1) {
+                fileModel_1 = fileModel_1_1;
+            }],
+        execute: function() {
+            uploadFileUrl = 'http://upload.qiniu.com/';
+            uploadTokenUrl = '/api/source/uploadToken';
+            class FileServer extends baseServer_4.BaseServer {
+                constructor(http) {
+                    super(http);
+                    this.http = http;
+                }
+                uploadFile(files, progress, complete) {
+                    let self = this;
+                    let fileModelsArray = [];
+                    this.fetchAccessToken(() => {
+                        files.forEach((file, index) => {
+                            let fileModel = self.convertFileToFileModel(file);
+                            fileModel.fileData = file;
+                            self.upload(fileModel);
+                            fileModelsArray.push(fileModel);
+                        });
+                    });
+                    this.progressHandle = progress;
+                    return fileModelsArray;
+                }
+                fetchAccessToken(cb) {
+                    this.get(uploadTokenUrl).then((result) => {
+                        if (result.code == baseServer_4.StatusCode.success) {
+                            this.accessToken = result.data;
+                            cb();
+                        }
+                        else {
+                            console.log(result.message);
+                        }
+                    });
+                }
+                upload(file) {
+                    let xhr = new XMLHttpRequest();
+                    let formData = new FormData();
+                    formData.append('token', this.accessToken);
+                    formData.append('key', file.name);
+                    formData.append('file', file.fileData);
+                    xhr.upload.onprogress = (event) => {
+                        file.loaded = event.loaded;
+                        file.size = event.total;
+                        file.progress = file.loaded / file.size * 100;
+                        this.progressHandle(event.loaded, event.total);
+                    };
+                    xhr.upload.onloadend = (event) => {
+                        file.complete = true;
+                    };
+                    xhr.open('POST', uploadFileUrl);
+                    xhr.send(formData);
+                }
+                convertFileToFileModel(file) {
+                    return new fileModel_1.FileModel(file);
+                }
+            }
+            exports_11("FileServer", FileServer);
+        }
+    }
+});
+System.register("common/fileUpload", ['angular2/core', "servers/fileServer"], function(exports_12, context_12) {
+    "use strict";
+    var __moduleName = context_12 && context_12.id;
+    var core_4, fileServer_1;
+    var UploadStep, DragStatus, FileUpload;
     return {
         setters:[
             function (core_4_1) {
                 core_4 = core_4_1;
             },
+            function (fileServer_1_1) {
+                fileServer_1 = fileServer_1_1;
+            }],
+        execute: function() {
+            (function (UploadStep) {
+                UploadStep[UploadStep["PickFile"] = 0] = "PickFile";
+                UploadStep[UploadStep["Upload"] = 1] = "Upload";
+            })(UploadStep || (UploadStep = {}));
+            (function (DragStatus) {
+                DragStatus[DragStatus["DragOver"] = 0] = "DragOver";
+                DragStatus[DragStatus["DragLeave"] = 1] = "DragLeave";
+            })(DragStatus || (DragStatus = {}));
+            let FileUpload = class FileUpload {
+                constructor(fileServer) {
+                    this.fileServer = fileServer;
+                    this.allowsSelection = true;
+                    this.allowsMultipleSelection = false;
+                    this.isShow = false;
+                    this.IUploadStep = UploadStep;
+                    this.uploadStep = UploadStep.PickFile;
+                    this.IDragStatus = DragStatus;
+                    this.dragStatus = DragStatus.DragLeave;
+                    this.fileIndex = 0;
+                    this.fileList = [];
+                    this.show();
+                }
+                getFiles(event) {
+                    this.dragHover(event);
+                    let files = event.target.files || event.dataTransfer.files;
+                    if (files === null || typeof files === 'undefined') {
+                        return;
+                    }
+                    return this.dealFiles(Array.prototype.slice.call(files, 0));
+                }
+                dragHover(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    this[event.type === "dragover" ? "onDragOver" : "onDragLeave"].call(this, event);
+                    return this;
+                }
+                onDragOver(event) {
+                    this.dragStatus = DragStatus.DragOver;
+                }
+                onDragLeave(event) {
+                    this.dragStatus = DragStatus.DragLeave;
+                }
+                dealFiles(files) {
+                    var file, _i, _len;
+                    files = this.filter(files);
+                    return this.onSelect(files);
+                }
+                filter(files) {
+                    return files;
+                }
+                onSelect(files) {
+                    this.uploadStep = UploadStep.Upload;
+                    this.fileList = this.fileServer.uploadFile(files, () => {
+                    }, () => {
+                    });
+                }
+                show() {
+                    this.isShow = true;
+                }
+                hide() {
+                }
+            };
+            FileUpload = __decorate([
+                core_4.Component({
+                    selector: 'file-upload',
+                    templateUrl: 'template/fileUpload.html',
+                    providers: [fileServer_1.FileServer]
+                }), 
+                __metadata('design:paramtypes', [fileServer_1.FileServer])
+            ], FileUpload);
+            exports_12("FileUpload", FileUpload);
+        }
+    }
+});
+System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "servers/baseServer", "models/blogModel", "servers/blogServer", "common/tips", "common/fileUpload"], function(exports_13, context_13) {
+    "use strict";
+    var __moduleName = context_13 && context_13.id;
+    var core_5, router_3, baseServer_5, blogModel_1, blogServer_1, tips_1, fileUpload_1;
+    var Editor;
+    return {
+        setters:[
+            function (core_5_1) {
+                core_5 = core_5_1;
+            },
             function (router_3_1) {
                 router_3 = router_3_1;
             },
-            function (baseServer_4_1) {
-                baseServer_4 = baseServer_4_1;
+            function (baseServer_5_1) {
+                baseServer_5 = baseServer_5_1;
+            },
+            function (blogModel_1_1) {
+                blogModel_1 = blogModel_1_1;
             },
             function (blogServer_1_1) {
                 blogServer_1 = blogServer_1_1;
             },
             function (tips_1_1) {
                 tips_1 = tips_1_1;
+            },
+            function (fileUpload_1_1) {
+                fileUpload_1 = fileUpload_1_1;
             }],
         execute: function() {
             let Editor = class Editor {
@@ -398,7 +695,7 @@ System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "s
                 ngAfterViewInit() {
                     let self = this;
                     tinymce.init({
-                        selector: '#editor-container .editor textarea',
+                        selector: '#editor-container .editor-area textarea',
                         height: '100%',
                         content_css: '/common/js/skins/cool/bootstrap-content.min.css',
                         plugins: [
@@ -411,57 +708,75 @@ System.register("desktop/editor/editor", ['angular2/core', 'angular2/router', "s
                         statusbar: false,
                         menubar: false
                     });
-                    this.blogServer.getPost(this.eidtContentId).then(function (result) {
-                        if (result.code == baseServer_4.StatusCode.success) {
-                            self.blogTitle = result.data.title;
-                            tinymce.activeEditor.setContent(result.data.content);
-                        }
-                        else {
-                            this.eidtContentId = null;
-                        }
-                    });
-                }
-                post() {
-                    this.blogContent = tinymce.activeEditor.getContent();
-                    if (this.eidtContentId) {
-                        this.blogServer.update(this.eidtContentId, {
-                            title: this.blogTitle,
-                            content: this.blogContent
-                        }).then((data) => {
-                            this.tips.showSuccess('修改成功！');
+                    if (!!this.eidtContentId) {
+                        this.blogServer.getPost(this.eidtContentId).then(function (result) {
+                            if (result.code == baseServer_5.StatusCode.success) {
+                                self.blogTitle = result.data.title;
+                                tinymce.activeEditor.setContent(result.data.content);
+                            }
+                            else {
+                                this.eidtContentId = null;
+                            }
                         });
                     }
                     else {
-                        this.blogServer.public({
-                            title: this.blogTitle,
-                            content: this.blogContent
-                        }).then((data) => {
-                            this.tips.showSuccess('发布成功！');
+                        this.eidtContentId = null;
+                    }
+                }
+                post() {
+                    this.blogContent = tinymce.activeEditor.getContent();
+                    let blogModel = new blogModel_1.BlogModel({
+                        title: this.blogTitle,
+                        content: this.blogContent
+                    });
+                    if (this.eidtContentId) {
+                        this.blogServer
+                            .update(this.eidtContentId, blogModel)
+                            .then((result) => {
+                            if (result.code == baseServer_5.StatusCode.success) {
+                                this.tips.showSuccess('修改成功！');
+                            }
+                            else {
+                                this.tips.showError(result.message);
+                            }
+                        });
+                    }
+                    else {
+                        this.blogServer
+                            .public(blogModel)
+                            .then((result) => {
+                            if (result.code == baseServer_5.StatusCode.success) {
+                                this.tips.showSuccess('发布成功！');
+                            }
+                            else {
+                                this.tips.showError(result.message);
+                            }
                         });
                     }
                 }
             };
             Editor = __decorate([
-                core_4.Component({
-                    selector: 'editor.editor',
+                core_5.Component({
+                    selector: 'section.editor',
                     templateUrl: 'template/editor.html',
+                    directives: [fileUpload_1.FileUpload],
                     providers: [blogServer_1.BlogServer, tips_1.Tips]
                 }), 
                 __metadata('design:paramtypes', [blogServer_1.BlogServer, router_3.Router, router_3.RouteParams, tips_1.Tips])
             ], Editor);
-            exports_7("Editor", Editor);
+            exports_13("Editor", Editor);
         }
     }
 });
-System.register("desktop/navigation", ['angular2/core', 'angular2/router'], function(exports_8, context_8) {
+System.register("desktop/navigation", ['angular2/core', 'angular2/router'], function(exports_14, context_14) {
     "use strict";
-    var __moduleName = context_8 && context_8.id;
-    var core_5, router_4;
+    var __moduleName = context_14 && context_14.id;
+    var core_6, router_4;
     var Navigation;
     return {
         setters:[
-            function (core_5_1) {
-                core_5 = core_5_1;
+            function (core_6_1) {
+                core_6 = core_6_1;
             },
             function (router_4_1) {
                 router_4 = router_4_1;
@@ -473,56 +788,56 @@ System.register("desktop/navigation", ['angular2/core', 'angular2/router'], func
                 }
             };
             Navigation = __decorate([
-                core_5.Component({
+                core_6.Component({
                     'selector': 'navigation',
                     'templateUrl': 'template/navigation.html',
                     'directives': [router_4.RouterLink]
                 }), 
                 __metadata('design:paramtypes', [router_4.Router])
             ], Navigation);
-            exports_8("Navigation", Navigation);
+            exports_14("Navigation", Navigation);
         }
     }
 });
-System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_9, context_9) {
+System.register("desktop/panel/dashboard", ['angular2/core'], function(exports_15, context_15) {
     "use strict";
-    var __moduleName = context_9 && context_9.id;
-    var core_6;
+    var __moduleName = context_15 && context_15.id;
+    var core_7;
     var Dashboard;
     return {
         setters:[
-            function (core_6_1) {
-                core_6 = core_6_1;
+            function (core_7_1) {
+                core_7 = core_7_1;
             }],
         execute: function() {
             let Dashboard = class Dashboard {
             };
             Dashboard = __decorate([
-                core_6.Component({
-                    'selector': 'dashboard.dashboard',
+                core_7.Component({
+                    'selector': 'section.dashboard',
                     'templateUrl': 'template/dashboard.html'
                 }), 
                 __metadata('design:paramtypes', [])
             ], Dashboard);
-            exports_9("Dashboard", Dashboard);
+            exports_15("Dashboard", Dashboard);
         }
     }
 });
-System.register("desktop/panel/article", ['angular2/core', 'angular2/router', "servers/baseServer", "servers/blogServer"], function(exports_10, context_10) {
+System.register("desktop/panel/article", ['angular2/core', 'angular2/router', "servers/baseServer", "servers/blogServer"], function(exports_16, context_16) {
     "use strict";
-    var __moduleName = context_10 && context_10.id;
-    var core_7, router_5, baseServer_5, blogServer_2;
+    var __moduleName = context_16 && context_16.id;
+    var core_8, router_5, baseServer_6, blogServer_2;
     var Article;
     return {
         setters:[
-            function (core_7_1) {
-                core_7 = core_7_1;
+            function (core_8_1) {
+                core_8 = core_8_1;
             },
             function (router_5_1) {
                 router_5 = router_5_1;
             },
-            function (baseServer_5_1) {
-                baseServer_5 = baseServer_5_1;
+            function (baseServer_6_1) {
+                baseServer_6 = baseServer_6_1;
             },
             function (blogServer_2_1) {
                 blogServer_2 = blogServer_2_1;
@@ -536,7 +851,7 @@ System.register("desktop/panel/article", ['angular2/core', 'angular2/router', "s
                 ngOnInit() {
                     let self = this;
                     this.blogServer.list().then(function (result) {
-                        if (result.code == baseServer_5.StatusCode.success) {
+                        if (result.code == baseServer_6.StatusCode.success) {
                             self.blogList = result.data.list;
                             self.count = result.data.count;
                             self.page = result.data.page;
@@ -553,27 +868,51 @@ System.register("desktop/panel/article", ['angular2/core', 'angular2/router', "s
                 }
             };
             Article = __decorate([
-                core_7.Component({
-                    selector: 'article.article',
+                core_8.Component({
+                    selector: 'section.article',
                     templateUrl: 'template/article.html',
                     directives: [router_5.RouterLink],
                     providers: [blogServer_2.BlogServer]
                 }), 
                 __metadata('design:paramtypes', [blogServer_2.BlogServer, router_5.Router])
             ], Article);
-            exports_10("Article", Article);
+            exports_16("Article", Article);
         }
     }
 });
-System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "desktop/navigation", "desktop/panel/dashboard", "desktop/panel/article"], function(exports_11, context_11) {
+System.register("desktop/panel/qiniu", ['angular2/core'], function(exports_17, context_17) {
     "use strict";
-    var __moduleName = context_11 && context_11.id;
-    var core_8, router_6, navigation_1, dashboard_1, article_1;
+    var __moduleName = context_17 && context_17.id;
+    var core_9;
+    var Qiniu;
+    return {
+        setters:[
+            function (core_9_1) {
+                core_9 = core_9_1;
+            }],
+        execute: function() {
+            let Qiniu = class Qiniu {
+            };
+            Qiniu = __decorate([
+                core_9.Component({
+                    'selector': 'section.qiniu',
+                    'templateUrl': 'template/qiniu.html'
+                }), 
+                __metadata('design:paramtypes', [])
+            ], Qiniu);
+            exports_17("Qiniu", Qiniu);
+        }
+    }
+});
+System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "desktop/navigation", "desktop/panel/dashboard", "desktop/panel/article", "desktop/panel/qiniu"], function(exports_18, context_18) {
+    "use strict";
+    var __moduleName = context_18 && context_18.id;
+    var core_10, router_6, navigation_1, dashboard_1, article_1, qiniu_1;
     var Panel;
     return {
         setters:[
-            function (core_8_1) {
-                core_8 = core_8_1;
+            function (core_10_1) {
+                core_10 = core_10_1;
             },
             function (router_6_1) {
                 router_6 = router_6_1;
@@ -586,6 +925,9 @@ System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "des
             },
             function (article_1_1) {
                 article_1 = article_1_1;
+            },
+            function (qiniu_1_1) {
+                qiniu_1 = qiniu_1_1;
             }],
         execute: function() {
             let Panel = class Panel {
@@ -594,30 +936,31 @@ System.register("desktop/panel/panel", ['angular2/core', 'angular2/router', "des
                 }
             };
             Panel = __decorate([
-                core_8.Component({
-                    'selector': 'panel.admin-panel',
+                core_10.Component({
+                    'selector': 'section.admin-panel',
                     'templateUrl': 'template/panel.html',
                     'directives': [router_6.RouterLink, router_6.ROUTER_DIRECTIVES, navigation_1.Navigation]
                 }),
                 router_6.RouteConfig([
                     { path: '/', component: dashboard_1.Dashboard, as: 'Dashboard', useAsDefault: true },
-                    { path: '/article', component: article_1.Article, as: 'Article' }
+                    { path: '/article', component: article_1.Article, as: 'Article' },
+                    { path: '/qiniu', component: qiniu_1.Qiniu, as: 'QiniuAdmin' },
                 ]), 
                 __metadata('design:paramtypes', [router_6.Router])
             ], Panel);
-            exports_11("Panel", Panel);
+            exports_18("Panel", Panel);
         }
     }
 });
-System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop/header", "desktop/editor/editor", "desktop/panel/panel"], function(exports_12, context_12) {
+System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop/header", "desktop/editor/editor", "desktop/panel/panel"], function(exports_19, context_19) {
     "use strict";
-    var __moduleName = context_12 && context_12.id;
-    var core_9, router_7, header_1, editor_1, panel_1;
+    var __moduleName = context_19 && context_19.id;
+    var core_11, router_7, header_1, editor_1, panel_1;
     var Desktop;
     return {
         setters:[
-            function (core_9_1) {
-                core_9 = core_9_1;
+            function (core_11_1) {
+                core_11 = core_11_1;
             },
             function (router_7_1) {
                 router_7 = router_7_1;
@@ -638,8 +981,8 @@ System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop
                 }
             };
             Desktop = __decorate([
-                core_9.Component({
-                    'selector': 'desktop.desktop',
+                core_11.Component({
+                    'selector': 'section.desktop',
                     'templateUrl': 'template/desktop.html',
                     'directives': [router_7.RouterLink, router_7.ROUTER_DIRECTIVES, header_1.Header]
                 }),
@@ -650,19 +993,19 @@ System.register("desktop/desktop", ['angular2/core', 'angular2/router', "desktop
                 ]), 
                 __metadata('design:paramtypes', [router_7.Router])
             ], Desktop);
-            exports_12("Desktop", Desktop);
+            exports_19("Desktop", Desktop);
         }
     }
 });
-System.register("app", ['angular2/core', 'angular2/router', "login/login", "desktop/desktop"], function(exports_13, context_13) {
+System.register("app", ['angular2/core', 'angular2/router', "login/login", "desktop/desktop"], function(exports_20, context_20) {
     "use strict";
-    var __moduleName = context_13 && context_13.id;
-    var core_10, router_8, login_1, desktop_1;
+    var __moduleName = context_20 && context_20.id;
+    var core_12, router_8, login_1, desktop_1;
     var App;
     return {
         setters:[
-            function (core_10_1) {
-                core_10 = core_10_1;
+            function (core_12_1) {
+                core_12 = core_12_1;
             },
             function (router_8_1) {
                 router_8 = router_8_1;
@@ -695,7 +1038,7 @@ System.register("app", ['angular2/core', 'angular2/router', "login/login", "desk
                 }
             };
             App = __decorate([
-                core_10.Component({
+                core_12.Component({
                     'selector': 'body',
                     'templateUrl': 'template/main.html',
                     'directives': [router_8.RouterLink, router_8.ROUTER_DIRECTIVES]
@@ -706,7 +1049,7 @@ System.register("app", ['angular2/core', 'angular2/router', "login/login", "desk
                 ]), 
                 __metadata('design:paramtypes', [router_8.Router])
             ], App);
-            exports_13("App", App);
+            exports_20("App", App);
         }
     }
 });
@@ -723,17 +1066,17 @@ System.config({
     }
 });
 System.import('main');
-System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', 'angular2/http', "app"], function(exports_14, context_14) {
+System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', 'angular2/http', "app"], function(exports_21, context_21) {
     "use strict";
-    var __moduleName = context_14 && context_14.id;
-    var browser_1, core_11, router_9, http_2, app_1;
+    var __moduleName = context_21 && context_21.id;
+    var browser_1, core_13, router_9, http_2, app_1;
     return {
         setters:[
             function (browser_1_1) {
                 browser_1 = browser_1_1;
             },
-            function (core_11_1) {
-                core_11 = core_11_1;
+            function (core_13_1) {
+                core_13 = core_13_1;
             },
             function (router_9_1) {
                 router_9 = router_9_1;
@@ -745,7 +1088,7 @@ System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2
                 app_1 = app_1_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_1.App, [router_9.ROUTER_PROVIDERS, http_2.HTTP_PROVIDERS, core_11.provide(router_9.LocationStrategy, { useClass: router_9.HashLocationStrategy })]);
+            browser_1.bootstrap(app_1.App, [router_9.ROUTER_PROVIDERS, http_2.HTTP_PROVIDERS, core_13.provide(router_9.LocationStrategy, { useClass: router_9.HashLocationStrategy })]);
         }
     }
 });

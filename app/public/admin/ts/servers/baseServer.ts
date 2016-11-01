@@ -32,11 +32,10 @@ export interface ResponseArray<T>{
 export class BaseServer{
 	baseUrl: String;
 
-
 	constructor(public http:Http){
 	}
 
-	post<T>(url:string,params:Object,options?:Object):Promise<T>{
+	protected post<T>(url:string,params:Object,options?:Object):Promise<T>{
 		let body:string = JSON.stringify(params);
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		options = options || new RequestOptions({ headers: headers });
@@ -46,7 +45,7 @@ export class BaseServer{
 			.then(this.extractData)
 			.catch(this.handleError);
 	}
-	get<T>(url:string,params?:Object,options?:RequestOptions):Promise<T>{
+	protected get<T>(url:string,params?:Object,options?:RequestOptions):Promise<T>{
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		options = options || new RequestOptions({ headers: headers });
 
@@ -56,7 +55,6 @@ export class BaseServer{
 				searchParams.set(key,params[key]);
 			}
 		}
-		
 		options.search = searchParams;
 		return this.http
 			.get(url,options)
@@ -65,19 +63,19 @@ export class BaseServer{
 			.catch(this.handleError);
 	}
 
-	componentUrl(path){
+	protected componentUrl(path){
 		if(path instanceof Array) {
 			path = path.join('/')
 		}
 		return this.baseUrl+'/'+path;
 	}
 
-	extractData(res: Response) {
+	protected extractData(res: Response){
 		let body = res.json();
 		return body || { };
 	}
 
-	handleError(error: any) {
+	protected handleError(error: any) {
 		console.error('An error occurred', error);
 		return Promise.reject(error.message || error);
 	}

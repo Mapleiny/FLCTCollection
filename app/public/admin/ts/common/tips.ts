@@ -70,9 +70,6 @@ export class Tips{
 		setTimeout((()=>{
 			element.classList.add('show');
 		}),10);
-		element.addEventListener('webkitTransitionEnd',(event)=>{
-			element.remove();
-		});
 		element.style.animation = this.animation_show;
 	}
 	closeMessage(element:HTMLElement){

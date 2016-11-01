@@ -1,14 +1,15 @@
 <ul class="nav navbar-nav side-nav menu" >
     
     <li [class.active]="router.isRouteActive(router.generate(['Dashboard']))">
-        <a [routerLink]="['Dashboard']"><i class="glyphicon glyphicon-file"></i> Dashboard</a>
+        <a [routerLink]="['Dashboard']"><i class="fa fa-tachometer"></i> Dashboard</a>
     </li>
     <li [class.active]="router.isRouteActive(router.generate(['Article']))">
-        <a [routerLink]="['Article']"><i class="glyphicon glyphicon-cloud"></i> Article</a>
+        <a [routerLink]="['Article']"><i class="fa fa-book"></i> Article</a>
     </li>
-    <!-- <li [class.active]="router.isRouteActive(router.generate(['QiniuAdmin']))">
-        <a [routerLink]="['QiniuAdmin']"><i class="glyphicon glyphicon-cloud"></i> 七牛服务器</a>
+    <li [class.active]="router.isRouteActive(router.generate(['QiniuAdmin']))">
+        <a [routerLink]="['QiniuAdmin']"><i class="fa fa-cloud"></i> Qiniu</a>
     </li>
+    <!-- 
     <li [class.active]="router.isRouteActive(router.generate(['QiniuAdmin']))">
         <a [routerLink]="['QiniuAdmin']"><i class="glyphicon glyphicon-cloud"></i> 七牛服务器</a>
     </li>

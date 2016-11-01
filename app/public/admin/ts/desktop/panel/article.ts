@@ -2,18 +2,20 @@ import {Component} from 'angular2/core';
 import {Router,RouterLink} from 'angular2/router'
 import {Editor} from '../editor/editor'
 import {StatusCode} from '../../servers/baseServer'
-import {BlogServer,IBlog} from '../../servers/blogServer'
+import {BlogServer} from '../../servers/blogServer'
+import {BlogModel} from '../../models/blogModel'
+
 
 
 @Component({
-	selector: 'article.article',
+	selector: 'section.article',
     templateUrl: 'template/article.html',
     directives: [RouterLink],
     providers:[BlogServer]
 })
 
 export class Article{
-	blogList : Array<IBlog>;
+	blogList : Array<BlogModel>;
 	count : Number;
 	page : Number
 

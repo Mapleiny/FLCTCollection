@@ -2,6 +2,7 @@
 const baseServer_1 = require('../servers/baseServer');
 const blogServer_1 = require('../servers/blogServer');
 const userServer_1 = require('../servers/userServer');
+const Qiniu = require('../servers/qiniuServer');
 let defaultResponse = function (res) {
     return function (result) {
         res.json(result);
@@ -24,7 +25,7 @@ exports.apiRouter = function (router) {
         req.body.author = req.session['user_id'];
         blogServer_1.blogServer.publicPost(req.body).then(defaultResponse(res)).catch(defaultResponse(res));
     });
-    router.post('/api/blog/update/:id', function (req, res) {
+    router.post('/api/blog/update/:id', authorize, function (req, res) {
         blogServer_1.blogServer.updatePost(req.params.id, req.body).then(defaultResponse(res)).catch(defaultResponse(res));
     });
     router.get('/api/blog/post/:id', function (req, res) {
@@ -56,5 +57,30 @@ exports.apiRouter = function (router) {
                 message: result.message
             });
         }).catch(defaultResponse(res));
+    });
+    // qiniu
+    router.get('/api/source/list', authorize, function (req, res) {
+        Qiniu.listPrefix(function (error, result) {
+            if (error) {
+                res.json({
+                    code: error.code,
+                    message: error.error
+                });
+            }
+            else {
+                res.json({
+                    code: baseServer_1.StatusCode.success,
+                    message: 'ok',
+                    data: result
+                });
+            }
+        }, req.query.prefix, req.query.marker, req.query.limit, req.query.delimiter);
+    });
+    router.get('/api/source/uploadToken', (req, res) => {
+        res.json({
+            code: baseServer_1.StatusCode.success,
+            message: 'ok',
+            data: Qiniu.createDefaultUptoken()
+        });
     });
 };

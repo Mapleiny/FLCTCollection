@@ -3,11 +3,15 @@ import {RouterLink, ROUTER_DIRECTIVES,Router } from 'angular2/router';
 import {Title} from 'angular2/platform/browser';
 import {BlogServer,IBlog} from '../servers/blogServer';
 import {StatusCode} from '../servers/baseServer'
+import {Aside} from '../common/aside'
+
+
+
 
 @Component({
 	'selector': 'section.blog-list',
     'templateUrl': '/blog/template/listView.html',
-    'directives': [RouterLink],
+    'directives': [RouterLink,Aside],
     'providers' : [BlogServer,Title]
 })
 
@@ -39,9 +43,5 @@ export class ListView{
 		}).catch((result)=>{
 			console.log(result);
 		});
-	}
-
-	postDetail(id:Number){
-		this.router.navigate(['Detail','dsadas']);
 	}
 }

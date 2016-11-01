@@ -3,7 +3,7 @@ import {Router, RouteConfig, RouterLink, ROUTER_DIRECTIVES } from 'angular2/rout
 import {Login} from './login/login'
 import {Desktop} from './desktop/desktop'
 
-import {IUser} from './servers/userServer'
+import {UserModel} from './models/userModel'
 
 @Component({
     'selector': 'body',
@@ -30,7 +30,7 @@ export class App {
 
 	checkLogin(){
 		if(!this.router.isRouteActive(this.router.generate(['Login']))) {
-			let userInfo:IUser = <IUser>JSON.parse(window.localStorage.getItem('userInfo'));
+			let userInfo:UserModel = <UserModel>JSON.parse(window.localStorage.getItem('userInfo'));
 			if(!userInfo) {
 				this.router.navigate(['/Login']);
 			}

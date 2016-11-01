@@ -10,7 +10,7 @@ let jsPaths:Array<String> = [
 	'/common/js/system.js',
 	'/common/js/system-polyfills.js',
 	'/common/js/Rx.min.js',
-	'/common/js/angular2.min.js',
+	'/common/js/angular2.dev.js',
 	'/common/js/angular2-polyfills.min.js',
 	'/common/js/router.min.js',
 	'/common/js/http.min.js',

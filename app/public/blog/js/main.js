@@ -215,15 +215,73 @@ System.register("servers/blogServer", ['rxjs/add/operator/toPromise', "servers/b
         }
     }
 });
-System.register("blog/listView", ['angular2/core', 'angular2/router', 'angular2/platform/browser', "servers/blogServer", "servers/baseServer"], function(exports_5, context_5) {
+System.register("common/aboutMe", ['angular2/core'], function(exports_5, context_5) {
     "use strict";
     var __moduleName = context_5 && context_5.id;
-    var core_3, router_2, browser_1, blogServer_1, baseServer_4;
-    var ListView;
+    var core_3;
+    var AboutMe;
     return {
         setters:[
             function (core_3_1) {
                 core_3 = core_3_1;
+            }],
+        execute: function() {
+            AboutMe = (function () {
+                function AboutMe() {
+                }
+                AboutMe = __decorate([
+                    core_3.Component({
+                        'selector': 'section.about-me',
+                        'templateUrl': '/blog/template/aboutMe.html'
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], AboutMe);
+                return AboutMe;
+            }());
+            exports_5("AboutMe", AboutMe);
+        }
+    }
+});
+System.register("common/aside", ['angular2/core', "common/aboutMe"], function(exports_6, context_6) {
+    "use strict";
+    var __moduleName = context_6 && context_6.id;
+    var core_4, aboutMe_1;
+    var Aside;
+    return {
+        setters:[
+            function (core_4_1) {
+                core_4 = core_4_1;
+            },
+            function (aboutMe_1_1) {
+                aboutMe_1 = aboutMe_1_1;
+            }],
+        execute: function() {
+            Aside = (function () {
+                function Aside() {
+                }
+                Aside = __decorate([
+                    core_4.Component({
+                        'selector': 'section.aside-container',
+                        'templateUrl': '/blog/template/aside.html',
+                        'directives': [aboutMe_1.AboutMe]
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], Aside);
+                return Aside;
+            }());
+            exports_6("Aside", Aside);
+        }
+    }
+});
+System.register("blog/listView", ['angular2/core', 'angular2/router', 'angular2/platform/browser', "servers/blogServer", "servers/baseServer", "common/aside"], function(exports_7, context_7) {
+    "use strict";
+    var __moduleName = context_7 && context_7.id;
+    var core_5, router_2, browser_1, blogServer_1, baseServer_4, aside_1;
+    var ListView;
+    return {
+        setters:[
+            function (core_5_1) {
+                core_5 = core_5_1;
             },
             function (router_2_1) {
                 router_2 = router_2_1;
@@ -236,6 +294,9 @@ System.register("blog/listView", ['angular2/core', 'angular2/router', 'angular2/
             },
             function (baseServer_4_1) {
                 baseServer_4 = baseServer_4_1;
+            },
+            function (aside_1_1) {
+                aside_1 = aside_1_1;
             }],
         execute: function() {
             ListView = (function () {
@@ -262,33 +323,30 @@ System.register("blog/listView", ['angular2/core', 'angular2/router', 'angular2/
                         console.log(result);
                     });
                 };
-                ListView.prototype.postDetail = function (id) {
-                    this.router.navigate(['Detail', 'dsadas']);
-                };
                 ListView = __decorate([
-                    core_3.Component({
+                    core_5.Component({
                         'selector': 'section.blog-list',
                         'templateUrl': '/blog/template/listView.html',
-                        'directives': [router_2.RouterLink],
+                        'directives': [router_2.RouterLink, aside_1.Aside],
                         'providers': [blogServer_1.BlogServer, browser_1.Title]
                     }), 
-                    __metadata('design:paramtypes', [core_3.ApplicationRef, blogServer_1.BlogServer, router_2.Router, browser_1.Title])
+                    __metadata('design:paramtypes', [core_5.ApplicationRef, blogServer_1.BlogServer, router_2.Router, browser_1.Title])
                 ], ListView);
                 return ListView;
             }());
-            exports_5("ListView", ListView);
+            exports_7("ListView", ListView);
         }
     }
 });
-System.register("blog/detail", ['angular2/core', 'angular2/platform/browser', 'angular2/router', "servers/blogServer"], function(exports_6, context_6) {
+System.register("blog/detail", ['angular2/core', 'angular2/platform/browser', 'angular2/router', "servers/blogServer"], function(exports_8, context_8) {
     "use strict";
-    var __moduleName = context_6 && context_6.id;
-    var core_4, browser_2, router_3, blogServer_2;
+    var __moduleName = context_8 && context_8.id;
+    var core_6, browser_2, router_3, blogServer_2;
     var Detail;
     return {
         setters:[
-            function (core_4_1) {
-                core_4 = core_4_1;
+            function (core_6_1) {
+                core_6 = core_6_1;
             },
             function (browser_2_1) {
                 browser_2 = browser_2_1;
@@ -327,29 +385,29 @@ System.register("blog/detail", ['angular2/core', 'angular2/platform/browser', 'a
                     });
                 };
                 Detail = __decorate([
-                    core_4.Component({
+                    core_6.Component({
                         'selector': 'section.blog-detail',
                         'templateUrl': '/blog/template/detail.html',
                         'directives': [router_3.RouterLink],
                         'providers': [blogServer_2.BlogServer, browser_2.Title]
                     }), 
-                    __metadata('design:paramtypes', [core_4.ApplicationRef, blogServer_2.BlogServer, router_3.Router, router_3.RouteParams, browser_2.Title])
+                    __metadata('design:paramtypes', [core_6.ApplicationRef, blogServer_2.BlogServer, router_3.Router, router_3.RouteParams, browser_2.Title])
                 ], Detail);
                 return Detail;
             }());
-            exports_6("Detail", Detail);
+            exports_8("Detail", Detail);
         }
     }
 });
-System.register("blog/blog", ['angular2/core', 'angular2/router', "common/navigation", "blog/listView", "blog/detail"], function(exports_7, context_7) {
+System.register("blog/blog", ['angular2/core', 'angular2/router', "common/navigation", "blog/listView", "blog/detail"], function(exports_9, context_9) {
     "use strict";
-    var __moduleName = context_7 && context_7.id;
-    var core_5, router_4, navigation_1, listView_1, detail_1;
+    var __moduleName = context_9 && context_9.id;
+    var core_7, router_4, navigation_1, listView_1, detail_1;
     var Blog;
     return {
         setters:[
-            function (core_5_1) {
-                core_5 = core_5_1;
+            function (core_7_1) {
+                core_7 = core_7_1;
             },
             function (router_4_1) {
                 router_4 = router_4_1;
@@ -368,7 +426,7 @@ System.register("blog/blog", ['angular2/core', 'angular2/router', "common/naviga
                 function Blog() {
                 }
                 Blog = __decorate([
-                    core_5.Component({
+                    core_7.Component({
                         'selector': 'blog.blog',
                         'templateUrl': '/blog/template/blog.html',
                         'directives': [router_4.RouterLink, router_4.ROUTER_DIRECTIVES, navigation_1.Navigation]
@@ -381,19 +439,19 @@ System.register("blog/blog", ['angular2/core', 'angular2/router', "common/naviga
                 ], Blog);
                 return Blog;
             }());
-            exports_7("Blog", Blog);
+            exports_9("Blog", Blog);
         }
     }
 });
-System.register("app", ['angular2/core', "blog/blog", 'angular2/router'], function(exports_8, context_8) {
+System.register("app", ['angular2/core', "blog/blog", 'angular2/router'], function(exports_10, context_10) {
     "use strict";
-    var __moduleName = context_8 && context_8.id;
-    var core_6, blog_1, router_5;
+    var __moduleName = context_10 && context_10.id;
+    var core_8, blog_1, router_5;
     var App;
     return {
         setters:[
-            function (core_6_1) {
-                core_6 = core_6_1;
+            function (core_8_1) {
+                core_8 = core_8_1;
             },
             function (blog_1_1) {
                 blog_1 = blog_1_1;
@@ -412,7 +470,7 @@ System.register("app", ['angular2/core', "blog/blog", 'angular2/router'], functi
                     });
                 }
                 App = __decorate([
-                    core_6.Component({
+                    core_8.Component({
                         'selector': 'body',
                         'templateUrl': '/blog/template/main.html',
                         'directives': [router_5.RouterLink, router_5.ROUTER_DIRECTIVES]
@@ -420,11 +478,11 @@ System.register("app", ['angular2/core', "blog/blog", 'angular2/router'], functi
                     router_5.RouteConfig([
                         { path: '/...', component: blog_1.Blog, as: 'Blog', useAsDefault: true },
                     ]), 
-                    __metadata('design:paramtypes', [core_6.ApplicationRef, router_5.Router])
+                    __metadata('design:paramtypes', [core_8.ApplicationRef, router_5.Router])
                 ], App);
                 return App;
             }());
-            exports_8("App", App);
+            exports_10("App", App);
         }
     }
 });
@@ -441,17 +499,17 @@ System.config({
     }
 });
 System.import('main');
-System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', 'angular2/http', "app"], function(exports_9, context_9) {
+System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2/router', 'angular2/http', "app"], function(exports_11, context_11) {
     "use strict";
-    var __moduleName = context_9 && context_9.id;
-    var browser_3, core_7, router_6, http_2, app_1;
+    var __moduleName = context_11 && context_11.id;
+    var browser_3, core_9, router_6, http_2, app_1;
     return {
         setters:[
             function (browser_3_1) {
                 browser_3 = browser_3_1;
             },
-            function (core_7_1) {
-                core_7 = core_7_1;
+            function (core_9_1) {
+                core_9 = core_9_1;
             },
             function (router_6_1) {
                 router_6 = router_6_1;
@@ -463,7 +521,34 @@ System.register("main", ['angular2/platform/browser', 'angular2/core', 'angular2
                 app_1 = app_1_1;
             }],
         execute: function() {
-            browser_3.bootstrap(app_1.App, [router_6.ROUTER_PROVIDERS, http_2.HTTP_PROVIDERS, core_7.provide(router_6.LocationStrategy, { useClass: router_6.HashLocationStrategy })]);
+            browser_3.bootstrap(app_1.App, [router_6.ROUTER_PROVIDERS, http_2.HTTP_PROVIDERS, core_9.provide(router_6.LocationStrategy, { useClass: router_6.HashLocationStrategy })]);
+        }
+    }
+});
+System.register("common/recentPost", ['angular2/core'], function(exports_12, context_12) {
+    "use strict";
+    var __moduleName = context_12 && context_12.id;
+    var core_10;
+    var RecentPost;
+    return {
+        setters:[
+            function (core_10_1) {
+                core_10 = core_10_1;
+            }],
+        execute: function() {
+            RecentPost = (function () {
+                function RecentPost() {
+                }
+                RecentPost = __decorate([
+                    core_10.Component({
+                        'selector': 'aside.panel-container',
+                        'templateUrl': '/blog/template/panel.html'
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], RecentPost);
+                return RecentPost;
+            }());
+            exports_12("RecentPost", RecentPost);
         }
     }
 });

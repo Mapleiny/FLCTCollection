@@ -2,6 +2,7 @@ import express = require("express");
 import {StatusCode} from '../servers/baseServer'
 import {blogServer} from '../servers/blogServer'
 import {userServer} from '../servers/userServer'
+import * as Qiniu from '../servers/qiniuServer'
 
 
 let defaultResponse = function(res){
@@ -29,7 +30,7 @@ export let apiRouter = function(router:express.Router){
 		req.body.author = req.session['user_id'];
 		blogServer.publicPost(req.body).then(defaultResponse(res)).catch(defaultResponse(res));
 	});
-	router.post('/api/blog/update/:id',function(req,res){
+	router.post('/api/blog/update/:id',authorize,function(req,res){
 		blogServer.updatePost(req.params.id,req.body).then(defaultResponse(res)).catch(defaultResponse(res));
 	});
 	router.get('/api/blog/post/:id',function(req,res){
@@ -65,5 +66,28 @@ export let apiRouter = function(router:express.Router){
 		}).catch(defaultResponse(res));
 	});
 
-
+	// qiniu
+	router.get('/api/source/list',authorize,function(req,res){
+		Qiniu.listPrefix(function(error,result){
+			if(error) {
+				res.json({
+					code:error.code,
+					message:error.error
+				})
+			}else{
+				res.json({
+					code:StatusCode.success,
+					message:'ok',
+					data:result
+				})
+			}
+		},req.query.prefix,req.query.marker,req.query.limit,req.query.delimiter);
+	});
+	router.get('/api/source/uploadToken',(req,res)=>{
+		res.json({
+			code:StatusCode.success,
+			message:'ok',
+			data:Qiniu.createDefaultUptoken()
+		});
+	});
 };

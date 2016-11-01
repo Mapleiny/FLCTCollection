@@ -11,25 +11,26 @@
 }
 
 
-.navbar-dark{
+.navbar-light{
+	box-shadow: 0 1px 10px @LightDark;
 	position: fixed;
 	z-index: 100;
 	width: 100%;
-	background: @Dark;
+	background: @NavBackground;
 	border-radius: 0;
 	margin-bottom: 0;
 	top: 0;
 	.navbar-brand{
 		border: none;
-		color: @LightGrey;
+		color: @VeryDark;
 	}
 	.navbar-nav{
 		float: right;
 		a{
 			border: none;
-			color: @DarkGrey;
+			color: @LightDark;
 			&:hover,&:active{
-				color: @WhiteText;
+				color: @DarkBlue;
 				background: none;
 			}
 		}
