@@ -14,6 +14,8 @@ app.set('view engine', 'ejs');
 app.use(partials());
 app.use(express.static(__dirname + '/public'));
 app.use(session({
+    resave: false,
+    saveUninitialized: true,
     secret: 'maple',
     cookie: {
         maxAge: 15 * 24 * 3600000
