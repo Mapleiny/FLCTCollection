@@ -16,7 +16,8 @@
     "multer": "^1.1.0",
     "qiniu": "*",
     "serve-favicon": "~2.3.0",
-    "mysql" : "*"
+    "mysql" : "*",
+    "log4js" : "*"
   },
   "devDependencies": {
     "typings": "^0.7.12",
